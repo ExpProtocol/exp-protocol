@@ -1,4 +1,4 @@
-export default function NftCard() {
+export default function NftCollectionCard() {
     return (
         <div className="block max-w-sm rounded-lg ml-4 bg-white shadow-lg dark:bg-neutral-700">
             <a href="#!">
@@ -7,11 +7,12 @@ export default function NftCard() {
                     src="https://tecdn.b-cdn.net/img/new/standard/nature/184.jpg"
                     alt="" />
             </a>
-            <p>Crypto bar P2P 11月</p>
-            <p>0.16ETH/D</p>
-            <p>0.2ETH</p>
-            <p>mailicon</p>
-            <button>Borrow</button>
+            <div className="p-6">
+                <h5
+                    className="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
+                    Cryptp bar P2P
+                </h5>
+            </div>
         </div>
     )
 }

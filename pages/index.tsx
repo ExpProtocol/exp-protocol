@@ -1,7 +1,9 @@
 import Head from "next/head";
 import Image from "next/image";
+import NftCollectionCard from "../components/NftCollectionCard";
+import Title from "../components/Title";
 
-export default function Home() {
+export default function Home() { 
 	return (
 		<div>
 			<Head>
@@ -10,54 +12,17 @@ export default function Home() {
 			</Head>
 
 			<main>
-				<div className="relative h-40 w-80 ...">
-					<div className="absolute inset-y-0 left-0 h-10 w-30 ...">
-						<p>Collection List</p>
+				<Title/>
+				<div className="flex justify-center ">
+					<div className="flex relative items-center justify-center h-24 w-6/12">
+						<NftCollectionCard />
+						<NftCollectionCard />
+						<NftCollectionCard />
+						<NftCollectionCard />
 					</div>
-					<div className="absolute inset-y-0 right-0 h-20 w-16 ...">
-						<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-							Lend
-						</button>
-					</div>
+
 				</div>
 
-				<div>
-					<a href="">
-						<img
-							className="rounded-t-lg"
-							src="https://tecdn.b-cdn.net/img/new/standard/nature/184.jpg"
-							alt=""
-						/>
-						<p>Crypto bar P2P</p>
-					</a>
-
-					<a href="">
-						<img
-							className="rounded-t-lg"
-							src="https://tecdn.b-cdn.net/img/new/standard/nature/184.jpg"
-							alt=""
-						/>
-						<p>Crypto bar P2P</p>
-					</a>
-
-					<a href="">
-						<img
-							className="rounded-t-lg"
-							src="https://tecdn.b-cdn.net/img/new/standard/nature/184.jpg"
-							alt=""
-						/>
-						<p>Crypto bar P2P</p>
-					</a>
-
-					<a href="">
-						<img
-							className="rounded-t-lg"
-							src="https://tecdn.b-cdn.net/img/new/standard/nature/184.jpg"
-							alt=""
-						/>
-						<p>Crypto bar P2P</p>
-					</a>
-				</div>
 			</main>
 		</div>
 	);
