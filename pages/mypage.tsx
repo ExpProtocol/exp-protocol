@@ -1,14 +1,56 @@
 import Head from "next/head";
+import { useState } from "react";
 import MyNftCard from "../components/MyNftCard";
+import Modal from "react-modal";
 
+const customStyles: ReactModal.Styles = {
+	overlay: {
+		position: "fixed",
+		top: 0,
+		left: 0,
+		backgroundColor: "rgba(0,0,0,0.3)",
+	},
+
+	content: {
+		top: "auto",
+		left: "50%",
+		right: "auto",
+		bottom: "50%",
+		marginRight: "-50%",
+		width: "540px",
+		height: "80%",
+		transform: "translate(-50%, 50%)",
+		borderRadius: "12px",
+		border: "0px",
+		padding: "0",
+		backgroundColor: "rgba(255,255,255,1)",
+	},
+};
 
 export default function MyPage() {
+	const [isLendModal, setIsLendModal] = useState(true);
+
+	const openLendModal = () => {
+		setIsLendModal(true);
+	};
+
+	const closeLendModal = () => {
+		setIsLendModal(false);
+	};
+
 	return (
 		<div>
 			<Head>
 				<title>Exp Protocol</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
+			<Modal
+				isOpen={isLendModal}
+				onRequestClose={closeLendModal}
+				style={customStyles}
+			>
+				<div>aaa</div>
+			</Modal>
 
 			<main>
 				<div className="flex justify-center my-8">
@@ -30,9 +72,7 @@ export default function MyPage() {
 						<MyNftCard />
 						<MyNftCard />
 					</div>
-
 				</div>
-
 			</main>
 		</div>
 	);
