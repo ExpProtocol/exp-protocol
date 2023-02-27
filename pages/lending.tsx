@@ -14,7 +14,7 @@ export default function Lending() {
                     <div className="m-0 flex justify-center my-8">
                         <div className="flex relative h-12 w-6/12  ...">
                             <div className="absolute left-0 bottom-0 ... ">
-                                <p>←Back to Collection Page</p>
+                                <p>←Back to My Page</p>
                             </div>
                         </div>
                     </div>
