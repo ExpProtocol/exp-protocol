@@ -1,7 +1,9 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MyNftCard from "../components/MyNftCard";
 import Modal from "react-modal";
+import { collection, getDocs, query, where } from "@firebase/firestore";
+import { useAccount } from "wagmi";
 
 const customStyles: ReactModal.Styles = {
 	overlay: {
@@ -28,6 +30,27 @@ const customStyles: ReactModal.Styles = {
 };
 
 export default function MyPage() {
+	//TODO NFT情報の取得
+	// const [item, setItem] = useState();
+	// const { address } = useAccount();
+
+	// useEffect(() => {
+	// 	const f1 = async () => {
+	// 		const q1 = await query(
+	// 			collection(db, "Nft"),
+	// 			where("lender", "==", address)
+	// 		);
+	// 		const querySnapshot1 = await getDocs(q1);
+	// 		let s1: any = [];
+	// 		querySnapshot1.forEach((doc) => {
+	// 			const d = doc.data();
+	// 			s1.push(d);
+	// 		});
+	// 		setItem(s1);
+	// 	};
+	// 	f1();
+	// }, []);
+
 	const [isLendModal, setIsLendModal] = useState(true);
 
 	const openLendModal = () => {
