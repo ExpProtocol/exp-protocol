@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CustomConnectButton } from "./molecules/CustomConnectButton";
 
 export default function Header() {
 	return (
@@ -20,16 +21,11 @@ export default function Header() {
 			</div>
 			<div className="flex justify-end items-center gap-6">
 				<div className="text-sm lg:flex-grow">
-					<a href="#responsive-header" className="text-[#3EA8FF] font-bold">
+					<Link href="/mypage" className="text-[#3EA8FF] font-bold">
 						My Page
-					</a>
+					</Link>
 				</div>
-				<a
-					href="#"
-					className="text-white text-sm px-4 py-2 bg-[#3EA8FF] rounded-lg"
-				>
-					Connect Wallet
-				</a>
+				<CustomConnectButton />
 			</div>
 		</nav>
 	);
