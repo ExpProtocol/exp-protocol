@@ -72,7 +72,17 @@ export default function MyPage() {
 				onRequestClose={closeLendModal}
 				style={customStyles}
 			>
-				<div>aaa</div>
+				<div className="flex justify-center">
+					<div className="relative items-center justify-center">
+						<div className="relative my-8 ...">
+							<p>レンタル登録</p>
+						</div>
+						<p>貸出NFTのコレクションアドレス</p>
+						<p>貸出NFTのトークンID</p>
+						<p>保証人になるユーザーのアドレス</p>
+						<p>担保費用</p>
+					</div>
+				</div>
 			</Modal>
 
 			<main>
