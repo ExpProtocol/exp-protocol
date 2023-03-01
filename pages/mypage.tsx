@@ -1,9 +1,12 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import MyNftCard from "../components/MyNftCard";
 import Modal from "react-modal";
 import { collection, getDocs, query, where } from "@firebase/firestore";
 import { useAccount } from "wagmi";
+import Button from "../components/Button";
+import NftCard from "../components/NftCard";
+import Form from "../components/Form";
+import { Nft } from "../components/NftCard";
 
 const customStyles: ReactModal.Styles = {
 	overlay: {
@@ -61,6 +64,13 @@ export default function MyPage() {
 		setIsLendModal(false);
 	};
 
+	let nftList: Nft[] = [];
+
+	let address = "";
+	let name = "";
+	let img = "";
+	let price = "";
+
 	return (
 		<div>
 			<Head>
@@ -83,27 +93,28 @@ export default function MyPage() {
 									<label className="block text-gray-700 text-sm font-bold mb-2">
 										貸出NFTのコレクションアドレス
 									</label>
-									<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" />
+									<Form />
 								</div>
 								<div className="mb-6">
 									<label className="block text-gray-700 text-sm font-bold mb-2">
 										貸出NFTのトークンID
 									</label>
-									<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text"/>
+									<Form />
 								</div>
 								<div className="mb-4">
 									<label className="block text-gray-700 text-sm font-bold mb-2">
 										保証人になるユーザーのアドレス
 									</label>
-									<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" />
-								</div>
+									<Form />
+									</div>
 								<div className="mb-6">
 									<label className="block text-gray-700 text-sm font-bold mb-2">
 										担保費用
 									</label>
-									<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text"/>
-								</div>
-								<button>貸出登録</button>
+									<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" />
+							    <Form />
+							</div>
+								<Button />
 							</form>
 
 						</div>
@@ -126,10 +137,11 @@ export default function MyPage() {
 				</div>
 				<div className="flex justify-center ">
 					<div className="flex relative items-center justify-center h-24 w-6/12">
-						<MyNftCard />
-						<MyNftCard />
-						<MyNftCard />
-						<MyNftCard />
+						{nftList.map((nft:Nft) => {
+							return(
+								<NftCard address={nft.address} name={nft.name} day_price={nft.day_price} price={nft.price}/>
+							)
+						})}
 					</div>
 				</div>
 			</main>

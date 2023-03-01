@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Head from "next/head";
 import Modal from "react-modal";
+import Button from "../components/Button";
+import Form from "../components/Form";
 
 const customStyles: ReactModal.Styles = {
 	overlay: {
@@ -27,7 +29,7 @@ const customStyles: ReactModal.Styles = {
 };
 
 export default function Step1() {
-	
+
 	const [isLendModal, setIsLendModal] = useState(true);
 
 	const openLendModal = () => {
@@ -60,27 +62,27 @@ export default function Step1() {
 									<label className="block text-gray-700 text-sm font-bold mb-2">
 										貸出NFTのコレクションアドレス
 									</label>
-									<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" />
+									<Form />
 								</div>
 								<div className="mb-6">
 									<label className="block text-gray-700 text-sm font-bold mb-2">
 										貸出NFTのトークンID
 									</label>
-									<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text"/>
+									<Form />
 								</div>
 								<div className="mb-4">
 									<label className="block text-gray-700 text-sm font-bold mb-2">
 										保証人になるユーザーのアドレス
 									</label>
-									<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" />
+									<Form />
 								</div>
 								<div className="mb-6">
 									<label className="block text-gray-700 text-sm font-bold mb-2">
 										担保費用
 									</label>
-									<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text"/>
+									<Form />
 								</div>
-								<button>貸出登録</button>
+								<Button />
 							</form>
 
 						</div>
@@ -95,6 +97,7 @@ export default function Step1() {
 							<p className="font-bold text-lg ...">My Page</p>
 						</div>
 						<div className="absolute inset-y-0 right-0 w-6/12 ...">
+							<Button />
 							<button className="absolute items-center bg-blue-500 hover:bg-blue-700 text-white right-0 font-bold py-2 px-4 rounded ...">
 								Lend
 							</button>
@@ -103,7 +106,7 @@ export default function Step1() {
 				</div>
 				<div className="flex justify-center ">
 					<div className="flex relative items-center justify-center h-24 w-6/12">
-					
+
 					</div>
 				</div>
 			</main>
