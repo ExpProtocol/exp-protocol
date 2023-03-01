@@ -1,6 +1,9 @@
-import Form from "./Form";
+import Form from "../Form";
 
-export default function Step2Modal() {
+export default function GurantarModal() {
+	let description = "";
+	let imageURL = "";
+
 	return (
 		<div>
 			<div className="h-10 w-auto m-2">
@@ -19,12 +22,20 @@ export default function Step2Modal() {
 				</ol>
 			</div>
 			<div className="h-auto w-auto m-2">
+				<div>
+					<p>{description}</p>
+					<img className="rounded-t-lg" src={imageURL} alt="" />
+				</div>
 				<form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
 					<div className="mb-4">
-						<p>招待リンクを連帯保証人に送ってください</p>
-						<img src="/plane.png"></img>
 						<label className="block text-gray-700 text-sm font-bold mb-2">
-							招待用リンク
+							保証金
+						</label>
+						<Form />
+					</div>
+					<div className="mb-6">
+						<label className="block text-gray-700 text-sm font-bold mb-2">
+							金利
 						</label>
 						<Form />
 					</div>

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
 import Modal from "react-modal";
-import Button from "../components/Button";
 import Form from "../components/Form";
 
 const customStyles: ReactModal.Styles = {
@@ -29,7 +28,6 @@ const customStyles: ReactModal.Styles = {
 };
 
 export default function Step1() {
-
 	const [isLendModal, setIsLendModal] = useState(true);
 
 	const openLendModal = () => {
@@ -82,9 +80,7 @@ export default function Step1() {
 									</label>
 									<Form />
 								</div>
-								<Button />
 							</form>
-
 						</div>
 					</div>
 				</div>
@@ -97,7 +93,6 @@ export default function Step1() {
 							<p className="font-bold text-lg ...">My Page</p>
 						</div>
 						<div className="absolute inset-y-0 right-0 w-6/12 ...">
-							<Button />
 							<button className="absolute items-center bg-blue-500 hover:bg-blue-700 text-white right-0 font-bold py-2 px-4 rounded ...">
 								Lend
 							</button>
@@ -105,9 +100,7 @@ export default function Step1() {
 					</div>
 				</div>
 				<div className="flex justify-center ">
-					<div className="flex relative items-center justify-center h-24 w-6/12">
-
-					</div>
+					<div className="flex relative items-center justify-center h-24 w-6/12"></div>
 				</div>
 			</main>
 		</div>

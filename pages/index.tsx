@@ -1,9 +1,9 @@
 import { getDocs, query, where } from "@firebase/firestore";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import NftCollectionCard from "../components/NftCollectionCard";
-import Title from "../components/Title";
-import { Collection } from "../components/NftCollectionCard";
+import Title from "../components/atoms/Title";
+import CollectionCardCollection from "../components/molecules/CollectionCardList";
+import { mockCollections } from "../mocks/collections";
 
 export default function Home() {
 	//TODO コレクション情報の取得
@@ -23,25 +23,12 @@ export default function Home() {
 	// 	f1();
 	// }, []);
 
-	let collectionList: Collection[] = [];
-
-	let title = "";
-	let buttonTitle = "";
-
 	return (
-		<div>
-			<main>
-				<Title />
-				<div className="flex justify-center ">
-					<div className="flex relative items-center justify-center h-24 w-6/12">
-						{collectionList.map((collection: Collection) => {
-							return(
-								<NftCollectionCard address={collection.address} name={collection.name} img={collection.img}/>	
-							);
-						})};
-					</div>
-				</div>
-			</main>
+		<div className="max-w-[720px] mx-auto">
+			<div className="mt-16">
+				<Title title="Collection一覧" subTitle="" />
+			</div>
+			<CollectionCardCollection collections={mockCollections} />
 		</div>
 	);
 }

@@ -3,10 +3,12 @@ import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { collection, getDocs, query, where } from "@firebase/firestore";
 import { useAccount } from "wagmi";
-import Button from "../components/Button";
-import NftCard from "../components/NftCard";
+import NftCard from "../components/molecules/NftCard";
 import Form from "../components/Form";
-import { Nft } from "../components/NftCard";
+import { Nft } from "../components/molecules/NftCard";
+import Title from "../components/atoms/Title";
+import NftCardList from "../components/molecules/NftCardList";
+import { mockNfts } from "../mocks/nfts";
 
 const customStyles: ReactModal.Styles = {
 	overlay: {
@@ -64,19 +66,8 @@ export default function MyPage() {
 		setIsLendModal(false);
 	};
 
-	let nftList: Nft[] = [];
-
-	let address = "";
-	let name = "";
-	let img = "";
-	let price = "";
-
 	return (
 		<div>
-			<Head>
-				<title>Exp Protocol</title>
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
 			<Modal
 				isOpen={isLendModal}
 				onRequestClose={closeLendModal}
@@ -106,45 +97,31 @@ export default function MyPage() {
 										保証人になるユーザーのアドレス
 									</label>
 									<Form />
-									</div>
+								</div>
 								<div className="mb-6">
 									<label className="block text-gray-700 text-sm font-bold mb-2">
 										担保費用
 									</label>
-									<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" />
-							    <Form />
-							</div>
-								<Button />
+									<input
+										className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+										type="text"
+									/>
+									<Form />
+								</div>
 							</form>
-
 						</div>
 					</div>
 				</div>
 			</Modal>
 
-			<main>
-				<div className="flex justify-center my-8">
-					<div className="flex relative items-center justify-center h-24 w-6/12">
-						<div className="absolute inset-y-0 left-0 w-6/12 ...">
-							<p className="font-bold text-lg ...">My Page</p>
-						</div>
-						<div className="absolute inset-y-0 right-0 w-6/12 ...">
-							<button className="absolute items-center bg-blue-500 hover:bg-blue-700 text-white right-0 font-bold py-2 px-4 rounded ...">
-								Lend
-							</button>
-						</div>
-					</div>
+			<div className="max-w-[720px] mx-auto">
+				<div className="mt-16">
+					<Title title="MY PAGE" subTitle="" />
 				</div>
 				<div className="flex justify-center ">
-					<div className="flex relative items-center justify-center h-24 w-6/12">
-						{nftList.map((nft:Nft) => {
-							return(
-								<NftCard address={nft.address} name={nft.name} day_price={nft.day_price} price={nft.price}/>
-							)
-						})}
-					</div>
+					<NftCardList nfts={mockNfts} />
 				</div>
-			</main>
+			</div>
 		</div>
 	);
 }

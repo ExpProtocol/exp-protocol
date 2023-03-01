@@ -1,10 +1,11 @@
 import { collection, getDocs, query } from "@firebase/firestore";
 import { useEffect, useState } from "react";
-import NftCard from "../../components/NftCard";
+import NftCard from "../../components/molecules/NftCard";
 import Modal from "react-modal";
-import GurantarModal from "../../components/GurantarModal";
-import Button from "../../components/Button";
-import Title from "../../components/Title";
+import GurantarModal from "../../components/modals/GurantarModal";
+import Title from "../../components/atoms/Title";
+import { mockNfts } from "../../mocks/nfts";
+import NftCardList from "../../components/molecules/NftCardList";
 
 const customStyles: ReactModal.Styles = {
 	overlay: {
@@ -66,20 +67,13 @@ export default function NftCoollectionList() {
 				style={customStyles}
 			>
 				<GurantarModal />
-
 			</Modal>
-			<main>
-				<Title />
-
-				<div className="flex justify-center ">
-					<div className="flex relative items-center justify-center h-24 w-6/12">
-						<NftCard />
-						<NftCard />
-						<NftCard />
-						<NftCard />
-					</div>
+			<div className="max-w-[720px] mx-auto">
+				<div className="mt-16">
+					<Title title="Collection一覧" subTitle="" />
 				</div>
-			</main>
+				<NftCardList nfts={mockNfts} />
+			</div>
 		</div>
 	);
 }
