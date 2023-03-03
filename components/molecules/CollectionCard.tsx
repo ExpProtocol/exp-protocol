@@ -19,7 +19,7 @@ const CollectionCard: FC<Collection> = ({ address, name, image }) => {
 				/>
 			</div>
 			<div className="text-[#333333] mx-5 mt-3 text-xs font-bold">
-				{name.slice(0, 16)}
+				{name?.slice(0, 16)}
 			</div>
 		</div>
 	);

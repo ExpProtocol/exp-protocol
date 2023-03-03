@@ -1,34 +1,36 @@
-import { getDocs, query, where } from "@firebase/firestore";
+import { collection, getDocs, query, where } from "@firebase/firestore";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Title from "../components/atoms/Title";
 import CollectionCardCollection from "../components/molecules/CollectionCardList";
 import { mockCollections } from "../mocks/collections";
+import { db } from "./Firebase";
 
 export default function Home() {
 	//TODO コレクション情報の取得
-	// const [collectionInfo, setCollectionInfo] = useState();
+	const [collectionInfo, setCollectionInfo] = useState();
 
-	// useEffect(() => {
-	// 	const f1 = async () => {
-	// 		const q1 = await query(collection(db, "Collection"));
-	// 		const querySnapshot1 = await getDocs(q1);
-	// 		let s1: any = [];
-	// 		querySnapshot1.forEach((doc) => {
-	// 			const d = doc.data();
-	// 			s1.push(d);
-	// 		});
-	// 		setCollectionInfo(s1);
-	// 	};
-	// 	f1();
-	// }, []);
+	useEffect(() => {
+		const f1 = async () => {
+			const q1 = await query(collection(db, "collection"));
+			const querySnapshot1 = await getDocs(q1);
+			let s1: any = [];
+			querySnapshot1.forEach((doc) => {
+				const d = doc.data();
+				s1.push(d);
+			});
+			// console.log(s1);
+			setCollectionInfo(s1);
+		};
+		f1();
+	}, []);
 
 	return (
 		<div className="max-w-[720px] mx-auto">
 			<div className="mt-16">
 				<Title title="Collection一覧" subTitle="" />
 			</div>
-			<CollectionCardCollection collections={mockCollections} />
+			<CollectionCardCollection collections={collectionInfo} />
 		</div>
 	);
 }

@@ -8,14 +8,17 @@ type Prop = {
 
 const CollectionCardList: FC<Prop> = ({ collections }) => {
 	return (
-		<div className="flex flex-wrap items-center justify-center gap-[18px] mt-9">
-			{collections.map((collection: any, index: number) => {
+		<div className="flex flex-wrap items-center gap-[18px] mt-9">
+			{collections?.map((collection: any, index: number) => {
 				return (
-					<Link href={"/collection/" + collection.address} key={index}>
+					<Link
+						href={"/collection/" + collection.collectionAddress}
+						key={index}
+					>
 						<CollectionCard
-							address={collection.address}
-							name={collection.name}
-							image={collection.image}
+							address={collection.collectionAddress}
+							name={collection.collectionName}
+							image={collection.collectionImage}
 						/>
 					</Link>
 				);

@@ -3,10 +3,15 @@ import NftCard from "./NftCard";
 
 type Prop = {
 	nfts: any;
+	setSelectItem: any;
+	openModal: any;
 };
 
-const NftCardList: FC<Prop> = ({ nfts }) => {
-	const doClick = () => {};
+const LendingCardList: FC<Prop> = ({ nfts, setSelectItem, openModal }) => {
+	const doClick = (item: any) => {
+		openModal();
+		setSelectItem(item);
+	};
 	return (
 		<div className="flex justify-start gap-8 flex-wrap mt-9">
 			{nfts?.map((item: any, index: number) => {
@@ -16,11 +21,11 @@ const NftCardList: FC<Prop> = ({ nfts }) => {
 							name={item.tokenName}
 							address={item.collectionAddress}
 							tokenId={item.tokenId}
-							perPrice={item.perPrice}
-							collateralPrice={item.collateralPrice}
-							doClick={() => doClick}
 							image={item.tokenImage}
-							buttunTitle="借りる"
+							perPrice={"0"}
+							collateralPrice={"0"}
+							doClick={(item: any) => doClick(item)}
+							buttunTitle="貸出登録"
 						/>
 					</div>
 				);
@@ -28,4 +33,4 @@ const NftCardList: FC<Prop> = ({ nfts }) => {
 		</div>
 	);
 };
-export default NftCardList;
+export default LendingCardList;

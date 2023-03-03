@@ -1,4 +1,4 @@
-import { collection, getDocs, query } from "@firebase/firestore";
+import { collection, getDocs, query, where } from "@firebase/firestore";
 import { useEffect, useState } from "react";
 import NftCard from "../../components/molecules/NftCard";
 import Modal from "react-modal";
@@ -6,6 +6,8 @@ import GurantarModal from "../../components/modals/GurantarModal";
 import Title from "../../components/atoms/Title";
 import { mockNfts } from "../../mocks/nfts";
 import NftCardList from "../../components/molecules/NftCardList";
+import { db } from "../Firebase";
+import { useRouter } from "next/router";
 
 const customStyles: ReactModal.Styles = {
 	overlay: {
@@ -33,6 +35,7 @@ const customStyles: ReactModal.Styles = {
 
 export default function NftCoollectionList() {
 	const [isGulModal, setIsGulModal] = useState(true);
+	const router = useRouter();
 
 	const openGulModal = () => {
 		setIsGulModal(true);
@@ -43,21 +46,27 @@ export default function NftCoollectionList() {
 	};
 
 	//TODO NFT情報の取得
-	// const [item, setItem] = useState();
+	const [item, setItem] = useState();
 
-	// useEffect(() => {
-	// 	const f1 = async () => {
-	// 		const q1 = await query(collection(db, "Nft"));
-	// 		const querySnapshot1 = await getDocs(q1);
-	// 		let s1: any = [];
-	// 		querySnapshot1.forEach((doc) => {
-	// 			const d = doc.data();
-	// 			s1.push(d);
-	// 		});
-	// 		setItem(s1);
-	// 	};
-	// 	f1();
-	// }, []);
+	useEffect(() => {
+		const f1 = async () => {
+			const tmpPath = router.asPath.split("/")[2];
+			console.log(tmpPath);
+			const q1 = await query(
+				collection(db, "database-test"),
+				where("collectionAddress", "==", tmpPath)
+			);
+			const querySnapshot1 = await getDocs(q1);
+			let s1: any = [];
+			querySnapshot1.forEach((doc) => {
+				const d = doc.data();
+				s1.push(d);
+			});
+			// console.log(s1);
+			setItem(s1);
+		};
+		f1();
+	}, []);
 
 	return (
 		<div>
@@ -72,7 +81,7 @@ export default function NftCoollectionList() {
 				<div className="mt-16">
 					<Title title="Collection一覧" subTitle="" />
 				</div>
-				<NftCardList nfts={mockNfts} />
+				<NftCardList nfts={item} />
 			</div>
 		</div>
 	);

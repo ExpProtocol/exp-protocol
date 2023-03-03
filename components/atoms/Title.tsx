@@ -18,7 +18,7 @@ const Title: FC<Prop> = ({ title, subTitle }) => {
 				<div className="font-bold text-lg text-gray-800">{title}</div>
 				<Link
 					href="/lending"
-					className=" text-center font-bold px-4 py-2 rounded-lg bg-[#3EA8FF] text-xs drop-shadow-lg"
+					className=" text-center font-bold px-4 py-2 rounded-lg bg-[#3EA8FF] text-white text-xs drop-shadow-lg"
 				>
 					貸出登録
 				</Link>

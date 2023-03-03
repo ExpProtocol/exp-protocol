@@ -3,7 +3,7 @@ import "../styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createClient, goerli, WagmiConfig } from "wagmi";
-import { mainnet, polygon } from "wagmi/chains";
+import { mainnet, polygon, polygonMumbai } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 
 const ALCHEMY_API_KEY = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
@@ -11,7 +11,7 @@ const ALCHEMY_API_KEY = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
 	: "";
 
 const { chains, provider } = configureChains(
-	[mainnet, polygon, goerli],
+	[mainnet, polygon, goerli, polygonMumbai],
 	[alchemyProvider({ apiKey: ALCHEMY_API_KEY })]
 );
 

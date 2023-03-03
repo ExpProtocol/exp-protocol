@@ -9,6 +9,8 @@ import { Nft } from "../components/molecules/NftCard";
 import Title from "../components/atoms/Title";
 import NftCardList from "../components/molecules/NftCardList";
 import { mockNfts } from "../mocks/nfts";
+import { db } from "./Firebase";
+import MyPageCardList from "../components/molecules/MyPageCardList";
 
 const customStyles: ReactModal.Styles = {
 	overlay: {
@@ -36,25 +38,26 @@ const customStyles: ReactModal.Styles = {
 
 export default function MyPage() {
 	//TODO NFT情報の取得
-	// const [item, setItem] = useState();
-	// const { address } = useAccount();
+	const [item, setItem] = useState();
+	const { address } = useAccount();
 
-	// useEffect(() => {
-	// 	const f1 = async () => {
-	// 		const q1 = await query(
-	// 			collection(db, "Nft"),
-	// 			where("lender", "==", address)
-	// 		);
-	// 		const querySnapshot1 = await getDocs(q1);
-	// 		let s1: any = [];
-	// 		querySnapshot1.forEach((doc) => {
-	// 			const d = doc.data();
-	// 			s1.push(d);
-	// 		});
-	// 		setItem(s1);
-	// 	};
-	// 	f1();
-	// }, []);
+	useEffect(() => {
+		const f1 = async () => {
+			const q1 = await query(
+				collection(db, "database-test"),
+				where("lender", "==", address?.toLocaleLowerCase())
+			);
+			const querySnapshot1 = await getDocs(q1);
+			let s1: any = [];
+			querySnapshot1.forEach((doc) => {
+				const d = doc.data();
+				s1.push(d);
+			});
+			// console.log(s1);
+			setItem(s1);
+		};
+		f1();
+	}, []);
 
 	const [isLendModal, setIsLendModal] = useState(true);
 
@@ -68,58 +71,12 @@ export default function MyPage() {
 
 	return (
 		<div>
-			<Modal
-				isOpen={isLendModal}
-				onRequestClose={closeLendModal}
-				style={customStyles}
-			>
-				<div className="flex justify-center">
-					<div className="relative items-center justify-center">
-						<div className="relative my-8 ...">
-							<p className="text-xl font-bold">レンタル登録</p>
-						</div>
-						<div className="w-full max-w-xs">
-							<form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-								<div className="mb-4">
-									<label className="block text-gray-700 text-sm font-bold mb-2">
-										貸出NFTのコレクションアドレス
-									</label>
-									<Form />
-								</div>
-								<div className="mb-6">
-									<label className="block text-gray-700 text-sm font-bold mb-2">
-										貸出NFTのトークンID
-									</label>
-									<Form />
-								</div>
-								<div className="mb-4">
-									<label className="block text-gray-700 text-sm font-bold mb-2">
-										保証人になるユーザーのアドレス
-									</label>
-									<Form />
-								</div>
-								<div className="mb-6">
-									<label className="block text-gray-700 text-sm font-bold mb-2">
-										担保費用
-									</label>
-									<input
-										className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-										type="text"
-									/>
-									<Form />
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</Modal>
-
 			<div className="max-w-[720px] mx-auto">
 				<div className="mt-16">
 					<Title title="MY PAGE" subTitle="" />
 				</div>
-				<div className="flex justify-center ">
-					<NftCardList nfts={mockNfts} />
+				<div className="flex justify-start ">
+					<MyPageCardList nfts={item} />
 				</div>
 			</div>
 		</div>

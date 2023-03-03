@@ -20,6 +20,7 @@ module.exports = {
 			"arweave.net",
 			"images.microcms-assets.io",
 			"res.cloudinary.com",
+			"nft-cdn.alchemy.com",
 		],
 	},
 };
