@@ -1,4 +1,5 @@
 import { FC } from "react";
+import LendingCard from "./LendingCard";
 import NftCard from "./NftCard";
 
 type Prop = {
@@ -17,14 +18,14 @@ const LendingCardList: FC<Prop> = ({ nfts, setSelectItem, openModal }) => {
 			{nfts?.map((item: any, index: number) => {
 				return (
 					<div key={index}>
-						<NftCard
+						<LendingCard
 							name={item.tokenName}
 							address={item.collectionAddress}
 							tokenId={item.tokenId}
 							image={item.tokenImage}
 							perPrice={"0"}
 							collateralPrice={"0"}
-							doClick={(item: any) => doClick(item)}
+							doClick={() => doClick(item)}
 							buttunTitle="貸出登録"
 						/>
 					</div>

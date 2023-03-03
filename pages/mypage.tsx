@@ -59,7 +59,7 @@ export default function MyPage() {
 		f1();
 	}, []);
 
-	const [isLendModal, setIsLendModal] = useState(true);
+	const [isLendModal, setIsLendModal] = useState(false);
 
 	const openLendModal = () => {
 		setIsLendModal(true);

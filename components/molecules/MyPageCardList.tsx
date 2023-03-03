@@ -1,5 +1,5 @@
 import { FC } from "react";
-import NftCard from "./NftCard";
+import MyPageCard from "./MyPageCard";
 
 type Prop = {
 	nfts: any;
@@ -12,7 +12,7 @@ const MyPageCardList: FC<Prop> = ({ nfts }) => {
 			{nfts?.map((item: any, index: number) => {
 				return (
 					<div key={index}>
-						<NftCard
+						<MyPageCard
 							name={item.tokenName}
 							address={item.collectionAddress}
 							tokenId={item.tokenId}

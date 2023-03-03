@@ -28,7 +28,7 @@ const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY
 export default function Lending() {
 	const [item, setItem] = useState<Nft[] | null>(null);
 	const { address } = useAccount();
-	const [isLendModal, setIsLendModal] = useState(true);
+	const [isLendModal, setIsLendModal] = useState(false);
 	const [selectItem, setSelectItem] = useState();
 
 	const openLendModal = () => {
@@ -81,7 +81,7 @@ export default function Lending() {
 				</div>
 				<LendingCardList
 					nfts={item}
-					setSelectItem={(item: any) => setSelectItem(item)}
+					setSelectItem={setSelectItem}
 					openModal={openLendModal}
 				/>
 			</div>

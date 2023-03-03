@@ -14,7 +14,7 @@ export type Nft = {
 	buttunTitle: string;
 };
 
-const NftCard: FC<Nft> = ({
+const LendingCard: FC<Nft> = ({
 	address,
 	name,
 	image,
@@ -50,12 +50,6 @@ const NftCard: FC<Nft> = ({
 				<div className="flex justify-end items-center gap-2 mt-2">
 					<div
 						onClick={doClick}
-						className="border border-[#3EA8FF] w-[20px] h-[20px] rounded-full flex justify-center items-center cursor-pointer"
-					>
-						<FiMail size={10} color={"#3EA8FF"} />
-					</div>
-					<div
-						onClick={() => {}}
 						className=" py-1 px-4 bg-[#3EA8FF] text-white rounded-lg font-bold text-xs flex justify-center items-center cursor-pointer"
 					>
 						{buttunTitle}
@@ -66,4 +60,4 @@ const NftCard: FC<Nft> = ({
 	);
 };
 
-export default NftCard;
+export default LendingCard;

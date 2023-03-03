@@ -9,32 +9,9 @@ import NftCardList from "../../components/molecules/NftCardList";
 import { db } from "../Firebase";
 import { useRouter } from "next/router";
 
-const customStyles: ReactModal.Styles = {
-	overlay: {
-		position: "fixed",
-		top: 0,
-		left: 0,
-		backgroundColor: "rgba(0,0,0,0.3)",
-	},
-
-	content: {
-		top: "auto",
-		left: "50%",
-		right: "auto",
-		bottom: "50%",
-		marginRight: "-50%",
-		width: "540px",
-		height: "80%",
-		transform: "translate(-50%, 50%)",
-		borderRadius: "12px",
-		border: "0px",
-		padding: "0",
-		backgroundColor: "rgba(255,255,255,1)",
-	},
-};
-
 export default function NftCoollectionList() {
-	const [isGulModal, setIsGulModal] = useState(true);
+	const [isGulModal, setIsGulModal] = useState(false);
+	const [selectItem, setSelectItem] = useState();
 	const router = useRouter();
 
 	const openGulModal = () => {
@@ -62,26 +39,27 @@ export default function NftCoollectionList() {
 				const d = doc.data();
 				s1.push(d);
 			});
-			// console.log(s1);
 			setItem(s1);
 		};
 		f1();
-	}, []);
+	}, [router.asPath]);
 
 	return (
 		<div>
-			<Modal
+			<GurantarModal
 				isOpen={isGulModal}
-				onRequestClose={closeGulModal}
-				style={customStyles}
-			>
-				<GurantarModal />
-			</Modal>
+				closeModal={closeGulModal}
+				selectItem={selectItem}
+			/>
 			<div className="max-w-[720px] mx-auto">
 				<div className="mt-16">
 					<Title title="Collection一覧" subTitle="" />
 				</div>
-				<NftCardList nfts={item} />
+				<NftCardList
+					nfts={item}
+					setSelectItem={setSelectItem}
+					openModal={openGulModal}
+				/>
 			</div>
 		</div>
 	);
