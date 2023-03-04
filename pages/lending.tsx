@@ -13,6 +13,8 @@ import NftCardList from "../components/molecules/NftCardList";
 import { mockNfts } from "../mocks/nfts";
 import LendingCardList from "../components/molecules/LendingCardList";
 import LendModal from "../components/modals/LendModal";
+import { useLend } from "../hooks/useLend";
+import { useNFTapprove } from "../hooks/useNFTapprove";
 
 type Nft = {
 	tokenName: string;
@@ -29,7 +31,22 @@ export default function Lending() {
 	const [item, setItem] = useState<Nft[] | null>(null);
 	const { address } = useAccount();
 	const [isLendModal, setIsLendModal] = useState(false);
-	const [selectItem, setSelectItem] = useState();
+	const [selectItem, setSelectItem] = useState<Nft>();
+	const [pricePerSec, setPricePerSec] = useState("0");
+	const [collateralPrice, setCollateralPrice] = useState("0");
+	const { lend } = useLend(
+		selectItem ? selectItem?.cAddr : "",
+		selectItem ? selectItem?.tokenId : "",
+		"0xC124a7F913F102AdFd971cD593270049d161fcA2",
+		pricePerSec,
+		collateralPrice,
+		true
+	);
+
+	const { approve } = useNFTapprove(
+		selectItem ? selectItem?.cAddr : "",
+		selectItem ? selectItem?.tokenId : "0"
+	);
 
 	const openLendModal = () => {
 		setIsLendModal(true);
@@ -44,7 +61,7 @@ export default function Lending() {
 		const fetchNFT = async () => {
 			const settings = {
 				apiKey: ALCHEMY_KEY,
-				network: Network.ETH_GOERLI,
+				network: Network.MATIC_MUMBAI,
 				maxRetries: 10,
 			};
 			const alchemy: Alchemy = initializeAlchemy(settings);
@@ -56,7 +73,7 @@ export default function Lending() {
 				const tmpData: Nft = {
 					tokenName: item.title,
 					tokenImage:
-						tmpMedia.thumbnail !== undefined ? tmpMedia.thumbnail : "",
+						tmpMedia?.thumbnail !== undefined ? tmpMedia.thumbnail : "",
 					cAddr: item.contract.address,
 					tokenId: item.tokenId,
 				};
@@ -74,6 +91,10 @@ export default function Lending() {
 				isOpen={isLendModal}
 				closeModal={closeLendModal}
 				selectItem={selectItem}
+				lend={lend}
+				setPricePerSec={setPricePerSec}
+				setCollateralPrice={setCollateralPrice}
+				approve={approve}
 			/>
 			<div className="max-w-[720px] mx-auto">
 				<div className="mt-16">

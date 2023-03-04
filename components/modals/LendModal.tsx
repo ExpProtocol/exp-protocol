@@ -1,4 +1,3 @@
-import Form from "../Form";
 import Modal from "react-modal";
 import { FC, useState } from "react";
 import Image from "next/image";
@@ -7,6 +6,10 @@ type Prop = {
 	isOpen: boolean;
 	closeModal: any;
 	selectItem: any;
+	lend: any;
+	setPricePerSec: any;
+	setCollateralPrice: any;
+	approve: any;
 };
 
 const customStyles: ReactModal.Styles = {
@@ -33,21 +36,29 @@ const customStyles: ReactModal.Styles = {
 	},
 };
 
-const LendModal: FC<Prop> = ({ isOpen, closeModal, selectItem }) => {
-	const [perPrice, setPerPrice] = useState();
-	const [collateralPrice, setCollateralPrice] = useState();
-
+const LendModal: FC<Prop> = ({
+	isOpen,
+	closeModal,
+	selectItem,
+	lend,
+	setPricePerSec,
+	setCollateralPrice,
+	approve,
+}) => {
 	const doChangePerPrice = (e: any) => {
-		setPerPrice(e.target.value);
+		const tmpPricePerSec = parseInt(
+			(e.target.value / 86400).toString()
+		).toString();
+		setPricePerSec(tmpPricePerSec);
 	};
 
 	const doChangeCollateralPrice = (e: any) => {
-		setPerPrice(e.target.value);
+		setCollateralPrice(e.target.value);
 	};
 
 	return (
 		<Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles}>
-			<div className="w-[280px] mx-auto">
+			<div className="w-[280px] mx-auto text-gray-800">
 				<div className="text-center text-lg font-bold mt-12">レンタル登録</div>
 				<div className="w-[120px] h-[120px] relative mx-auto mt-6">
 					<Image
@@ -73,9 +84,19 @@ const LendModal: FC<Prop> = ({ isOpen, closeModal, selectItem }) => {
 					></input>
 				</div>
 				<div className="flex justify-center ">
-					<div className="bg-[#3EA8FF] px-4 py-2 text-white rounded-lg font-bold mt-4">
+					<button
+						onClick={() => {
+							approve?.()
+								.then((tx: any) => tx.wait())
+								.then(() => console.log("Approve: success"))
+								.then(() => lend?.())
+								.then((tx: any) => tx.wait())
+								.then(() => console.log("Lend: success"));
+						}}
+						className="bg-[#3EA8FF] px-4 py-2 text-white rounded-lg font-bold mt-4"
+					>
 						貸出登録
-					</div>
+					</button>
 				</div>
 			</div>
 		</Modal>

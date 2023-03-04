@@ -3,6 +3,7 @@ export type LendType = {
 	chainId: string;
 	collateralPrice: string;
 	collectionAddress: string;
+	collectionName: string;
 	isActive: boolean;
 	isRent: boolean;
 	lendId: string;

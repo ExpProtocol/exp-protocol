@@ -1,7 +1,9 @@
+import { ethers } from "ethers";
 import Image from "next/image";
 import { FC } from "react";
 import { FaEthereum, FaShieldAlt } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
+import { etherValidation } from "../../utils/etherValidation";
 
 export type Nft = {
 	address: string;
@@ -24,6 +26,8 @@ const NftCard: FC<Nft> = ({
 	doClick,
 	buttunTitle,
 }) => {
+	const customPerPrice = etherValidation(perPrice);
+	const customCollateralPrice = etherValidation(collateralPrice);
 	return (
 		<div className="w-[156px] h-[234px] bg-white drop-shadow-lg rounded-xl text-gray-800 pt-2">
 			<div className="w-[140px] h-[140px] bg-[#CFE4FE] rounded-xl mx-2 relative">
@@ -40,11 +44,11 @@ const NftCard: FC<Nft> = ({
 				<div className="grid grid-cols-2 gap-2 text-xs mt-[6px]">
 					<div className="flex justify-start items-center gap-1">
 						<FaEthereum size={14} />
-						<div>{perPrice}(D)</div>
+						<div>{customPerPrice}(D)</div>
 					</div>
 					<div className="flex justify-start items-center gap-1">
 						<FaShieldAlt size={14} />
-						<div>{collateralPrice}</div>
+						<div>{customCollateralPrice}</div>
 					</div>
 				</div>
 				<div className="flex justify-end items-center gap-2 mt-2">

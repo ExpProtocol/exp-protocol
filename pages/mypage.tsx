@@ -5,16 +5,18 @@ import Title from "../components/atoms/Title";
 import { db } from "./Firebase";
 import MyPageCardList from "../components/molecules/MyPageCardList";
 import { LendType } from "../types/LendType";
+import RentCardList from "../components/molecules/RentCardList";
 
 export default function MyPage() {
 	//TODO NFT情報の取得
 	const [item, setItem] = useState<LendType[]>();
+	const [rentImte, setRentItem] = useState<LendType[]>();
 	const { address } = useAccount();
 
 	useEffect(() => {
 		const f1 = async () => {
 			const q1 = await query(
-				collection(db, "database-test"),
+				collection(db, "lend"),
 				where("lender", "==", address?.toLocaleLowerCase())
 			);
 			const querySnapshot1 = await getDocs(q1);
@@ -25,11 +27,22 @@ export default function MyPage() {
 			});
 			// console.log(s1);
 			setItem(s1);
+			const q2 = await query(
+				collection(db, "lend"),
+				where("renter", "==", address?.toLocaleLowerCase())
+			);
+			const querySnapshot2 = await getDocs(q2);
+			let s2: any = [];
+			querySnapshot2.forEach((doc) => {
+				const d = doc.data();
+				s2.push(d);
+			});
+			setRentItem(s2);
 		};
 		f1();
 	}, []);
 
-	if (!item) {
+	if (!item || !rentImte) {
 		return <div>loading...</div>;
 	}
 
@@ -39,8 +52,13 @@ export default function MyPage() {
 				<div className="mt-16">
 					<Title title="MY PAGE" subTitle="" to="" isButton={true} />
 				</div>
+				<div>Lend一覧</div>
 				<div className="flex justify-start ">
 					<MyPageCardList nfts={item} />
+				</div>
+				<div>Rent一覧</div>
+				<div className="flex justify-start ">
+					<RentCardList nfts={rentImte} />
 				</div>
 			</div>
 		</div>

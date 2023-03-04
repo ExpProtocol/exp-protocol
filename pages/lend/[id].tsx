@@ -5,10 +5,21 @@ import Title from "../../components/atoms/Title";
 import { db } from "../Firebase";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { useNetwork } from "wagmi";
+import { useRent } from "../../hooks/useRent";
+import { etherValidation } from "../../utils/etherValidation";
+import { LendType } from "../../types/LendType";
+import { useApprove } from "../../hooks/useApprove";
 
 export default function NftCoollectionList() {
 	const [isGulModal, setIsGulModal] = useState(false);
+	const [amount, setAmount] = useState("0");
+	const { chain } = useNetwork();
 	const router = useRouter();
+	const [lendId, setLendId] = useState("0");
+	const { rent } = useRent(lendId);
+	const [item, setItem] = useState<LendType>();
+	const { approve } = useApprove(item ? item?.collateralPrice : "");
 
 	const openGulModal = () => {
 		setIsGulModal(true);
@@ -18,20 +29,21 @@ export default function NftCoollectionList() {
 		setIsGulModal(false);
 	};
 
-	//TODO NFT情報の取得
-	const [item, setItem] = useState<any>();
+	const customPerPrice = item ? etherValidation(item.perPrice) : "";
+	const customCollateralPrice = item
+		? etherValidation(item.collateralPrice)
+		: "";
 
 	useEffect(() => {
 		const f1 = async () => {
 			const tmpPath = router.asPath.split("/")[2];
 			const chainId = tmpPath.split("-")[0];
-			const lendId = tmpPath.split("-")[1];
-			console.log(chainId);
-			console.log(lendId);
+			const tmpLendId = tmpPath.split("-")[1];
+			setLendId(tmpLendId);
 			const q1 = await query(
-				collection(db, "database-test"),
+				collection(db, "lend"),
 				where("chainId", "==", chainId),
-				where("lendId", "==", lendId)
+				where("lendId", "==", tmpLendId)
 			);
 			const querySnapshot1 = await getDocs(q1);
 			let s1: any = [];
@@ -93,13 +105,13 @@ export default function NftCoollectionList() {
 							<div className="flex justify-between mt-2">
 								<div className="text-sm font-bold text-gray-600">TokenId</div>
 								<div className="text-sm font-bold text-gray-600">
-									{item.tokenId}
+									{item.tokenId.slice(0, 4)}
 								</div>
 							</div>
 							<div className="flex justify-between mt-2">
 								<div className="text-sm font-bold text-gray-600">Amount</div>
 								<div className="text-sm font-bold text-gray-600">
-									{item.amount}
+									{/* {item.amount} */}
 								</div>
 							</div>
 						</div>
@@ -114,14 +126,28 @@ export default function NftCoollectionList() {
 								<div className="text-xs font-bold text-gray-600">
 									1日あたりの借り費用
 								</div>
-								<div className="text-xl font-bold mt-2">0.01 WETH</div>
-								<div className="w-full bg-[#3EA8FF] text-white py-2 flex border-2 border-[#3EA8FF] justify-center font-bold items-center rounded-xl mt-2 cursor-pointer">
+								<div className="text-xl font-bold mt-2">
+									{customPerPrice} WETH
+								</div>
+								<div
+									onClick={() => {
+										approve?.()
+											.then((tx: any) => tx.wait())
+											.then(() => console.log("Approve: success"))
+											.then(() => rent?.())
+											.then((tx: any) => tx.wait())
+											.then(() => console.log("Rent: success"));
+									}}
+									className="w-full bg-[rgb(62,168,255)] text-white py-2 flex border-2 border-[#3EA8FF] justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
+								>
 									Rent
 								</div>
 							</div>
 							<div>
 								<div className="text-xs font-bold text-gray-600">担保費用</div>
-								<div className="text-xl font-bold mt-2">0.1WETH</div>
+								<div className="text-xl font-bold mt-2">
+									{customCollateralPrice} WETH
+								</div>
 								<button
 									onClick={openGulModal}
 									className="w-full border-2 border-[#3EA8FF] bg-white text-[#3EA8FF] font-bold py-2 flex justify-center items-center rounded-xl mt-2 cursor-pointer"

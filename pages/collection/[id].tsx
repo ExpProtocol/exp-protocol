@@ -31,7 +31,7 @@ export default function NftCoollectionList() {
 			const tmpPath = router.asPath.split("/")[2];
 			console.log(tmpPath);
 			const q1 = await query(
-				collection(db, "database-main"),
+				collection(db, "lend"),
 				where("collectionAddress", "==", tmpPath)
 			);
 			const querySnapshot1 = await getDocs(q1);
@@ -45,9 +45,9 @@ export default function NftCoollectionList() {
 				collection(db, "collection"),
 				where("collectionAddress", "==", tmpPath)
 			);
-			const querySnapshot2 = await getDocs(q1);
+			const querySnapshot2 = await getDocs(q2);
 			let s2: any = [];
-			querySnapshot1.forEach((doc) => {
+			querySnapshot2.forEach((doc) => {
 				const d = doc.data();
 				s2.push(d);
 			});
