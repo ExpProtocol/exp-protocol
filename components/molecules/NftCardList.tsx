@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FC } from "react";
 import NftCard from "./NftCard";
 
@@ -16,7 +17,7 @@ const NftCardList: FC<Prop> = ({ nfts, setSelectItem, openModal }) => {
 		<div className="flex justify-start gap-8 flex-wrap mt-9">
 			{nfts?.map((item: any, index: number) => {
 				return (
-					<div key={index}>
+					<Link href={"/lend/" + item.chainId + "-" + item.lendId} key={index}>
 						<NftCard
 							name={item.tokenName}
 							address={item.collectionAddress}
@@ -27,7 +28,7 @@ const NftCardList: FC<Prop> = ({ nfts, setSelectItem, openModal }) => {
 							image={item.tokenImage}
 							buttunTitle="借りる"
 						/>
-					</div>
+					</Link>
 				);
 			})}
 		</div>

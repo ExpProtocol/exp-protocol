@@ -19,7 +19,6 @@ export default function Home() {
 				const d = doc.data();
 				s1.push(d);
 			});
-			// console.log(s1);
 			setCollectionInfo(s1);
 		};
 		f1();
@@ -28,7 +27,7 @@ export default function Home() {
 	return (
 		<div className="max-w-[720px] mx-auto">
 			<div className="mt-16">
-				<Title title="Collection一覧" subTitle="" />
+				<Title title="Collection一覧" subTitle="" to="" isButton={true} />
 			</div>
 			<CollectionCardCollection collections={collectionInfo} />
 		</div>

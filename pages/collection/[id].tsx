@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 export default function NftCoollectionList() {
 	const [isGulModal, setIsGulModal] = useState(false);
 	const [selectItem, setSelectItem] = useState();
+	const [collectionInfo, setCollectionInfo] = useState<any>();
 	const router = useRouter();
 
 	const openGulModal = () => {
@@ -40,9 +41,24 @@ export default function NftCoollectionList() {
 				s1.push(d);
 			});
 			setItem(s1);
+			const q2 = await query(
+				collection(db, "collection"),
+				where("collectionAddress", "==", tmpPath)
+			);
+			const querySnapshot2 = await getDocs(q1);
+			let s2: any = [];
+			querySnapshot1.forEach((doc) => {
+				const d = doc.data();
+				s2.push(d);
+			});
+			setCollectionInfo(s2[0]);
 		};
 		f1();
 	}, [router.asPath]);
+
+	if (!collectionInfo) {
+		return <div></div>;
+	}
 
 	return (
 		<div>
@@ -53,7 +69,12 @@ export default function NftCoollectionList() {
 			/>
 			<div className="max-w-[720px] mx-auto">
 				<div className="mt-16">
-					<Title title="Collection一覧" subTitle="" />
+					<Title
+						title={collectionInfo.collectionName + "一覧"}
+						subTitle="collection一覧"
+						to="/"
+						isButton={true}
+					/>
 				</div>
 				<NftCardList
 					nfts={item}

@@ -73,7 +73,7 @@ export default function MyPage() {
 		<div>
 			<div className="max-w-[720px] mx-auto">
 				<div className="mt-16">
-					<Title title="MY PAGE" subTitle="" />
+					<Title title="MY PAGE" subTitle="" to="" isButton={true} />
 				</div>
 				<div className="flex justify-start ">
 					<MyPageCardList nfts={item} />

@@ -77,7 +77,12 @@ export default function Lending() {
 			/>
 			<div className="max-w-[720px] mx-auto">
 				<div className="mt-16">
-					<Title title="Lend Page" subTitle="MY PAGE" />
+					<Title
+						title="貸出登録"
+						subTitle="MY PAGE"
+						to="/mypage"
+						isButton={false}
+					/>
 				</div>
 				<LendingCardList
 					nfts={item}
