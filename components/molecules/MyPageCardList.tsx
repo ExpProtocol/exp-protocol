@@ -1,15 +1,16 @@
 import { FC } from "react";
+import { LendType } from "../../types/LendType";
 import MyPageCard from "./MyPageCard";
 
 type Prop = {
-	nfts: any;
+	nfts: LendType[];
 };
 
 const MyPageCardList: FC<Prop> = ({ nfts }) => {
 	const doClick = () => {};
 	return (
 		<div className="flex justify-center gap-8 flex-wrap mt-9">
-			{nfts?.map((item: any, index: number) => {
+			{nfts?.map((item: LendType, index: number) => {
 				return (
 					<div key={index}>
 						<MyPageCard

@@ -31,7 +31,7 @@ export default function NftCoollectionList() {
 			const tmpPath = router.asPath.split("/")[2];
 			console.log(tmpPath);
 			const q1 = await query(
-				collection(db, "database-test"),
+				collection(db, "database-main"),
 				where("collectionAddress", "==", tmpPath)
 			);
 			const querySnapshot1 = await getDocs(q1);

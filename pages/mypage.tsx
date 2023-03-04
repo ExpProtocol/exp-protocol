@@ -1,44 +1,14 @@
-import Head from "next/head";
 import { useEffect, useState } from "react";
-import Modal from "react-modal";
 import { collection, getDocs, query, where } from "@firebase/firestore";
 import { useAccount } from "wagmi";
-import NftCard from "../components/molecules/NftCard";
-import Form from "../components/Form";
-import { Nft } from "../components/molecules/NftCard";
 import Title from "../components/atoms/Title";
-import NftCardList from "../components/molecules/NftCardList";
-import { mockNfts } from "../mocks/nfts";
 import { db } from "./Firebase";
 import MyPageCardList from "../components/molecules/MyPageCardList";
-
-const customStyles: ReactModal.Styles = {
-	overlay: {
-		position: "fixed",
-		top: 0,
-		left: 0,
-		backgroundColor: "rgba(0,0,0,0.3)",
-	},
-
-	content: {
-		top: "auto",
-		left: "50%",
-		right: "auto",
-		bottom: "50%",
-		marginRight: "-50%",
-		width: "540px",
-		height: "80%",
-		transform: "translate(-50%, 50%)",
-		borderRadius: "12px",
-		border: "0px",
-		padding: "0",
-		backgroundColor: "rgba(255,255,255,1)",
-	},
-};
+import { LendType } from "../types/LendType";
 
 export default function MyPage() {
 	//TODO NFT情報の取得
-	const [item, setItem] = useState();
+	const [item, setItem] = useState<LendType[]>();
 	const { address } = useAccount();
 
 	useEffect(() => {
@@ -59,15 +29,9 @@ export default function MyPage() {
 		f1();
 	}, []);
 
-	const [isLendModal, setIsLendModal] = useState(false);
-
-	const openLendModal = () => {
-		setIsLendModal(true);
-	};
-
-	const closeLendModal = () => {
-		setIsLendModal(false);
-	};
+	if (!item) {
+		return <div>loading...</div>;
+	}
 
 	return (
 		<div>

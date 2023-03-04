@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import Title from "../components/atoms/Title";
 import CollectionCardCollection from "../components/molecules/CollectionCardList";
 import { mockCollections } from "../mocks/collections";
+import { CollectionTypes } from "../types/CollectionType";
 import { db } from "./Firebase";
 
 export default function Home() {
 	//TODO コレクション情報の取得
-	const [collectionInfo, setCollectionInfo] = useState();
+	const [collectionInfo, setCollectionInfo] = useState<CollectionTypes[]>();
 
 	useEffect(() => {
 		const f1 = async () => {
@@ -23,6 +24,10 @@ export default function Home() {
 		};
 		f1();
 	}, []);
+
+	if (!collectionInfo) {
+		return <div>loading...</div>;
+	}
 
 	return (
 		<div className="max-w-[720px] mx-auto">

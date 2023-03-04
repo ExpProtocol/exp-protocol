@@ -122,9 +122,12 @@ export default function NftCoollectionList() {
 							<div>
 								<div className="text-xs font-bold text-gray-600">担保費用</div>
 								<div className="text-xl font-bold mt-2">0.1WETH</div>
-								<div className="w-full border-2 border-[#3EA8FF] bg-white text-[#3EA8FF] font-bold py-2 flex justify-center items-center rounded-xl mt-2 cursor-pointer">
+								<button
+									onClick={openGulModal}
+									className="w-full border-2 border-[#3EA8FF] bg-white text-[#3EA8FF] font-bold py-2 flex justify-center items-center rounded-xl mt-2 cursor-pointer"
+								>
 									Rent with Guarantor
-								</div>
+								</button>
 							</div>
 						</div>
 					</div>

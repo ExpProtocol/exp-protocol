@@ -13,6 +13,7 @@ export default function Step2Modal() {
 					<li className="flex flex-1 flex-col text-center relative top-5 h-[2px] bg-gray-400 -order-1">
 						<h3 className="text-sm relative rounded-full">2</h3>
 					</li>
+
 					<li className="flex flex-1 flex-col text-center relative top-5 h-[2px] bg-gray-400 -order-1">
 						<h3 className="text-sm relative rounded-full">3</h3>
 					</li>
