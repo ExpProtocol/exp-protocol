@@ -1,18 +1,13 @@
 import { collection, getDocs, query, where } from "@firebase/firestore";
 import { useEffect, useState } from "react";
-import NftCard from "../../components/molecules/NftCard";
-import Modal from "react-modal";
 import GurantarModal from "../../components/modals/GurantarModal";
 import Title from "../../components/atoms/Title";
-import { mockNfts } from "../../mocks/nfts";
-import NftCardList from "../../components/molecules/NftCardList";
 import { db } from "../Firebase";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
 export default function NftCoollectionList() {
 	const [isGulModal, setIsGulModal] = useState(false);
-	const [selectItem, setSelectItem] = useState();
 	const router = useRouter();
 
 	const openGulModal = () => {
@@ -110,11 +105,11 @@ export default function NftCoollectionList() {
 						</div>
 					</div>
 					<div className="w-[460px] ">
-						<div>
+						<div className="text-gray-800">
 							<div className="">{item.collectionName}</div>
 							<div className="text-2xl font-bold">{item.tokenName}</div>
 						</div>
-						<div className="grid grid-cols-2 gap-6 bg-white mt-4 rounded-xl p-4 shadow-lg">
+						<div className="grid grid-cols-2 gap-6 bg-white mt-4 text-gray-800 rounded-xl p-4 shadow-lg">
 							<div>
 								<div className="text-xs font-bold text-gray-600">
 									1日あたりの借り費用
