@@ -59,7 +59,7 @@ export default function MyPage() {
                     </div>
                     <div>Rent一覧</div>
                     <div className="flex justify-start h-[270px]">
-                        <RentCardList nfts={rentImte} />
+                        <RentCardList nfts={rentItem} />
                     </div>
                 </div>
             </div>
