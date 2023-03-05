@@ -17,15 +17,17 @@ type Prop = {
 };
 
 const LendModal: FC<Prop> = ({ isOpen, closeModal, selectItem }) => {
+    const [isLoading, setIsLoading] = useState(false);
     const payments = usePayments();
     const { register, watch } = useForm<{
         perPrice: string;
         collateralPrice: string;
     }>();
-    const { approve, isLoading: isApproving } = useNFTapprove(
-        selectItem?.cAddr,
-        selectItem?.tokenId
-    );
+    const {
+        approve,
+        isLoading: isApproving,
+        isApproved,
+    } = useNFTapprove(selectItem?.cAddr, selectItem?.tokenId);
 
     const { lend: _lend, refetch } = useLend(
         selectItem?.cAddr,
@@ -36,14 +38,20 @@ const LendModal: FC<Prop> = ({ isOpen, closeModal, selectItem }) => {
         true
     );
 
-    const lend = () => {
-        if (
-            selectItem?.cAddr &&
-            selectItem?.tokenId &&
-            watch().perPrice &&
-            watch().collateralPrice
-        ) {
-            _lend?.();
+    const lend = async () => {
+        try {
+            if (
+                selectItem?.cAddr &&
+                selectItem?.tokenId &&
+                watch().perPrice &&
+                watch().collateralPrice
+            ) {
+                setIsLoading(true);
+                _lend?.()?.then((tx) => tx.wait());
+            }
+        } finally {
+            setIsLoading(false);
+            closeModal();
         }
     };
 
@@ -77,8 +85,10 @@ const LendModal: FC<Prop> = ({ isOpen, closeModal, selectItem }) => {
                     />
                 </div>
                 <div className="flex justify-end">
-                    {lend ? (
-                        <Button onClick={() => lend()}>Lend</Button>
+                    {_lend && isApproved ? (
+                        <Button loading={isLoading} onClick={() => lend()}>
+                            Lend
+                        </Button>
                     ) : (
                         <Button
                             loading={isApproving}
