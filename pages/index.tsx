@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Title from "../components/atoms/SubHeader";
 import CollectionCardCollection from "../components/molecules/CollectionCardList";
 import { CollectionTypes } from "../types/CollectionType";
-import { db } from "./Firebase";
+import { db } from "../libs/Firebase";
 
 export default function Home() {
     //TODO コレクション情報の取得

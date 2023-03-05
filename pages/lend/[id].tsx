@@ -2,7 +2,7 @@ import { collection, getDocs, query, where } from "@firebase/firestore";
 import { useEffect, useState } from "react";
 import GurantarModal from "../../components/modals/GurantarModal";
 import Title from "../../components/atoms/SubHeader";
-import { db } from "../Firebase";
+import { db } from "../../libs/Firebase";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { useContractRead, useNetwork } from "wagmi";

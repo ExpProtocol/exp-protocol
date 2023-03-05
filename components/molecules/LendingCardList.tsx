@@ -17,7 +17,7 @@ const LendingCardList: FC<Prop> = ({ nfts, setSelectItem, openModal }) => {
     };
 
     return (
-        <div className="flex justify-start gap-8 flex-wrap mt-9">
+        <div className="flex justify-center gap-8 flex-wrap mt-9">
             {nfts
                 ?.filter((nft) =>
                     lendings.find(

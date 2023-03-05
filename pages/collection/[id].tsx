@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import GurantarModal from "../../components/modals/GurantarModal";
 import Title from "../../components/atoms/SubHeader";
 import NftCardList from "../../components/molecules/NftCardList";
-import { db } from "../Firebase";
+import { db } from "../../libs/Firebase";
 import { useRouter } from "next/router";
 
 export default function NftCoollectionList() {
