@@ -12,7 +12,7 @@ export const useRentWithGuarantor = (
     const Contract = useContractAddresses();
     const { config: rentWithGuarantorConfig, refetch } =
         usePrepareContractWrite({
-            address: Contract.MARKET,
+            address: Contract?.MARKET,
             abi: LIME_ABI,
             functionName: "rentWithGuarantor",
             args: [

@@ -10,15 +10,15 @@ import { PaymentToken } from "../types/Payment";
 import { useContractAddresses } from "./useContractAddresses";
 
 export const useApprove = (
-    payment: PaymentToken,
+    payment: PaymentToken | undefined,
     amount: string | undefined
 ) => {
     const Contract = useContractAddresses();
     const { config: rentConfig } = usePrepareContractWrite({
-        address: payment.address as `0x${string}`,
+        address: payment?.address as `0x${string}`,
         abi: erc20ABI,
         functionName: "approve",
-        args: [Contract.MARKET as `0x${string}`, BigNumber.from(amount || 0)],
+        args: [Contract?.MARKET as `0x${string}`, BigNumber.from(amount || 0)],
         enabled: Boolean(Contract && payment && amount),
     });
 

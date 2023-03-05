@@ -6,5 +6,5 @@ export const usePayments = (): PaymentToken[] => {
     const { chain } = useNetwork();
 
     if (!chain) return [];
-    return Object.values(Payments[String(chain?.id) as "80001"]);
+    return Object.values(Payments[String(chain?.id) as "80001"] || {});
 };

@@ -26,7 +26,7 @@ export default function NftCoollectionList() {
     useEffect(() => {
         const f1 = async () => {
             const tmpPath = router.asPath.split("/")[2];
-            console.log(tmpPath);
+
             const q1 = await query(
                 collection(db, "lend"),
                 where("collectionAddress", "==", tmpPath)
