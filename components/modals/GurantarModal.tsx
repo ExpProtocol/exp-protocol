@@ -17,6 +17,7 @@ import LIME_ABI from "../../models/LIME_ABI";
 import { BigNumber } from "ethers";
 import { useContractAddresses } from "../../hooks/useContractAddresses";
 import { usePayments } from "../../hooks/usePayments";
+import { usePaymentFromAddress } from "../../hooks/usePaymentFromAddress";
 
 const Steps: FC<{ step: number }> = ({ step }) => {
     const stepColor = (_step: number) =>
@@ -279,7 +280,6 @@ export const GurantarModalStep3: FC<{
     closeModal: () => void;
 }> = ({ isOpen, closeModal }) => {
     const { query } = useRouter();
-    console.log(query.signature);
     const { rentWithGuarantor, refetch } = useRentWithGuarantor(
         query.lendId as string,
         query.guarantor as `0x${string}`,
@@ -294,11 +294,17 @@ export const GurantarModalStep3: FC<{
         functionName: "lendCondition",
         args: [BigNumber.from(query.lendId)],
     });
-    const payments = usePayments();
+    const payment = usePaymentFromAddress(lendCondition?.payment);
     const price = lendCondition?.totalPrice?.sub(
         query?.guarantorBalance as string
     );
-    const { approve } = useApprove(payments[0], price?.toString());
+    console.log(
+        payment,
+        lendCondition?.totalPrice.toString(),
+        query?.guarantorBalance,
+        price?.toString()
+    );
+    const { approve } = useApprove(payment, price?.toString());
     return (
         <Modal isOpen={isOpen} onClose={closeModal}>
             <Steps step={3} />

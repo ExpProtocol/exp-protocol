@@ -38,9 +38,8 @@ export const useSignGuarantor = (
         ],
         //enabled: Boolean(account.address && lendId),
     });
-
     const payment = usePaymentFromAddress(data && data[1].payment);
-
+    console.log(payment, PaymentUtils.parse(payment, guarantorBalance));
     const chainId = useChainId();
     const value = {
         lendId: BigNumber.from(lendId || 0),

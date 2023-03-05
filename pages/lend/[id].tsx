@@ -34,7 +34,7 @@ export default function NftCoollectionList() {
     });
 
     const Contract = useContractAddresses();
-    console.log(Contract);
+
     const { data: isBorrowable } = useContractRead({
         address: Contract?.MARKET,
         abi: LIME_ABI,

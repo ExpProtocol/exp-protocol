@@ -26,7 +26,7 @@ export const usePaymentFromAddress = (
                 functionName: "decimals",
             },
         ],
-        enabled: Boolean(address && !tempPayment),
+        enabled: Boolean(address),
     });
 
     const payment =
