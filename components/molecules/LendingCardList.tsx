@@ -20,15 +20,13 @@ const LendingCardList: FC<Prop> = ({ nfts, setSelectItem, openModal }) => {
     return (
         <div className="flex justify-center gap-8 flex-wrap mt-9">
             {nfts
-                // ?.filter((nft) =>
-                //     console.log(
-                //         lendings.find(
-                //             (lending) =>
-                //                 lending.collectionAddress !== nft.cAddr ||
-                //                 lending.tokenId !== nft.tokenId
-                //         )
-                //     )
-                // )
+                ?.filter((nft) =>
+                    lendings.find(
+                        (lending) =>
+                            lending.collectionAddress !== nft.cAddr ||
+                            lending.tokenId !== nft.tokenId
+                    )
+                )
                 .map((item: any, index: number) => {
                     return (
                         <div key={index}>

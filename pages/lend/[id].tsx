@@ -19,6 +19,7 @@ import { useContractAddresses } from "../../hooks/useContractAddresses";
 import { usePayments } from "../../hooks/usePayments";
 
 export default function NftCoollectionList() {
+    const network = useNetwork();
     const [isGulModal, setIsGulModal] = useState(false);
     const [isLendSuccessModal, setIsLendSuccessModal] = useState(false);
     const router = useRouter();
@@ -233,9 +234,14 @@ export default function NftCoollectionList() {
                                                 </button>
                                             )}
                                         </>
-                                    ) : (
+                                    ) : Number(chainId) ===
+                                      network.chain?.id ? (
                                         <button className="w-full bg-gray-300 text-white py-2 flex border-2 border-gray-400 justify-center font-bold items-center rounded-xl mt-2 cursor-pointer">
                                             Now Renting
+                                        </button>
+                                    ) : (
+                                        <button className="w-full bg-gray-300 text-white py-2 flex border-2 border-gray-400 justify-center font-bold items-center rounded-xl mt-2 cursor-pointer">
+                                            Chain is Different
                                         </button>
                                     )}
                                 </div>
