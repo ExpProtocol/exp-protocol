@@ -53,11 +53,11 @@ export default function MyPage() {
                     <Title title="MY PAGE" subTitle="" to="" isButton={true} />
                 </div>
                 <div className="mx-auto">
-                    <div>Lend一覧</div>
+                    <div className="font-bold mt-8">All Your Lend</div>
                     <div className="">
                         <MyPageCardList nfts={item} />
                     </div>
-                    <div>Rent一覧</div>
+                    <div className="font-bold mt-8">All Your Rent</div>
                     <div className="flex justify-start h-[270px]">
                         <RentCardList nfts={rentItem} />
                     </div>
