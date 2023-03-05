@@ -10,6 +10,7 @@ type Prop = {
 	setPricePerSec: any;
 	setCollateralPrice: any;
 	approve: any;
+	refetch: any;
 };
 
 const customStyles: ReactModal.Styles = {
@@ -44,6 +45,7 @@ const LendModal: FC<Prop> = ({
 	setPricePerSec,
 	setCollateralPrice,
 	approve,
+	refetch,
 }) => {
 	const doChangePerPrice = (e: any) => {
 		const tmpPricePerSec = parseInt(
@@ -84,19 +86,21 @@ const LendModal: FC<Prop> = ({
 					></input>
 				</div>
 				<div className="flex justify-center ">
-					<button
-						onClick={() => {
-							approve?.()
-								.then((tx: any) => tx.wait())
-								.then(() => console.log("Approve: success"))
-								.then(() => lend?.())
-								.then((tx: any) => tx.wait())
-								.then(() => console.log("Lend: success"));
-						}}
-						className="bg-[#3EA8FF] px-4 py-2 text-white rounded-lg font-bold mt-4"
-					>
-						貸出登録
-					</button>
+					{lend ? (
+						<button
+							onClick={() => lend()}
+							className="bg-[#3EA8FF] px-4 py-2 text-white rounded-lg font-bold mt-4"
+						>
+							Lend
+						</button>
+					) : (
+						<button
+							onClick={() => approve().then(() => refetch())}
+							className="bg-[#3EA8FF] px-4 py-2 text-white rounded-lg font-bold mt-4"
+						>
+							Approve
+						</button>
+					)}
 				</div>
 			</div>
 		</Modal>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import NftCard from "../../components/molecules/NftCard";
 import Modal from "react-modal";
 import GurantarModal from "../../components/modals/GurantarModal";
-import Title from "../../components/atoms/Title";
+import Title from "../../components/atoms/SubHeader";
 import { mockNfts } from "../../mocks/nfts";
 import NftCardList from "../../components/molecules/NftCardList";
 import { db } from "../Firebase";

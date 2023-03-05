@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "@firebase/firestore";
 import { useAccount } from "wagmi";
-import Title from "../components/atoms/Title";
+import Title from "../components/atoms/SubHeader";
 import { db } from "./Firebase";
 import MyPageCardList from "../components/molecules/MyPageCardList";
 import { LendType } from "../types/LendType";
@@ -53,11 +53,11 @@ export default function MyPage() {
 					<Title title="MY PAGE" subTitle="" to="" isButton={true} />
 				</div>
 				<div>Lend一覧</div>
-				<div className="flex justify-start ">
+				<div className="flex justify-start h-[270px]">
 					<MyPageCardList nfts={item} />
 				</div>
 				<div>Rent一覧</div>
-				<div className="flex justify-start ">
+				<div className="flex justify-start h-[270px]">
 					<RentCardList nfts={rentImte} />
 				</div>
 			</div>

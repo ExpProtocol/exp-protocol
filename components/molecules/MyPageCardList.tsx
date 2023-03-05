@@ -22,6 +22,7 @@ const MyPageCardList: FC<Prop> = ({ nfts }) => {
 							collateralPrice={item.collateralPrice}
 							doClick={() => doClick}
 							buttunTitle="貸出登録"
+							lendId={item.lendId}
 						/>
 					</div>
 				);

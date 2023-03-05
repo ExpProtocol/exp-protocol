@@ -2,7 +2,7 @@ export type LendType = {
 	autoReRegister: boolean;
 	chainId: string;
 	collateralPrice: string;
-	collectionAddress: string;
+	collectionAddress: `0x${string}`;
 	collectionName: string;
 	isActive: boolean;
 	isRent: boolean;
@@ -15,4 +15,5 @@ export type LendType = {
 	tokenImage: string;
 	tokenName: string;
 	tokenType: string;
+	renter: string;
 };

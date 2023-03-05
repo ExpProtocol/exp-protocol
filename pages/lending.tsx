@@ -8,7 +8,7 @@ import {
 	getNftsForOwner,
 } from "@alch/alchemy-sdk";
 import { useAccount } from "wagmi";
-import Title from "../components/atoms/Title";
+import Title from "../components/atoms/SubHeader";
 import NftCardList from "../components/molecules/NftCardList";
 import { mockNfts } from "../mocks/nfts";
 import LendingCardList from "../components/molecules/LendingCardList";
@@ -19,7 +19,7 @@ import { useNFTapprove } from "../hooks/useNFTapprove";
 type Nft = {
 	tokenName: string;
 	tokenImage: string;
-	cAddr: string;
+	cAddr: `0x${string}`;
 	tokenId: string;
 };
 
@@ -34,7 +34,7 @@ export default function Lending() {
 	const [selectItem, setSelectItem] = useState<Nft>();
 	const [pricePerSec, setPricePerSec] = useState("0");
 	const [collateralPrice, setCollateralPrice] = useState("0");
-	const { lend } = useLend(
+	const { lend, refetch } = useLend(
 		selectItem ? selectItem?.cAddr : "",
 		selectItem ? selectItem?.tokenId : "",
 		"0xC124a7F913F102AdFd971cD593270049d161fcA2",
@@ -43,8 +43,11 @@ export default function Lending() {
 		true
 	);
 
+	console.log(pricePerSec);
+	console.log(collateralPrice);
+
 	const { approve } = useNFTapprove(
-		selectItem ? selectItem?.cAddr : "",
+		selectItem ? selectItem?.cAddr : "0x00",
 		selectItem ? selectItem?.tokenId : "0"
 	);
 
@@ -74,7 +77,7 @@ export default function Lending() {
 					tokenName: item.title,
 					tokenImage:
 						tmpMedia?.thumbnail !== undefined ? tmpMedia.thumbnail : "",
-					cAddr: item.contract.address,
+					cAddr: item.contract.address as `0x${string}`,
 					tokenId: item.tokenId,
 				};
 				return tmpData;
@@ -95,6 +98,7 @@ export default function Lending() {
 				setPricePerSec={setPricePerSec}
 				setCollateralPrice={setCollateralPrice}
 				approve={approve}
+				refetch={refetch}
 			/>
 			<div className="max-w-[720px] mx-auto">
 				<div className="mt-16">

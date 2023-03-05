@@ -9,7 +9,7 @@ export const useLend = (
 	collateralPrice: string,
 	autoReRegister: boolean
 ) => {
-	const { config: lendConfig } = usePrepareContractWrite({
+	const { config: lendConfig, refetch } = usePrepareContractWrite({
 		address: "0x5c0e8590Ee95a2208b91E315c993Fa731B0DABD6",
 		abi: LIME_ABI,
 		functionName: "lend721",
@@ -24,5 +24,5 @@ export const useLend = (
 	});
 
 	const { writeAsync: lend } = useContractWrite(lendConfig);
-	return { lend };
+	return { lend, refetch };
 };

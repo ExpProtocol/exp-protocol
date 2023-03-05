@@ -1,6 +1,6 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 
-export const useNFTapprove = (cAddr: string, tokenId: string) => {
+export const useNFTapprove = (cAddr: `0x${string}`, tokenId: string) => {
 	const { config: lendConfig } = usePrepareContractWrite({
 		address: cAddr,
 		abi: [

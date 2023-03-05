@@ -32,7 +32,7 @@ const NftCard: FC<Nft> = ({
 		<div className="w-[156px] h-[234px] bg-white drop-shadow-lg rounded-xl text-gray-800 pt-2">
 			<div className="w-[140px] h-[140px] bg-[#CFE4FE] rounded-xl mx-2 relative">
 				<Image
-					src={image}
+					src={image != "" ? image : "/noimage.jpg"}
 					fill
 					style={{ objectFit: "cover" }}
 					className="rounded-xl"
@@ -40,7 +40,7 @@ const NftCard: FC<Nft> = ({
 				/>
 			</div>
 			<div className="mx-2">
-				<div className="mt-2 text-xs font-bold">{name?.slice(0, 16)}</div>
+				<div className="mt-2 text-xs font-bold h-4">{name?.slice(0, 16)}</div>
 				<div className="grid grid-cols-2 gap-2 text-xs mt-[6px]">
 					<div className="flex justify-start items-center gap-1">
 						<FaEthereum size={14} />
@@ -52,12 +52,6 @@ const NftCard: FC<Nft> = ({
 					</div>
 				</div>
 				<div className="flex justify-end items-center gap-2 mt-2">
-					{/* <div
-						onClick={doClick}
-						className="border border-[#3EA8FF] w-[20px] h-[20px] rounded-full flex justify-center items-center cursor-pointer"
-					>
-						<FiMail size={10} color={"#3EA8FF"} />
-					</div> */}
 					<div
 						onClick={() => {}}
 						className=" py-1 px-4 bg-[#3EA8FF] text-white rounded-lg font-bold text-xs flex justify-center items-center cursor-pointer"

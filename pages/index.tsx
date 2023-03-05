@@ -1,7 +1,7 @@
 import { collection, getDocs, query, where } from "@firebase/firestore";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import Title from "../components/atoms/Title";
+import Title from "../components/atoms/SubHeader";
 import CollectionCardCollection from "../components/molecules/CollectionCardList";
 import { mockCollections } from "../mocks/collections";
 import { CollectionTypes } from "../types/CollectionType";
