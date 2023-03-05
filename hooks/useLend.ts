@@ -15,7 +15,7 @@ export const useLend = (
 ) => {
     const Contract = useContractAddresses();
     const { config: lendConfig, refetch } = usePrepareContractWrite({
-        address: Contract.MARKET,
+        address: Contract?.MARKET,
         abi: LIME_ABI,
         functionName: "lend721",
         args: [

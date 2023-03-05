@@ -5,7 +5,7 @@ import { useContractAddresses } from "./useContractAddresses";
 export const useTokenReturn = (lendId: string) => {
     const Contract = useContractAddresses();
     const { config: returnTokenConfig, refetch } = usePrepareContractWrite({
-        address: Contract.MARKET,
+        address: Contract?.MARKET,
         abi: LIME_ABI,
         functionName: "returnToken",
         args: [lendId],

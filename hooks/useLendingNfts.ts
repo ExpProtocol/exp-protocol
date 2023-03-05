@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useAccount, useNetwork } from "wagmi";
 import { collection, getDocs, query, where } from "@firebase/firestore";
 
-import { db } from "../pages/Firebase";
+import { db } from "../libs/Firebase";
 import { LendType } from "../types/LendType";
 
 export const useLendingNfts = () => {

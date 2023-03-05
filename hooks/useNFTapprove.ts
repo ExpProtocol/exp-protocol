@@ -24,13 +24,13 @@ export const useNFTapprove = (
         abi: erc721ABI,
         functionName: "approve",
         args: [
-            Contract.MARKET as `0x${string}`,
+            Contract?.MARKET as `0x${string}`,
             BigNumber.from(tokenId || "0"),
         ],
         enabled: Boolean(cAddr && tokenId),
     });
 
-    const isApproved = approveFor === Contract.MARKET;
+    const isApproved = approveFor === Contract?.MARKET;
     const { writeAsync: approve, isLoading } = useContractWrite(lendConfig);
     return { approve, isApproved, isLoading };
 };

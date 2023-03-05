@@ -1,8 +1,8 @@
 import { collection, getDocs, query, where } from "@firebase/firestore";
 import { useEffect, useState } from "react";
-import GurantarModal from "../../components/modals/GurantarModal";
+import { GurantarModal } from "../../components/modals/GurantarModal";
 import Title from "../../components/atoms/SubHeader";
-import { db } from "../Firebase";
+import { db } from "../../libs/Firebase";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { useContractRead, useNetwork } from "wagmi";
@@ -33,7 +33,7 @@ export default function NftCoollectionList() {
 
     const Contract = useContractAddresses();
     const { data: isBorrowable } = useContractRead({
-        address: Contract.MARKET,
+        address: Contract?.MARKET,
         abi: LIME_ABI,
         functionName: "isBorrowable",
         args: [lendId],
@@ -62,9 +62,8 @@ export default function NftCoollectionList() {
 
     useEffect(() => {
         const f1 = async () => {
-            const tmpPath = router.asPath.split("/")[2];
-            const chainId = tmpPath.split("-")[0];
-            const tmpLendId = tmpPath.split("-")[1];
+            const [_, chainId, tmpLendId] =
+                /\/lend\/(\d+)-(\d+)(.*)/.exec(router.asPath) || [];
             setLendId(tmpLendId);
             const q1 = await query(
                 collection(db, "lend"),
@@ -77,7 +76,7 @@ export default function NftCoollectionList() {
                 const d = doc.data();
                 s1.push(d);
             });
-            console.log(s1[0]);
+
             setItem(s1[0]);
         };
         f1();

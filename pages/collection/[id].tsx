@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import GurantarModal from "../../components/modals/GurantarModal";
 import Title from "../../components/atoms/SubHeader";
 import NftCardList from "../../components/molecules/NftCardList";
-import { db } from "../Firebase";
+import { db } from "../../libs/Firebase";
 import { useRouter } from "next/router";
 
 export default function NftCoollectionList() {
@@ -26,6 +26,7 @@ export default function NftCoollectionList() {
     useEffect(() => {
         const f1 = async () => {
             const tmpPath = router.asPath.split("/")[2];
+
             const q1 = await query(
                 collection(db, "lend"),
                 where("collectionAddress", "==", tmpPath),
