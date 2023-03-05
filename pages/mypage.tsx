@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "@firebase/firestore";
 import { useAccount } from "wagmi";
-import Title from "../components/atoms/Title";
+import Title from "../components/atoms/SubHeader";
 import { db } from "./Firebase";
 import MyPageCardList from "../components/molecules/MyPageCardList";
 import { LendType } from "../types/LendType";

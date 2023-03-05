@@ -8,7 +8,7 @@ type Prop = {
 	isButton: boolean;
 };
 
-const Title: FC<Prop> = ({ title, subTitle, to, isButton }) => {
+const SubHeader: FC<Prop> = ({ title, subTitle, to, isButton }) => {
 	return (
 		<>
 			<div className="h-[20px]">
@@ -34,4 +34,4 @@ const Title: FC<Prop> = ({ title, subTitle, to, isButton }) => {
 	);
 };
 
-export default Title;
+export default SubHeader;

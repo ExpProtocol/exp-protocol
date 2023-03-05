@@ -1,4 +1,5 @@
 import { FC, useState } from "react";
+import { imageValidation } from "../../utils/imageValidation";
 import Image from "next/image";
 import { Input } from "../atoms/Input";
 import { Modal } from "../atoms/Modal";
@@ -36,7 +37,7 @@ const LendModal: FC<Prop> = ({ isOpen, closeModal, selectItem }) => {
                 </div>
                 <div className="w-[120px] h-[120px] relative mx-auto mt-4">
                     <Image
-                        src={selectItem?.tokenImage || ""}
+                        src={imageValidation(selectItem?.tokenImage)}
                         fill
                         style={{ objectFit: "cover" }}
                         className="rounded-xl bg-[#F1F5F9]"
@@ -52,19 +53,21 @@ const LendModal: FC<Prop> = ({ isOpen, closeModal, selectItem }) => {
                     <Input className="mt-2" {...register("perPrice")} />
                 </div>
                 <div className="flex justify-center ">
-                    <button
-                        onClick={() => {
-                            approve?.()
-                                .then((tx) => tx.wait())
-                                .then(() => console.log("Approve: success"))
-                                .then(() => lend?.())
-                                .then((tx) => tx?.wait())
-                                .then(() => console.log("Lend: success"));
-                        }}
-                        className="bg-[#3EA8FF] px-4 py-2 text-white rounded-lg font-bold mt-4"
-                    >
-                        貸出登録
-                    </button>
+                    {lend ? (
+                        <button
+                            onClick={() => lend()}
+                            className="bg-[#3EA8FF] px-4 py-2 text-white rounded-lg font-bold mt-4"
+                        >
+                            Lend
+                        </button>
+                    ) : (
+                        <button
+                            onClick={() => approve?.()}
+                            className="bg-[#3EA8FF] px-4 py-2 text-white rounded-lg font-bold mt-4"
+                        >
+                            Approve
+                        </button>
+                    )}
                 </div>
             </div>
         </Modal>

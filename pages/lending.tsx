@@ -1,6 +1,4 @@
-import Head from "next/head";
 import { useEffect, useState } from "react";
-import NftCard from "../components/molecules/NftCard";
 import {
     Network,
     Alchemy,
@@ -8,11 +6,11 @@ import {
     getNftsForOwner,
 } from "@alch/alchemy-sdk";
 import { useAccount } from "wagmi";
-import Title from "../components/atoms/Title";
 
+import { Nft } from "../types/Nft";
+import Title from "../components/atoms/SubHeader";
 import LendingCardList from "../components/molecules/LendingCardList";
 import LendModal from "../components/modals/LendModal";
-import { Nft } from "../types/Nft";
 
 const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_KEY
     ? process.env.NEXT_PUBLIC_ALCHEMY_KEY

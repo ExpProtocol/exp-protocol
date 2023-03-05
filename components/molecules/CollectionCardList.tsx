@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { FC } from "react";
 import { CollectionTypes } from "../../types/CollectionType";
-import CollectionCard from "./CollectionCard";
+import CollectionCard from "../atoms/CollectionCard";
 
 type Prop = {
     collections: CollectionTypes[];

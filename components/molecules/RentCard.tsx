@@ -2,10 +2,12 @@ import Image from "next/image";
 import { FC } from "react";
 import { FaEthereum, FaShieldAlt } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
+import { useNFTapprove } from "../../hooks/useNFTapprove";
 import { useTokenReturn } from "../../hooks/useTokenReturn";
+import { imageValidation } from "../../utils/imageValidation";
 
 export type Nft = {
-	address: string;
+	address: `0x${string}`;
 	name: string;
 	image: string;
 	tokenId: string;
@@ -27,12 +29,13 @@ const RentCard: FC<Nft> = ({
 	buttunTitle,
 	lendId,
 }) => {
-	const { returnToken } = useTokenReturn(lendId);
+	const { returnToken, refetch } = useTokenReturn(lendId);
+	const { approve } = useNFTapprove(address, tokenId);
 	return (
 		<div className="w-[156px] h-[234px] bg-white drop-shadow-lg rounded-xl text-gray-800 pt-2">
 			<div className="w-[140px] h-[140px] bg-[#CFE4FE] rounded-xl mx-2 relative">
 				<Image
-					src={image}
+					src={imageValidation(image)}
 					fill
 					style={{ objectFit: "cover" }}
 					className="rounded-xl"
@@ -40,7 +43,7 @@ const RentCard: FC<Nft> = ({
 				/>
 			</div>
 			<div className="mx-2">
-				<div className="mt-2 text-xs font-bold">{name?.slice(0, 16)}</div>
+				<div className="mt-2 text-xs font-bold h-4">{name?.slice(0, 16)}</div>
 				<div className="grid grid-cols-2 gap-2 text-xs mt-[6px]">
 					<div className="flex justify-start items-center gap-1">
 						<FaEthereum size={14} />
@@ -54,9 +57,14 @@ const RentCard: FC<Nft> = ({
 				<div className="flex justify-end items-center gap-2 mt-2">
 					<div
 						onClick={() => {
-							returnToken?.()
+							approve?.()
 								.then((tx: any) => tx.wait())
-								.then(() => console.log("Return: success"));
+								.then(() => console.log("Approve: success"))
+								.then(() => refetch?.())
+								.then(() => console.log("Refetch: success"))
+								.then(() => returnToken?.())
+								.then((tx: any) => tx.wait())
+								.then(() => console.log("Rent: success"));
 						}}
 						className=" py-1 px-4 bg-[#3EA8FF] text-white rounded-lg font-bold text-xs flex justify-center items-center cursor-pointer"
 					>

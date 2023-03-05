@@ -9,12 +9,12 @@ export type Collection = {
 const CollectionCard: FC<Collection> = ({ address, name, image }) => {
 	return (
 		<div className="w-[228px] h-[138px] bg-white rounded-xl drop-shadow-lg">
-			<div className="w-[238px] h-[100px] relative">
+			<div className="w-[228px] h-[100px] relative">
 				<Image
-					src={image}
+					src={image != "" ? image : "/noimage.jpg"}
 					fill
 					style={{ objectFit: "cover" }}
-					className="rounded-xl"
+					className="rounded-t-xl"
 					alt=""
 				/>
 			</div>

@@ -1,7 +1,8 @@
 import { collection, getDocs, query, where } from "@firebase/firestore";
 import { useEffect, useState } from "react";
 import GurantarModal from "../../components/modals/GurantarModal";
-import Title from "../../components/atoms/Title";
+import Title from "../../components/atoms/SubHeader";
+import { mockNfts } from "../../mocks/nfts";
 import NftCardList from "../../components/molecules/NftCardList";
 import { db } from "../Firebase";
 import { useRouter } from "next/router";
