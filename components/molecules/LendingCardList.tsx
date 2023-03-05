@@ -10,7 +10,6 @@ type Prop = {
 };
 
 const LendingCardList: FC<Prop> = ({ nfts, setSelectItem, openModal }) => {
-    console.log(nfts);
     const { nfts: lendings } = useLendingNfts();
     const doClick = (item: any) => {
         openModal();
@@ -23,8 +22,10 @@ const LendingCardList: FC<Prop> = ({ nfts, setSelectItem, openModal }) => {
                 ?.filter((nft) =>
                     lendings.find(
                         (lending) =>
-                            lending.collectionAddress !== nft.cAddr ||
-                            lending.tokenId !== nft.tokenId
+                            !(
+                                lending.collectionAddress === nft.cAddr &&
+                                lending.tokenId === nft.tokenId
+                            )
                     )
                 )
                 .map((item: any, index: number) => {
