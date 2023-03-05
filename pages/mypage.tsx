@@ -48,7 +48,7 @@ export default function MyPage() {
 
 	return (
 		<div>
-			<div className="max-w-[720px] mx-auto">
+			<div className="max-w-[720px] mx-auto pb-24">
 				<div className="mt-16">
 					<Title title="MY PAGE" subTitle="" to="" isButton={true} />
 				</div>
