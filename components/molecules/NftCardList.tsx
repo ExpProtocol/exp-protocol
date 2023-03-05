@@ -14,7 +14,7 @@ const NftCardList: FC<Prop> = ({ nfts, setSelectItem, openModal }) => {
         setSelectItem(item);
     };
     return (
-        <div className="flex justify-center gap-8 flex-wrap mt-9">
+        <div className="flex justify-center md:justify-start gap-8 flex-wrap mt-9 pb-24">
             {nfts?.map((item: any, index: number) => {
                 return (
                     <Link
@@ -29,7 +29,7 @@ const NftCardList: FC<Prop> = ({ nfts, setSelectItem, openModal }) => {
                             collateralPrice={item.collateralPrice}
                             doClick={() => doClick(item)}
                             image={item.tokenImage}
-                            buttunTitle="借りる"
+                            buttunTitle="Lend"
                         />
                     </Link>
                 );

@@ -83,7 +83,7 @@ export const CustomConnectButton = () => {
 												)}
 											</div>
 										)}
-										{chain.name}
+										{/* {chain.name} */}
 									</button>
 
 									<button
