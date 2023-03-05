@@ -19,7 +19,7 @@ const MyPageCardList: FC<Prop> = ({ nfts }) => {
                             image={item.tokenImage}
                             perPrice={item.perPrice}
                             collateralPrice={item.collateralPrice}
-                            buttunTitle="貸出登録"
+                            buttunTitle="Lend"
                             lendId={item.lendId}
                             renter={item.renter}
                             isRent={item.isRent}

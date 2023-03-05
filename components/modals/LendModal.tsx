@@ -59,7 +59,7 @@ const LendModal: FC<Prop> = ({ isOpen, closeModal, selectItem }) => {
         <Modal isOpen={isOpen} onClose={closeModal}>
             <div className="text-gray-800">
                 <div className="text-center text-lg font-bold">
-                    レンタル登録
+                    Rental Register
                 </div>
                 <div className="w-[120px] h-[120px] relative mx-auto mt-4">
                     <Image
@@ -71,14 +71,14 @@ const LendModal: FC<Prop> = ({ isOpen, closeModal, selectItem }) => {
                     />
                 </div>
                 <div className="mt-6">
-                    <div className="font-bold mb-2">1日あたり賃料</div>
+                    <div className="font-bold mb-2">Price Per Day</div>
                     <Input
                         right="ETH"
                         {...register("perPrice", { required: true })}
                     />
                 </div>
                 <div className="mt-6">
-                    <div className="font-bold mb-2">担保金額</div>
+                    <div className="font-bold mb-2">Collateral Price</div>
                     <Input
                         right="ETH"
                         {...register("collateralPrice", { required: true })}

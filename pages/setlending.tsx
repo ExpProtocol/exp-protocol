@@ -48,31 +48,31 @@ export default function Step1() {
                 <div className="flex justify-center">
                     <div className="relative items-center justify-center">
                         <div className="relative my-8 ...">
-                            <p className="text-xl font-bold">レンタル登録</p>
+                            <p className="text-xl font-bold">Rental Register</p>
                         </div>
                         <div className="w-full max-w-xs">
                             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                                 <div className="mb-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2">
-                                        貸出NFTのコレクションアドレス
+                                        Collection Address
                                     </label>
                                     <Form />
                                 </div>
                                 <div className="mb-6">
                                     <label className="block text-gray-700 text-sm font-bold mb-2">
-                                        貸出NFTのトークンID
+                                        TokenId
                                     </label>
                                     <Form />
                                 </div>
                                 <div className="mb-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2">
-                                        保証人になるユーザーのアドレス
+                                        Gurantar Address
                                     </label>
                                     <Form />
                                 </div>
                                 <div className="mb-6">
                                     <label className="block text-gray-700 text-sm font-bold mb-2">
-                                        担保費用
+                                        Collateral Price
                                     </label>
                                     <Form />
                                 </div>

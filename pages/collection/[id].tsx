@@ -69,7 +69,7 @@ export default function NftCoollectionList() {
                 <div className="mt-16">
                     <Title
                         title={collectionInfo.collectionName + "一覧"}
-                        subTitle="collection一覧"
+                        subTitle="collection"
                         to="/"
                         isButton={true}
                     />

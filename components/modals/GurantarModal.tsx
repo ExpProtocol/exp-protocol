@@ -98,12 +98,8 @@ export const GurantarModalStep1: FC<Prop> = ({
                 <>
                     <Steps step={1} />
                     <div className="text-[#707B84] mex-auto font-bold mt-4">
-                        <div className="text-center">
-                            連帯保証人に依頼したい
-                        </div>
-                        <div className="text-center">
-                            金額と手数料を設定してください
-                        </div>
+                        <div className="text-center">Request Gurantar</div>
+                        <div className="text-center">Set Price and Fee</div>
                     </div>
                     <div className="w-[120px] h-[120px] relative mx-auto mt-6">
                         <Image
@@ -116,7 +112,7 @@ export const GurantarModalStep1: FC<Prop> = ({
                     </div>
                     <div className="mt-4">
                         <div className="font-bold mt-8 text-black mb-2">
-                            利息
+                            Fee
                         </div>
                         <Input
                             right="%"
@@ -125,7 +121,7 @@ export const GurantarModalStep1: FC<Prop> = ({
                     </div>
                     <div className="mt-4">
                         <div className="font-bold text-black mb-2">
-                            担保金額
+                            Total Price
                         </div>
                         <Input
                             right="ETH"
@@ -151,15 +147,13 @@ export const GurantarModalStep1: FC<Prop> = ({
                         <Steps step={1} />
                     </div>
                     <div className="text-[#707B84] mex-auto font-bold mt-8">
-                        <div className="text-center">招待リンクを</div>
-                        <div className="text-center">
-                            連帯保証人に送ってください
-                        </div>
+                        <div className="text-center">Invite Link</div>
+                        <div className="text-center">Send Gurantar</div>
                     </div>
                     <div>
                         <div className="mt-20">
                             <div className="text-xs font-bold mt-8">
-                                招待リンク
+                                Invite Link
                             </div>
                             <div className="w-full border bg-[#F1F5F9] border-[#D8E5EF] rounded-md mt-2 overflow-x-auto text-slate-600 p-2">
                                 {invite}
@@ -215,10 +209,8 @@ export const GurantarModalStep2: FC<Prop> = ({
             {!returnLink ? (
                 <>
                     <div className="text-[#707B84] mex-auto font-bold mt-4">
-                        <div className="text-center">内容が正しいか</div>
-                        <div className="text-center">
-                            確認して署名してください
-                        </div>
+                        <div className="text-center">Collect Detail</div>
+                        <div className="text-center">Confirm and Sign</div>
                     </div>
                     <div className="w-[120px] h-[120px] relative mx-auto mt-2">
                         <Image
@@ -230,16 +222,16 @@ export const GurantarModalStep2: FC<Prop> = ({
                         />
                     </div>
                     <div className="mt-2">
-                        <div className="font-bold text-black mb-2">相手</div>
+                        <div className="font-bold text-black mb-2">You</div>
                         <Input disabled value={query.renter} />
                     </div>
                     <div className="mt-2">
-                        <div className="font-bold text-black mb-2">利息</div>
+                        <div className="font-bold text-black mb-2">Fee</div>
                         <Input right="%" disabled value={query.guarantorFee} />
                     </div>
                     <div className="mt-2">
                         <div className="font-bold text-black mb-2">
-                            担保金額
+                            Fee Price
                         </div>
                         <Input
                             right="ETH"
@@ -249,7 +241,7 @@ export const GurantarModalStep2: FC<Prop> = ({
                     </div>
                     <div className="flex justify-end mt-4">
                         {signer ? (
-                            <Button onClick={sign}>受け入れる</Button>
+                            <Button onClick={sign}>Accept</Button>
                         ) : (
                             <CustomConnectButton />
                         )}
@@ -258,15 +250,13 @@ export const GurantarModalStep2: FC<Prop> = ({
             ) : (
                 <>
                     <div className="text-[#707B84] mex-auto font-bold mt-8">
-                        <div className="text-center">生成した署名を</div>
-                        <div className="text-center">
-                            おくりかえしてください
-                        </div>
+                        <div className="text-center">Generate Sign</div>
+                        <div className="text-center">reSend</div>
                     </div>
                     <div>
                         <div className="mt-20">
                             <div className="text-xs font-bold mt-8">
-                                署名済みリンク
+                                Sign Link
                             </div>
                             <div className="w-full border bg-[#F1F5F9] border-[#D8E5EF] rounded-md mt-2 overflow-x-auto text-slate-600 p-2">
                                 {returnLink}
@@ -312,8 +302,8 @@ export const GurantarModalStep3: FC<{
             <Steps step={3} />
             <>
                 <div className="text-[#707B84] mex-auto font-bold mt-8">
-                    <div className="text-center">申請が許可されました</div>
-                    <div className="text-center">確認して借りてください</div>
+                    <div className="text-center">Request Ok</div>
+                    <div className="text-center">Confirm and Rent</div>
                 </div>
                 <div className="w-[80px] h-[80px] relative mx-auto mt-2">
                     {/* <Image

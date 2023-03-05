@@ -183,7 +183,7 @@ export default function NftCoollectionList() {
                             <div className="grid grid-cols-2 gap-6 bg-white mt-4 text-gray-800 rounded-xl p-4 shadow-lg">
                                 <div>
                                     <div className="text-xs font-bold text-gray-600">
-                                        1日あたりの借り費用
+                                        Price Per Day
                                     </div>
                                     <div className="text-xl font-bold mt-2">
                                         {customPerPrice} WETH
@@ -231,7 +231,7 @@ export default function NftCoollectionList() {
                                 <div>
                                     <>
                                         <div className="text-xs font-bold text-gray-600">
-                                            担保費用
+                                            Collateral Price
                                         </div>
                                         <div className="text-xl font-bold mt-2">
                                             {customCollateralPrice} WETH
