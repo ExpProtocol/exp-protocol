@@ -311,11 +311,11 @@ export const GurantarModalStep3: FC<{
         <Modal isOpen={isOpen} onClose={closeModal}>
             <Steps step={3} />
             <>
-                <div className="text-[#707B84] mex-auto font-bold mt-4">
-                    <div className="text-center">内容が正しいか</div>
+                <div className="text-[#707B84] mex-auto font-bold mt-8">
+                    <div className="text-center">申請が許可されました</div>
                     <div className="text-center">確認して借りてください</div>
                 </div>
-                <div className="w-[120px] h-[120px] relative mx-auto mt-2">
+                <div className="w-[80px] h-[80px] relative mx-auto mt-2">
                     {/* <Image
                         src={imageValidation(selectItem?.tokenImage)}
                         fill
