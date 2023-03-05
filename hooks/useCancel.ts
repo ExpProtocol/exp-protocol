@@ -5,7 +5,7 @@ import { useContractAddresses } from "./useContractAddresses";
 export const useCancel = (lendId: string) => {
     const Contract = useContractAddresses();
     const { config: claimConfig, refetch } = usePrepareContractWrite({
-        address: Contract.MARKET,
+        address: Contract?.MARKET,
         abi: LIME_ABI,
         functionName: "cancelLend",
         args: [lendId],
