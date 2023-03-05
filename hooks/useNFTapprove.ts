@@ -28,7 +28,8 @@ export const useNFTapprove = (
         enabled: Boolean(cAddr && tokenId),
     });
 
-    const { writeAsync: approve } = useContractWrite(lendConfig);
-    console.log("approveFor", approveFor);
-    return { approve };
+    const isApproved =
+        approveFor === "0x5c0e8590Ee95a2208b91E315c993Fa731B0DABD6";
+    const { writeAsync: approve, isLoading } = useContractWrite(lendConfig);
+    return { approve, isApproved, isLoading };
 };
