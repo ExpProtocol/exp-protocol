@@ -6,27 +6,18 @@ import { db } from "./Firebase";
 import MyPageCardList from "../components/molecules/MyPageCardList";
 import { LendType } from "../types/LendType";
 import RentCardList from "../components/molecules/RentCardList";
+import { useLendingNfts } from "../hooks/useLendingNfts";
 
 export default function MyPage() {
     //TODO NFT情報の取得
-    const [item, setItem] = useState<LendType[]>();
+    const { nfts: item } = useLendingNfts();
     const [rentItem, setRentItem] = useState<LendType[]>();
     const { address } = useAccount();
 
+    console.log(item);
+
     useEffect(() => {
         const f1 = async () => {
-            const q1 = await query(
-                collection(db, "lend"),
-                where("lender", "==", address?.toLocaleLowerCase())
-            );
-            const querySnapshot1 = await getDocs(q1);
-            let s1: any = [];
-            querySnapshot1.forEach((doc) => {
-                const d = doc.data();
-                s1.push(d);
-            });
-            // console.log(s1);
-            setItem(s1);
             const q2 = await query(
                 collection(db, "lend"),
                 where("renter", "==", address?.toLocaleLowerCase())
