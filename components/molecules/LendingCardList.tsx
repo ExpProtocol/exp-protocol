@@ -1,9 +1,9 @@
 import { FC } from "react";
 import LendingCard from "./LendingCard";
-import NftCard from "./NftCard";
+import { Nft } from "../../types/Nft";
 
 type Prop = {
-    nfts: any;
+    nfts: Nft[];
     setSelectItem: any;
     openModal: any;
 };
@@ -13,6 +13,7 @@ const LendingCardList: FC<Prop> = ({ nfts, setSelectItem, openModal }) => {
         openModal();
         setSelectItem(item);
     };
+
     return (
         <div className="flex justify-start gap-8 flex-wrap mt-9">
             {nfts?.map((item: any, index: number) => {

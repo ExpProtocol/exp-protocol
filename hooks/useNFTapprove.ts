@@ -1,11 +1,22 @@
 import { BigNumber } from "ethers";
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import {
+    useContractRead,
+    useContractWrite,
+    usePrepareContractWrite,
+} from "wagmi";
 import { erc721ABI } from "wagmi";
 
 export const useNFTapprove = (
     cAddr: string | undefined,
     tokenId: string | undefined
 ) => {
+    const { data: approveFor } = useContractRead({
+        address: cAddr as `0x${string}`,
+        abi: erc721ABI,
+        functionName: "getApproved",
+        args: [BigNumber.from(tokenId || "0")],
+        enabled: Boolean(cAddr && tokenId),
+    });
     const { config: lendConfig } = usePrepareContractWrite({
         address: cAddr as `0x${string}`,
         abi: erc721ABI,
@@ -18,5 +29,6 @@ export const useNFTapprove = (
     });
 
     const { writeAsync: approve } = useContractWrite(lendConfig);
+    console.log("approveFor", approveFor);
     return { approve };
 };

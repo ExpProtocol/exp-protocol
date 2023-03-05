@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { useLend } from "../../hooks/useLend";
 import { Nft } from "../../types/Nft";
 import { useNFTapprove } from "../../hooks/useNFTapprove";
+import { Button } from "../atoms/Button";
 
 type Prop = {
     isOpen: boolean;
@@ -54,19 +55,9 @@ const LendModal: FC<Prop> = ({ isOpen, closeModal, selectItem }) => {
                 </div>
                 <div className="flex justify-center ">
                     {lend ? (
-                        <button
-                            onClick={() => lend()}
-                            className="bg-[#3EA8FF] px-4 py-2 text-white rounded-lg font-bold mt-4"
-                        >
-                            Lend
-                        </button>
+                        <Button onClick={() => lend()}>Lend</Button>
                     ) : (
-                        <button
-                            onClick={() => approve?.()}
-                            className="bg-[#3EA8FF] px-4 py-2 text-white rounded-lg font-bold mt-4"
-                        >
-                            Approve
-                        </button>
+                        <Button onClick={() => approve?.()}>Approve</Button>
                     )}
                 </div>
             </div>
