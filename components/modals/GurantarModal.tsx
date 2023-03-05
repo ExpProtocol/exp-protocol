@@ -7,10 +7,16 @@ import { Input } from "../atoms/Input";
 import { imageValidation } from "../../utils/imageValidation";
 import { useForm } from "react-hook-form";
 import { Button } from "../atoms/Button";
-import { useAccount, useChainId, useSigner } from "wagmi";
+import { useAccount, useChainId, useContractRead, useSigner } from "wagmi";
 import { useRouter } from "next/router";
 import { CustomConnectButton } from "../molecules/CustomConnectButton";
 import { useSignGuarantor } from "../../hooks/useSignGuarantor";
+import { useApprove } from "../../hooks/useApprove";
+import { useRentWithGuarantor } from "../../hooks/useRentWithGuarantor";
+import LIME_ABI from "../../models/LIME_ABI";
+import { BigNumber } from "ethers";
+import { useContractAddresses } from "../../hooks/useContractAddresses";
+import { usePayments } from "../../hooks/usePayments";
 
 const Steps: FC<{ step: number }> = ({ step }) => {
     const stepColor = (_step: number) =>
@@ -278,10 +284,54 @@ export const GurantarModalStep3: FC<{
     closeModal: () => void;
 }> = ({ isOpen, closeModal }) => {
     const { query } = useRouter();
+    const { rentWithGuarantor, refetch } = useRentWithGuarantor(
+        query.lendId as string,
+        query.guarantor as `0x${string}`,
+        query.guarantorBalance as string,
+        query.guarantorFee as string,
+        query.signature as string
+    );
+    const Contract = useContractAddresses();
+    const { data: lendCondition } = useContractRead({
+        address: Contract?.MARKET,
+        abi: LIME_ABI,
+        functionName: "lendCondition",
+        args: [BigNumber.from(query.lendId)],
+    });
+    const payments = usePayments();
+    console.log(payments[0]);
     console.log(query);
+    console.log(lendCondition);
+    console.log(lendCondition?.totalPrice);
+    console.log(query.guarantorBalance);
+    const price =
+        Number(lendCondition?.totalPrice) - Number(query.guarantorBalance);
+    console.log(price);
+    const { approve } = useApprove(payments[0], price?.toString());
     return (
         <Modal isOpen={isOpen} onClose={closeModal}>
             <Steps step={3} />
+            {rentWithGuarantor ? (
+                <Button
+                    onClick={() => {
+                        rentWithGuarantor()
+                            .then((tx: any) => tx.wait())
+                            .then(() => console.log("Rent: Success"));
+                    }}
+                >
+                    Rent With Guarantor
+                </Button>
+            ) : (
+                <Button
+                    onClick={() =>
+                        approve()
+                            .then((tx: any) => tx.wait())
+                            .then(() => refetch())
+                    }
+                >
+                    Approve
+                </Button>
+            )}
         </Modal>
     );
 };
