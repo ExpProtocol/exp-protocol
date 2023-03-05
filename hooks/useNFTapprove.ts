@@ -1,15 +1,34 @@
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import { BigNumber } from "ethers";
+import {
+    useContractRead,
+    useContractWrite,
+    usePrepareContractWrite,
+} from "wagmi";
+import { erc721ABI } from "wagmi";
 
-export const useNFTapprove = (cAddr: `0x${string}`, tokenId: string) => {
-	const { config: lendConfig } = usePrepareContractWrite({
-		address: cAddr,
-		abi: [
-			"function approve(address to, uint256 tokenId) public virtual override",
-		],
-		functionName: "approve",
-		args: ["0x5c0e8590Ee95a2208b91E315c993Fa731B0DABD6", tokenId],
-	});
+export const useNFTapprove = (
+    cAddr: string | undefined,
+    tokenId: string | undefined
+) => {
+    const { data: approveFor } = useContractRead({
+        address: cAddr as `0x${string}`,
+        abi: erc721ABI,
+        functionName: "getApproved",
+        args: [BigNumber.from(tokenId || "0")],
+        enabled: Boolean(cAddr && tokenId),
+    });
+    const { config: lendConfig } = usePrepareContractWrite({
+        address: cAddr as `0x${string}`,
+        abi: erc721ABI,
+        functionName: "approve",
+        args: [
+            "0x5c0e8590Ee95a2208b91E315c993Fa731B0DABD6",
+            BigNumber.from(tokenId || "0"),
+        ],
+        enabled: Boolean(cAddr && tokenId),
+    });
 
-	const { writeAsync: approve } = useContractWrite(lendConfig);
-	return { approve };
+    const { writeAsync: approve } = useContractWrite(lendConfig);
+    console.log("approveFor", approveFor);
+    return { approve };
 };
