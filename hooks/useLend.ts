@@ -2,6 +2,7 @@ import { BigNumber } from "ethers";
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import LIME_ABI from "../models/LIME_ABI";
 import { PaymentToken } from "../types/Payment";
+import { error } from "../utils/error";
 import { PaymentUtils } from "../utils/paymentUtil";
 import { useContractAddresses } from "./useContractAddresses";
 
@@ -35,6 +36,7 @@ export const useLend = (
         ),
     });
 
-    const { writeAsync: lend } = useContractWrite(lendConfig);
+    const { writeAsync: _lend } = useContractWrite(lendConfig);
+    const lend = () => _lend?.().catch(error);
     return { lend, refetch };
 };

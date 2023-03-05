@@ -7,6 +7,7 @@ import {
 } from "wagmi";
 import { erc20ABI } from "wagmi";
 import { PaymentToken } from "../types/Payment";
+import { error } from "../utils/error";
 import { useContractAddresses } from "./useContractAddresses";
 
 export const useApprove = (
@@ -27,7 +28,7 @@ export const useApprove = (
 
     const approve = async () => {
         console.log("Approving", payment);
-        return await _approve?.();
+        return await _approve?.().catch(error);
     };
 
     return { approve, approving };

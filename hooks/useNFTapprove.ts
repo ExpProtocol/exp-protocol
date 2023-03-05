@@ -5,6 +5,7 @@ import {
     usePrepareContractWrite,
 } from "wagmi";
 import { erc721ABI } from "wagmi";
+import { error } from "../utils/error";
 import { useContractAddresses } from "./useContractAddresses";
 
 export const useNFTapprove = (
@@ -28,9 +29,13 @@ export const useNFTapprove = (
             BigNumber.from(tokenId || "0"),
         ],
         enabled: Boolean(cAddr && tokenId),
+        onError: error,
     });
 
     const isApproved = approveFor === Contract?.MARKET;
-    const { writeAsync: approve, isLoading } = useContractWrite(lendConfig);
+    const { writeAsync: _approve, isLoading } = useContractWrite(lendConfig);
+    const approve = async () => {
+        return await _approve?.().catch(error);
+    };
     return { approve, isApproved, isLoading };
 };

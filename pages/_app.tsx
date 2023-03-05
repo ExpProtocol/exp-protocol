@@ -7,8 +7,9 @@ import { configureChains, createClient, goerli, WagmiConfig } from "wagmi";
 import { mainnet, polygon, polygonMumbai } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { ErrorBoundary } from "react-error-boundary";
-import { ErrorToast } from "../components/ErrorToast";
 import { ToastContainer } from "react-toastify";
+import { ErrorFallback } from "../components/ErrorFallbak";
+import "react-toastify/dist/ReactToastify.css";
 
 const ALCHEMY_API_KEY = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY || "";
 
@@ -33,7 +34,7 @@ const wagmiClient = createClient({
 
 function MyApp({ Component, pageProps }: any) {
     return (
-        <ErrorBoundary FallbackComponent={ErrorToast}>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
             <WagmiConfig client={wagmiClient}>
                 <QueryClientProvider client={queryClient}>
                     <RainbowKitProvider chains={chains}>

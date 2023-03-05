@@ -1,5 +1,6 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import LIME_ABI from "../models/LIME_ABI.json";
+import { error } from "../utils/error";
 import { useContractAddresses } from "./useContractAddresses";
 
 export const useRent = (lendId: string) => {
@@ -12,6 +13,7 @@ export const useRent = (lendId: string) => {
         args: [lendId],
     });
 
-    const { writeAsync: rent } = useContractWrite(rentConfig);
+    const { writeAsync: _rent } = useContractWrite(rentConfig);
+    const rent = () => _rent?.().catch(error);
     return { rent, refetch };
 };

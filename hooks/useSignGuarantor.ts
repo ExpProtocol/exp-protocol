@@ -11,6 +11,7 @@ import LIME_ABI from "../models/LIME_ABI";
 import { PaymentUtils } from "../utils/paymentUtil";
 import { usePaymentFromAddress } from "./usePaymentFromAddress";
 import { useApprove } from "./useApprove";
+import { error } from "../utils/error";
 
 export const useSignGuarantor = (
     lendId: string,
@@ -51,25 +52,27 @@ export const useSignGuarantor = (
 
     const { approve } = useApprove(payment, value.guarantorBalance.toString());
 
-    const { data: signature, signTypedDataAsync } = useSignTypedData({
-        domain: {
-            chainId,
-            verifyingContract: Contract?.MARKET,
-            name: "EXP-Market",
-            version: "1",
-        },
-        types: {
-            GuarantorRequest: [
-                { type: "uint96", name: "lendId" },
-                { type: "address", name: "renter" },
-                { type: "uint120", name: "guarantorBalance" },
-                { type: "uint16", name: "guarantorFee" },
-                { type: "uint24", name: "nonce" },
-            ],
-        },
-        value,
-    });
-    console.log(value);
+    const { data: signature, signTypedDataAsync: _signTypedDataAsync } =
+        useSignTypedData({
+            domain: {
+                chainId,
+                verifyingContract: Contract?.MARKET,
+                name: "EXP-Market",
+                version: "1",
+            },
+            types: {
+                GuarantorRequest: [
+                    { type: "uint96", name: "lendId" },
+                    { type: "address", name: "renter" },
+                    { type: "uint120", name: "guarantorBalance" },
+                    { type: "uint16", name: "guarantorFee" },
+                    { type: "uint24", name: "nonce" },
+                ],
+            },
+            value,
+        });
+
+    const signTypedDataAsync = () => _signTypedDataAsync?.().catch(error);
 
     return {
         signature,

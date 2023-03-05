@@ -1,5 +1,6 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import LIME_ABI from "../models/LIME_ABI.json";
+import { error } from "../utils/error";
 import { useContractAddresses } from "./useContractAddresses";
 
 export const useCancel = (lendId: string) => {
@@ -9,6 +10,7 @@ export const useCancel = (lendId: string) => {
         abi: LIME_ABI,
         functionName: "cancelLend",
         args: [lendId],
+        onError: error,
     });
 
     const { writeAsync: cancel } = useContractWrite(claimConfig);
