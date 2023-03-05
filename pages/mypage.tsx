@@ -42,12 +42,12 @@ export default function MyPage() {
                 <div className="mt-16">
                     <Title title="MY PAGE" subTitle="" to="" isButton={true} />
                 </div>
-                <div className="mx-auto text-gray-800 font-bold">
+                <div className="mx-auto text-gray-800 font-bold ">
                     <div>All Your Lend</div>
-                    <div className="">
+                    <div className="flex justify-start h-[270px]">
                         <MyPageCardList nfts={item} />
                     </div>
-                    <div>All Your Rent</div>
+                    <div className="mt-8">All Your Rent</div>
                     <div className="flex justify-start h-[270px]">
                         <RentCardList nfts={rentItem} />
                     </div>
