@@ -32,10 +32,10 @@ const customStyles: ReactModal.Styles = {
 	},
 };
 
-const LendSuccessModal: FC<Prop> = ({ isOpen, closeModal }) => {
+const RentSuccessModal: FC<Prop> = ({ isOpen, closeModal }) => {
 	return (
 		<Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles}>
-			<div className=" text-center font-bold text-2xl mt-12">Lend Success</div>
+			<div className=" text-center font-bold text-2xl mt-12">Rent Success</div>
 			<div className="text-4xl text-center mt-8">🎉</div>
 			<div className="flex justify-center mt-8">
 				<Link
@@ -49,4 +49,4 @@ const LendSuccessModal: FC<Prop> = ({ isOpen, closeModal }) => {
 	);
 };
 
-export default LendSuccessModal;
+export default RentSuccessModal;

@@ -11,7 +11,7 @@ import { etherValidation } from "../../utils/etherValidation";
 import { LendType } from "../../types/LendType";
 import { useApprove } from "../../hooks/useApprove";
 import { addressValidation } from "../../utils/addressValidation";
-import LendSuccessModal from "../../components/modals/LendSuccessModal";
+import LendSuccessModal from "../../components/modals/RentSuccessModal";
 import LIME_ABI from "../../models/LIME_ABI.json";
 import { imageValidation } from "../../utils/imageValidation";
 
