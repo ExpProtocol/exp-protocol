@@ -25,7 +25,10 @@ export const useApprove = (
     const { writeAsync: _approve, isLoading: approving } =
         useContractWrite(rentConfig);
 
-    const approve = async () => await _approve?.();
+    const approve = async () => {
+        console.log("Approving", payment);
+        return await _approve?.();
+    };
 
     return { approve, approving };
 };

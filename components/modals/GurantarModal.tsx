@@ -184,7 +184,7 @@ export const GurantarModalStep2: FC<Prop> = ({
     const { data: signer } = useSigner();
     const account = useAccount();
     const [returnLink, setReturnLink] = useState("");
-    const { signTypedDataAsync, value } = useSignGuarantor(
+    const { signTypedDataAsync, value, approve } = useSignGuarantor(
         query.lendId as string,
         query.renter as `0x${string}`,
         query.guarantorBalance as string,
@@ -192,7 +192,10 @@ export const GurantarModalStep2: FC<Prop> = ({
     );
 
     const sign = async () => {
-        if (!signTypedDataAsync) return;
+        if (!signTypedDataAsync || !approve) return;
+        const tx = await approve();
+        if (!tx) return;
+        await tx?.wait();
         const signature = await signTypedDataAsync();
         const url = new URL(location.origin + location.pathname);
         url.searchParams.set("ReturnRequest", "true");
@@ -284,6 +287,7 @@ export const GurantarModalStep3: FC<{
     closeModal: () => void;
 }> = ({ isOpen, closeModal }) => {
     const { query } = useRouter();
+    console.log(query.signature);
     const { rentWithGuarantor, refetch } = useRentWithGuarantor(
         query.lendId as string,
         query.guarantor as `0x${string}`,
@@ -299,39 +303,51 @@ export const GurantarModalStep3: FC<{
         args: [BigNumber.from(query.lendId)],
     });
     const payments = usePayments();
-    console.log(payments[0]);
-    console.log(query);
-    console.log(lendCondition);
-    console.log(lendCondition?.totalPrice);
-    console.log(query.guarantorBalance);
-    const price =
-        Number(lendCondition?.totalPrice) - Number(query.guarantorBalance);
-    console.log(price);
+    const price = lendCondition?.totalPrice?.sub(
+        query?.guarantorBalance as string
+    );
     const { approve } = useApprove(payments[0], price?.toString());
     return (
         <Modal isOpen={isOpen} onClose={closeModal}>
             <Steps step={3} />
-            {rentWithGuarantor ? (
-                <Button
-                    onClick={() => {
-                        rentWithGuarantor()
-                            .then((tx: any) => tx.wait())
-                            .then(() => console.log("Rent: Success"));
-                    }}
-                >
-                    Rent With Guarantor
-                </Button>
-            ) : (
-                <Button
-                    onClick={() =>
-                        approve()
-                            .then((tx: any) => tx.wait())
-                            .then(() => refetch())
-                    }
-                >
-                    Approve
-                </Button>
-            )}
+            <>
+                <div className="text-[#707B84] mex-auto font-bold mt-4">
+                    <div className="text-center">内容が正しいか</div>
+                    <div className="text-center">確認して借りてください</div>
+                </div>
+                <div className="w-[120px] h-[120px] relative mx-auto mt-2">
+                    {/* <Image
+                        src={imageValidation(selectItem?.tokenImage)}
+                        fill
+                        style={{ objectFit: "cover" }}
+                        className="rounded-xl"
+                        alt=""
+                    /> */}
+                </div>
+                <div className="flex justify-center">
+                    {rentWithGuarantor ? (
+                        <Button
+                            onClick={() => {
+                                rentWithGuarantor()
+                                    .then((tx: any) => tx.wait())
+                                    .then(() => console.log("Rent: Success"));
+                            }}
+                        >
+                            Rent With Guarantor
+                        </Button>
+                    ) : (
+                        <Button
+                            onClick={() =>
+                                approve()
+                                    .then((tx: any) => tx.wait())
+                                    .then(() => refetch())
+                            }
+                        >
+                            Approve
+                        </Button>
+                    )}
+                </div>
+            </>
         </Modal>
     );
 };

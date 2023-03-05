@@ -10,6 +10,7 @@ import { BigNumber } from "ethers";
 import LIME_ABI from "../models/LIME_ABI";
 import { PaymentUtils } from "../utils/paymentUtil";
 import { usePaymentFromAddress } from "./usePaymentFromAddress";
+import { useApprove } from "./useApprove";
 
 export const useSignGuarantor = (
     lendId: string,
@@ -17,35 +18,39 @@ export const useSignGuarantor = (
     guarantorBalance: string,
     guarantorFee: string
 ) => {
+    const Contract = useContractAddresses();
     const account = useAccount();
-    const { data } = useContractReads({
+    const { data, ...other } = useContractReads({
         contracts: [
             {
                 abi: LIME_ABI,
+                address: Contract?.MARKET,
                 functionName: "usedNonces",
                 args: [account.address as `0x${string}`],
             },
             {
                 abi: LIME_ABI,
+                address: Contract?.MARKET,
                 functionName: "lendCondition",
-                args: [BigNumber.from(0)],
+                args: [BigNumber.from(lendId || 0)],
             },
         ],
-        enabled: Boolean(account.address && lendId),
+        //enabled: Boolean(account.address && lendId),
     });
 
     const payment = usePaymentFromAddress(data && data[1].payment);
 
-    const Contract = useContractAddresses();
     const chainId = useChainId();
-
     const value = {
-        lendId: BigNumber.from(0),
+        lendId: BigNumber.from(lendId || 0),
         renter: renter as `0x${string}`,
         guarantorBalance: PaymentUtils.parse(payment, guarantorBalance),
         guarantorFee: Math.ceil(100 / Number(guarantorFee)),
         nonce: (data && data[0] && data[0] + 1) || 1,
     };
+
+    const { approve } = useApprove(payment, value.guarantorBalance.toString());
+
     const { data: signature, signTypedDataAsync } = useSignTypedData({
         domain: {
             chainId,
@@ -64,10 +69,12 @@ export const useSignGuarantor = (
         },
         value,
     });
+    console.log(value);
 
     return {
         signature,
         signTypedDataAsync,
+        approve,
         value,
     };
 };
