@@ -1,12 +1,4 @@
-import { useEffect, useState } from "react";
-import {
-    Network,
-    Alchemy,
-    initializeAlchemy,
-    getNftsForOwner,
-} from "@alch/alchemy-sdk";
-import { useAccount } from "wagmi";
-
+import { useState } from "react";
 import { Nft } from "../types/Nft";
 import Title from "../components/atoms/SubHeader";
 import LendingCardList from "../components/molecules/LendingCardList";
@@ -14,7 +6,7 @@ import LendModal from "../components/modals/LendModal";
 import { useOwnedNfts } from "../hooks/useOwnedNfts";
 
 export default function Lending() {
-    const { nfts: item } = useOwnedNfts();
+    const { nfts: item, isLoading } = useOwnedNfts();
     const [isLendModal, setIsLendModal] = useState(false);
     const [selectItem, setSelectItem] = useState<Nft>();
 
@@ -42,11 +34,15 @@ export default function Lending() {
                         isButton={false}
                     />
                 </div>
-                <LendingCardList
-                    nfts={item}
-                    setSelectItem={setSelectItem}
-                    openModal={openLendModal}
-                />
+                {isLoading ? (
+                    "Loading..."
+                ) : (
+                    <LendingCardList
+                        nfts={item}
+                        setSelectItem={setSelectItem}
+                        openModal={openLendModal}
+                    />
+                )}
             </div>
         </div>
     );
