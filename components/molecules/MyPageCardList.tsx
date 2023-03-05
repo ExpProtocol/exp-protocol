@@ -8,7 +8,7 @@ type Prop = {
 
 const MyPageCardList: FC<Prop> = ({ nfts }) => {
 	return (
-		<div className="flex justify-center gap-8 flex-wrap mt-9">
+		<div className="flex justify-start gap-8 flex-wrap mt-9">
 			{nfts?.map((item: LendType, index: number) => {
 				return (
 					<div key={index}>

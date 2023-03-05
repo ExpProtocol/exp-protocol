@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FC } from "react";
+import { imageValidation } from "../../utils/imageValidation";
 
 export type Nft = {
 	address: string;
@@ -17,7 +18,7 @@ const LendingCard: FC<Nft> = ({ name, image, doClick, buttunTitle }) => {
 		<div className="w-[156px] h-[214px] bg-white drop-shadow-lg rounded-xl text-gray-800 pt-2">
 			<div className="w-[140px] h-[140px] bg-[#CFE4FE] rounded-xl mx-2 relative">
 				<Image
-					src={image}
+					src={imageValidation(image)}
 					fill
 					style={{ objectFit: "cover" }}
 					className="rounded-xl"
