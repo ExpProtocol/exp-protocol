@@ -6,6 +6,9 @@ import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createClient, goerli, WagmiConfig } from "wagmi";
 import { mainnet, polygon, polygonMumbai } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
+import { ErrorBoundary } from "react-error-boundary";
+import { ErrorToast } from "../components/ErrorToast";
+import { ToastContainer } from "react-toastify";
 
 const ALCHEMY_API_KEY = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY || "";
 
@@ -30,15 +33,18 @@ const wagmiClient = createClient({
 
 function MyApp({ Component, pageProps }: any) {
     return (
-        <WagmiConfig client={wagmiClient}>
-            <QueryClientProvider client={queryClient}>
-                <RainbowKitProvider chains={chains}>
-                    <Layout>
-                        <Component {...pageProps} />
-                    </Layout>
-                </RainbowKitProvider>
-            </QueryClientProvider>
-        </WagmiConfig>
+        <ErrorBoundary FallbackComponent={ErrorToast}>
+            <WagmiConfig client={wagmiClient}>
+                <QueryClientProvider client={queryClient}>
+                    <RainbowKitProvider chains={chains}>
+                        <Layout>
+                            <Component {...pageProps} />
+                        </Layout>
+                        <ToastContainer />
+                    </RainbowKitProvider>
+                </QueryClientProvider>
+            </WagmiConfig>
+        </ErrorBoundary>
     );
 }
 
