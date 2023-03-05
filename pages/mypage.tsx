@@ -2,31 +2,22 @@ import { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "@firebase/firestore";
 import { useAccount } from "wagmi";
 import Title from "../components/atoms/SubHeader";
-import { db } from "./Firebase";
+import { db } from "../libs/Firebase";
 import MyPageCardList from "../components/molecules/MyPageCardList";
 import { LendType } from "../types/LendType";
 import RentCardList from "../components/molecules/RentCardList";
+import { useLendingNfts } from "../hooks/useLendingNfts";
 
 export default function MyPage() {
     //TODO NFT情報の取得
-    const [item, setItem] = useState<LendType[]>();
+    const { nfts: item } = useLendingNfts();
     const [rentItem, setRentItem] = useState<LendType[]>();
     const { address } = useAccount();
 
+    console.log(item);
+
     useEffect(() => {
         const f1 = async () => {
-            const q1 = await query(
-                collection(db, "lend"),
-                where("lender", "==", address?.toLocaleLowerCase())
-            );
-            const querySnapshot1 = await getDocs(q1);
-            let s1: any = [];
-            querySnapshot1.forEach((doc) => {
-                const d = doc.data();
-                s1.push(d);
-            });
-            // console.log(s1);
-            setItem(s1);
             const q2 = await query(
                 collection(db, "lend"),
                 where("renter", "==", address?.toLocaleLowerCase())
@@ -52,12 +43,12 @@ export default function MyPage() {
                 <div className="mt-16">
                     <Title title="MY PAGE" subTitle="" to="" isButton={true} />
                 </div>
-                <div className="mx-auto">
-                    <div>Lend一覧</div>
+                <div className="mx-4">
+                    <div className="text-black font-bold">Lend一覧</div>
                     <div className="">
                         <MyPageCardList nfts={item} />
                     </div>
-                    <div>Rent一覧</div>
+                    <div className="text-black font-bold mt-8"> Rent一覧</div>
                     <div className="flex justify-start h-[270px]">
                         <RentCardList nfts={rentItem} />
                     </div>

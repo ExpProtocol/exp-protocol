@@ -1,28 +1,31 @@
 import { BigNumber } from "ethers";
 import {
-	useAccount,
-	useContractRead,
-	useContractWrite,
-	usePrepareContractWrite,
+    useAccount,
+    useContractRead,
+    useContractWrite,
+    usePrepareContractWrite,
 } from "wagmi";
 import { erc20ABI } from "wagmi";
+import { PaymentToken } from "../types/Payment";
+import { useContractAddresses } from "./useContractAddresses";
 
-export const useApprove = (amount: string | undefined) => {
-	const { config: rentConfig } = usePrepareContractWrite({
-		address: "0xC124a7F913F102AdFd971cD593270049d161fcA2",
-		abi: erc20ABI,
-		functionName: "approve",
-		args: [
-			"0x5c0e8590Ee95a2208b91E315c993Fa731B0DABD6",
-			BigNumber.from(amount || 0),
-		],
-		enabled: Boolean(amount),
-	});
+export const useApprove = (
+    payment: PaymentToken | undefined,
+    amount: string | undefined
+) => {
+    const Contract = useContractAddresses();
+    const { config: rentConfig } = usePrepareContractWrite({
+        address: payment?.address as `0x${string}`,
+        abi: erc20ABI,
+        functionName: "approve",
+        args: [Contract?.MARKET as `0x${string}`, BigNumber.from(amount || 0)],
+        enabled: Boolean(Contract && payment && amount),
+    });
 
-	const { writeAsync: _approve, isLoading: approving } =
-		useContractWrite(rentConfig);
+    const { writeAsync: _approve, isLoading: approving } =
+        useContractWrite(rentConfig);
 
-	const approve = async () => await _approve?.();
+    const approve = async () => await _approve?.();
 
-	return { approve, approving };
+    return { approve, approving };
 };
