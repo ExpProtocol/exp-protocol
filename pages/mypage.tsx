@@ -14,13 +14,12 @@ export default function MyPage() {
     const [rentItem, setRentItem] = useState<LendType[]>();
     const { address } = useAccount();
 
-    console.log(item);
-
     useEffect(() => {
         const f1 = async () => {
             const q2 = await query(
                 collection(db, "lend"),
-                where("renter", "==", address?.toLocaleLowerCase())
+                where("renter", "==", address?.toLocaleLowerCase()),
+                where("isActive", "==", true)
             );
             const querySnapshot2 = await getDocs(q2);
             let s2: any = [];
@@ -43,12 +42,12 @@ export default function MyPage() {
                 <div className="mt-16">
                     <Title title="MY PAGE" subTitle="" to="" isButton={true} />
                 </div>
-                <div className="mx-auto">
-                    <div>Lend一覧</div>
+                <div className="mx-auto text-gray-800 font-bold">
+                    <div>All Your Lend</div>
                     <div className="">
                         <MyPageCardList nfts={item} />
                     </div>
-                    <div>Rent一覧</div>
+                    <div>All Your Rent</div>
                     <div className="flex justify-start h-[270px]">
                         <RentCardList nfts={rentItem} />
                     </div>
