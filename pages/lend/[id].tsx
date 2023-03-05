@@ -13,6 +13,7 @@ import { useApprove } from "../../hooks/useApprove";
 import { addressValidation } from "../../utils/addressValidation";
 import LendSuccessModal from "../../components/modals/LendSuccessModal";
 import LIME_ABI from "../../models/LIME_ABI.json";
+import { imageValidation } from "../../utils/imageValidation";
 
 export default function NftCoollectionList() {
 	const [isGulModal, setIsGulModal] = useState(false);
@@ -106,7 +107,7 @@ export default function NftCoollectionList() {
 						<div className="h-[236px] w-[236px] bg-white flex justify-center items-center rounded-2xl shadow-lg">
 							<div className="h-[212px] w-[212px] bg-[#CFE4FE] rounded-2xl relative">
 								<Image
-									src={item.tokenImage != "" ? item.tokenImage : "/noimage.jpg"}
+									src={imageValidation(item.tokenImage)}
 									fill
 									style={{ objectFit: "cover" }}
 									className="rounded-xl"

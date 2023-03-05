@@ -7,7 +7,6 @@ type Prop = {
 };
 
 const MyPageCardList: FC<Prop> = ({ nfts }) => {
-	const doClick = () => {};
 	return (
 		<div className="flex justify-center gap-8 flex-wrap mt-9">
 			{nfts?.map((item: LendType, index: number) => {
@@ -20,9 +19,9 @@ const MyPageCardList: FC<Prop> = ({ nfts }) => {
 							image={item.tokenImage}
 							perPrice={item.perPrice}
 							collateralPrice={item.collateralPrice}
-							doClick={() => doClick}
 							buttunTitle="貸出登録"
 							lendId={item.lendId}
+							renter={item.renter}
 						/>
 					</div>
 				);

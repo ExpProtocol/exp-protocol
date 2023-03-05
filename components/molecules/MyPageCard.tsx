@@ -4,6 +4,8 @@ import { FaEthereum, FaShieldAlt } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
 import { useClaim } from "../../hooks/useClaim";
 import { etherValidation } from "../../utils/etherValidation";
+import { imageValidation } from "../../utils/imageValidation";
+import { LendButton } from "../atoms/LendButton";
 
 export type Nft = {
 	address: string;
@@ -12,9 +14,9 @@ export type Nft = {
 	tokenId: string;
 	perPrice: string;
 	collateralPrice: string;
-	doClick: any;
 	buttunTitle: string;
 	lendId: string;
+	renter: string;
 };
 
 const MyPageCard: FC<Nft> = ({
@@ -24,18 +26,18 @@ const MyPageCard: FC<Nft> = ({
 	tokenId,
 	perPrice,
 	collateralPrice,
-	doClick,
 	buttunTitle,
 	lendId,
+	renter,
 }) => {
 	const customPerPrice = etherValidation(perPrice);
 	const customCollateralPrice = etherValidation(collateralPrice);
-	const { claim } = useClaim(lendId);
+
 	return (
 		<div className="w-[156px] h-[234px] bg-white drop-shadow-lg rounded-xl text-gray-800 pt-2">
 			<div className="w-[140px] h-[140px] bg-[#CFE4FE] rounded-xl mx-2 relative">
 				<Image
-					src={image}
+					src={imageValidation(image)}
 					fill
 					style={{ objectFit: "cover" }}
 					className="rounded-xl"
@@ -55,16 +57,7 @@ const MyPageCard: FC<Nft> = ({
 					</div>
 				</div>
 				<div className="flex justify-end items-center gap-2 mt-2">
-					<div
-						onClick={() =>
-							claim?.()
-								.then((tx: any) => tx.wait())
-								.then(() => console.log("Claim : success"))
-						}
-						className=" py-1 px-4 bg-[#3EA8FF] text-white rounded-lg font-bold text-xs flex justify-center items-center cursor-pointer"
-					>
-						{buttunTitle}
-					</div>
+					<LendButton renter={renter} lendId={lendId} />
 				</div>
 			</div>
 		</div>

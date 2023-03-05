@@ -1,6 +1,7 @@
 import Modal from "react-modal";
 import { FC, useState } from "react";
 import Image from "next/image";
+import { imageValidation } from "../../utils/imageValidation";
 
 type Prop = {
 	isOpen: boolean;
@@ -64,7 +65,7 @@ const LendModal: FC<Prop> = ({
 				<div className="text-center text-lg font-bold mt-12">レンタル登録</div>
 				<div className="w-[120px] h-[120px] relative mx-auto mt-6">
 					<Image
-						src={selectItem?.tokenImage}
+						src={imageValidation(selectItem?.tokenImage)}
 						fill
 						style={{ objectFit: "cover" }}
 						className="rounded-xl"

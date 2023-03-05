@@ -4,6 +4,7 @@ import { FC } from "react";
 import { FaEthereum, FaShieldAlt } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
 import { etherValidation } from "../../utils/etherValidation";
+import { imageValidation } from "../../utils/imageValidation";
 
 export type Nft = {
 	address: string;
@@ -32,7 +33,7 @@ const NftCard: FC<Nft> = ({
 		<div className="w-[156px] h-[234px] bg-white drop-shadow-lg rounded-xl text-gray-800 pt-2">
 			<div className="w-[140px] h-[140px] bg-[#CFE4FE] rounded-xl mx-2 relative">
 				<Image
-					src={image != "" ? image : "/noimage.jpg"}
+					src={imageValidation(image)}
 					fill
 					style={{ objectFit: "cover" }}
 					className="rounded-xl"
