@@ -71,6 +71,7 @@ export const GurantarModalStep1: FC<Prop> = ({
 }) => {
     const chainId = useChainId();
     const account = useAccount();
+    const payments = usePayments();
     const { register, handleSubmit } = useForm<{
         guarantorFee: string;
         guarantorBalance: string;
@@ -124,7 +125,7 @@ export const GurantarModalStep1: FC<Prop> = ({
                             Total Price
                         </div>
                         <Input
-                            right="ETH"
+                            right={payments[0]?.symbol}
                             {...register("guarantorBalance", {
                                 required: true,
                             })}
@@ -178,7 +179,7 @@ export const GurantarModalStep2: FC<Prop> = ({
     const { data: signer } = useSigner();
     const account = useAccount();
     const [returnLink, setReturnLink] = useState("");
-    const { signTypedDataAsync, value, approve } = useSignGuarantor(
+    const { signTypedDataAsync, value, approve, payment } = useSignGuarantor(
         query.lendId as string,
         query.renter as `0x${string}`,
         query.guarantorBalance as string,
@@ -191,6 +192,7 @@ export const GurantarModalStep2: FC<Prop> = ({
         if (!tx) return;
         await tx?.wait();
         const signature = await signTypedDataAsync();
+        if (!signature) return;
         const url = new URL(location.origin + location.pathname);
         url.searchParams.set("ReturnRequest", "true");
         url.searchParams.set("lendId", query.lendId as string);
@@ -234,7 +236,7 @@ export const GurantarModalStep2: FC<Prop> = ({
                             Fee Price
                         </div>
                         <Input
-                            right="ETH"
+                            right={payment?.symbol}
                             disabled
                             value={query.guarantorBalance}
                         />
@@ -319,7 +321,7 @@ export const GurantarModalStep3: FC<{
                         <Button
                             onClick={() => {
                                 rentWithGuarantor()
-                                    .then((tx: any) => tx.wait())
+                                    ?.then((tx: any) => tx.wait())
                                     .then(() => console.log("Rent: Success"));
                             }}
                         >

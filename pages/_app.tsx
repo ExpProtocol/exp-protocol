@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 const ALCHEMY_API_KEY = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY || "";
 
 const { chains, provider } = configureChains(
-    [mainnet, polygon, goerli, polygonMumbai],
+    [polygon, polygonMumbai],
     [alchemyProvider({ apiKey: ALCHEMY_API_KEY })]
 );
 

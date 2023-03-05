@@ -47,7 +47,7 @@ const LendModal: FC<Prop> = ({ isOpen, closeModal, selectItem }) => {
                 watch().collateralPrice
             ) {
                 setIsLoading(true);
-                _lend?.()?.then((tx) => tx.wait());
+                _lend?.()?.then((tx) => tx?.wait());
             }
         } finally {
             setIsLoading(false);
@@ -73,19 +73,19 @@ const LendModal: FC<Prop> = ({ isOpen, closeModal, selectItem }) => {
                 <div className="mt-6">
                     <div className="font-bold mb-2">Price Per Day</div>
                     <Input
-                        right="ETH"
+                        right={payments[0]?.symbol}
                         {...register("perPrice", { required: true })}
                     />
                 </div>
                 <div className="mt-6">
                     <div className="font-bold mb-2">Collateral Price</div>
                     <Input
-                        right="ETH"
+                        right={payments[0]?.symbol}
                         {...register("collateralPrice", { required: true })}
                     />
                 </div>
                 <div className="flex justify-end">
-                    {_lend && isApproved ? (
+                    {isApproved ? (
                         <Button loading={isLoading} onClick={() => lend()}>
                             Lend
                         </Button>

@@ -22,6 +22,7 @@ export default function NftCoollectionList() {
     const [isGulModal, setIsGulModal] = useState(false);
     const [isLendSuccessModal, setIsLendSuccessModal] = useState(false);
     const router = useRouter();
+    const [chainId, setChainId] = useState("0");
     const [lendId, setLendId] = useState("0");
     const { rent, refetch } = useRent(lendId);
     const [item, setItem] = useState<LendType>();
@@ -32,6 +33,7 @@ export default function NftCoollectionList() {
     });
 
     const Contract = useContractAddresses();
+    console.log(Contract);
     const { data: isBorrowable } = useContractRead({
         address: Contract?.MARKET,
         abi: LIME_ABI,
@@ -65,6 +67,7 @@ export default function NftCoollectionList() {
             const [_, chainId, tmpLendId] =
                 /\/lend\/(\d+)-(\d+)(.*)/.exec(router.asPath) || [];
             setLendId(tmpLendId);
+            setChainId(chainId);
             const q1 = await query(
                 collection(db, "lend"),
                 where("chainId", "==", chainId),
@@ -122,6 +125,14 @@ export default function NftCoollectionList() {
                             </div>
                             <div className="bg-white p-3 rounded-xl mt-4 shadow-lg">
                                 <div className="flex justify-between items-center">
+                                    <div className="text-sm font-bold text-gray-600">
+                                        ChanId
+                                    </div>
+                                    <div className="text-sm font-bold text-gray-600">
+                                        {chainId}
+                                    </div>
+                                </div>
+                                <div className="flex justify-between items-center mt-2">
                                     <div className="text-sm font-bold text-gray-600">
                                         Address
                                     </div>
@@ -194,7 +205,7 @@ export default function NftCoollectionList() {
                                                 <button
                                                     onClick={() =>
                                                         rent()
-                                                            .then((tx: any) =>
+                                                            ?.then((tx: any) =>
                                                                 tx.wait()
                                                             )
                                                             .then(() =>
@@ -284,7 +295,7 @@ export default function NftCoollectionList() {
                                         <button
                                             onClick={() =>
                                                 rent()
-                                                    .then((tx: any) =>
+                                                    ?.then((tx: any) =>
                                                         tx.wait()
                                                     )
                                                     .then(() =>
@@ -328,6 +339,14 @@ export default function NftCoollectionList() {
                         </div>
                         <div className="bg-white p-3 rounded-xl mt-4 mx-8  shadow-lg mb-10">
                             <div className="flex justify-between items-center">
+                                <div className="text-sm font-bold text-gray-600">
+                                    ChainId
+                                </div>
+                                <div className="text-sm font-bold text-gray-600">
+                                    {chainId}
+                                </div>
+                            </div>
+                            <div className="flex justify-between items-center mt-2">
                                 <div className="text-sm font-bold text-gray-600">
                                     Address
                                 </div>

@@ -21,7 +21,7 @@ export const useSignGuarantor = (
 ) => {
     const Contract = useContractAddresses();
     const account = useAccount();
-    const { data, ...other } = useContractReads({
+    const { data } = useContractReads({
         contracts: [
             {
                 abi: LIME_ABI,
@@ -78,6 +78,7 @@ export const useSignGuarantor = (
         signature,
         signTypedDataAsync,
         approve,
+        payment,
         value,
     };
 };
