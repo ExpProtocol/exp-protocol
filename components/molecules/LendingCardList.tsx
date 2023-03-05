@@ -10,6 +10,7 @@ type Prop = {
 };
 
 const LendingCardList: FC<Prop> = ({ nfts, setSelectItem, openModal }) => {
+    console.log(nfts);
     const { nfts: lendings } = useLendingNfts();
     const doClick = (item: any) => {
         openModal();
@@ -21,7 +22,9 @@ const LendingCardList: FC<Prop> = ({ nfts, setSelectItem, openModal }) => {
             {nfts
                 ?.filter((nft) =>
                     lendings.find(
-                        (lending) => lending.collectionAddress === nft.cAddr
+                        (lending) =>
+                            lending.collectionAddress === nft.cAddr &&
+                            lending.tokenId === nft.tokenId
                     )
                 )
                 .map((item: any, index: number) => {
@@ -35,7 +38,7 @@ const LendingCardList: FC<Prop> = ({ nfts, setSelectItem, openModal }) => {
                                 perPrice={"0"}
                                 collateralPrice={"0"}
                                 doClick={() => doClick(item)}
-                                buttunTitle="貸出登録"
+                                buttunTitle="Lend"
                             />
                         </div>
                     );

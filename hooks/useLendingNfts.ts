@@ -15,7 +15,8 @@ export const useLendingNfts = () => {
             return getDocs(
                 query(
                     collection(db, "lend"),
-                    where("lender", "==", account.address?.toLocaleLowerCase())
+                    where("lender", "==", account.address?.toLocaleLowerCase()),
+                    where("isActive", "==", true)
                 )
             ).then((res) => res.docs.map((doc) => doc.data() as LendType));
         },

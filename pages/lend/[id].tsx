@@ -188,49 +188,64 @@ export default function NftCoollectionList() {
                                     <div className="text-xl font-bold mt-2">
                                         {customPerPrice} WETH
                                     </div>
-                                    {rent ? (
-                                        <button
-                                            onClick={() =>
-                                                rent()
-                                                    .then((tx: any) =>
-                                                        tx.wait()
-                                                    )
-                                                    .then(() =>
-                                                        openLendSuccessModal()
-                                                    )
-                                            }
-                                            className="w-full bg-[rgb(62,168,255)] text-white py-2 flex border-2 border-[#3EA8FF] justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
-                                        >
-                                            Rent
-                                        </button>
+                                    {isBorrowable ? (
+                                        <>
+                                            {rent != undefined ? (
+                                                <button
+                                                    onClick={() =>
+                                                        rent()
+                                                            .then((tx: any) =>
+                                                                tx.wait()
+                                                            )
+                                                            .then(() =>
+                                                                openLendSuccessModal()
+                                                            )
+                                                    }
+                                                    className="w-full bg-[rgb(62,168,255)] text-white py-2 flex border-2 border-[#3EA8FF] justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
+                                                >
+                                                    Rent
+                                                </button>
+                                            ) : (
+                                                <button
+                                                    onClick={() =>
+                                                        approve()
+                                                            .then((tx: any) =>
+                                                                tx.wait()
+                                                            )
+                                                            .then(() =>
+                                                                refetch()
+                                                            )
+                                                    }
+                                                    className="w-full bg-[rgb(62,168,255)] text-white py-2 flex border-2 border-[#3EA8FF] justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
+                                                >
+                                                    Approve
+                                                </button>
+                                            )}
+                                        </>
                                     ) : (
-                                        <button
-                                            onClick={() =>
-                                                approve()
-                                                    .then((tx: any) =>
-                                                        tx.wait()
-                                                    )
-                                                    .then(() => refetch())
-                                            }
-                                            className="w-full bg-[rgb(62,168,255)] text-white py-2 flex border-2 border-[#3EA8FF] justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
-                                        >
-                                            Approve
+                                        <button className="w-full bg-gray-300 text-white py-2 flex border-2 border-gray-400 justify-center font-bold items-center rounded-xl mt-2 cursor-pointer">
+                                            Now Renting
                                         </button>
                                     )}
                                 </div>
                                 <div>
-                                    <div className="text-xs font-bold text-gray-600">
-                                        担保費用
-                                    </div>
-                                    <div className="text-xl font-bold mt-2">
-                                        {customCollateralPrice} WETH
-                                    </div>
-                                    <button
-                                        onClick={openGulModal}
-                                        className="w-full border-2 border-[#3EA8FF] bg-white text-[#3EA8FF] font-bold py-2 flex justify-center items-center rounded-xl mt-2 cursor-pointer"
-                                    >
-                                        Rent with Guarantor
-                                    </button>
+                                    <>
+                                        <div className="text-xs font-bold text-gray-600">
+                                            担保費用
+                                        </div>
+                                        <div className="text-xl font-bold mt-2">
+                                            {customCollateralPrice} WETH
+                                        </div>
+
+                                        {isBorrowable && (
+                                            <button
+                                                onClick={openGulModal}
+                                                className="w-full border-2 border-[#3EA8FF] bg-white text-[#3EA8FF] font-bold py-2 flex justify-center items-center rounded-xl mt-2 cursor-pointer"
+                                            >
+                                                Rent with Guarantor
+                                            </button>
+                                        )}
+                                    </>
                                 </div>
                             </div>
                         </div>

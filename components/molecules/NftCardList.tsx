@@ -29,7 +29,7 @@ const NftCardList: FC<Prop> = ({ nfts, setSelectItem, openModal }) => {
                             collateralPrice={item.collateralPrice}
                             doClick={() => doClick(item)}
                             image={item.tokenImage}
-                            buttunTitle="Lend"
+                            isRent={item.isRent}
                         />
                     </Link>
                 );

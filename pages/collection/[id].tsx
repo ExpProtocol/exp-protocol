@@ -29,7 +29,8 @@ export default function NftCoollectionList() {
 
             const q1 = await query(
                 collection(db, "lend"),
-                where("collectionAddress", "==", tmpPath)
+                where("collectionAddress", "==", tmpPath),
+                where("isActive", "==", true)
             );
             const querySnapshot1 = await getDocs(q1);
             let s1: any = [];
