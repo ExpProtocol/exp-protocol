@@ -11,7 +11,9 @@
 	"dependencies": {
 		"@alch/alchemy-sdk": "^1.2.0",
 		"@firebase/firestore": "^3.8.3",
+		"@headlessui/react": "^1.7.13",
 		"@rainbow-me/rainbowkit": "^0.11.0",
+		"clsx": "^1.2.1",
 		"ethers": "^5.7.2",
 		"firebase": "^9.17.2",
 		"install": "^0.13.0",
@@ -19,8 +21,8 @@
 		"npm": "^9.5.1",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
+		"react-hook-form": "^7.43.4",
 		"react-icons": "^4.7.1",
-		"react-modal": "^3.16.1",
 		"wagmi": "^0.11.7"
 	},
 	"devDependencies": {
