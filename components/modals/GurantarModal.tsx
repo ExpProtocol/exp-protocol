@@ -7,19 +7,9 @@ import { Input } from "../atoms/Input";
 import { imageValidation } from "../../utils/imageValidation";
 import { useForm } from "react-hook-form";
 import { Button } from "../atoms/Button";
-import {
-    useAccount,
-    useChainId,
-    useNetwork,
-    useSigner,
-    useSignTypedData,
-} from "wagmi";
+import { useAccount, useChainId, useSigner } from "wagmi";
 import { useRouter } from "next/router";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { CustomConnectButton } from "../molecules/CustomConnectButton";
-import { useContractAddresses } from "../../hooks/useContractAddresses";
-import { BigNumber } from "ethers";
-import { PaymentUtils } from "../../utils/paymentUtil";
 import { useSignGuarantor } from "../../hooks/useSignGuarantor";
 
 const Steps: FC<{ step: number }> = ({ step }) => {
@@ -56,6 +46,13 @@ export const GurantarModal: FC<Prop> = ({ isOpen, ...props }) => {
                 {...props}
             />
         );
+    } else if (query.ReturnRequest) {
+        return (
+            <GurantarModalStep3
+                isOpen={Boolean(query.ReturnRequest)}
+                {...props}
+            />
+        );
     } else {
         return <GurantarModalStep1 isOpen={isOpen} {...props} />;
     }
@@ -79,8 +76,7 @@ export const GurantarModalStep1: FC<Prop> = ({
         guarantorFee: string;
         guarantorBalance: string;
     }) => {
-        console.log(selectItem);
-        const url = new URL(location.href);
+        const url = new URL(location.origin + location.pathname);
         url.searchParams.append("guarantorFee", input.guarantorFee);
         url.searchParams.append("guarantorBalance", input.guarantorBalance);
         url.searchParams.append("lendId", selectItem?.lendId);
@@ -173,133 +169,6 @@ export const GurantarModalStep1: FC<Prop> = ({
     );
 };
 
-// if (step == 2) {
-//     return (
-//         <Modal isOpen={isOpen} onClose={closeModal}>
-//             <div className="w-[280px] mx-auto">
-//                 <div className="flex justify-center gap-10 mt-10">
-//                     <div className="rounded-full w-[30px] h-[30px] flex justify-center items-center border-2 bg-[#F1F5F9] border-[#D8E5EF] text-[#D8E5EF] font-bold">
-//                         1
-//                     </div>
-//                     <div className="rounded-full w-[30px] h-[30px] flex justify-center items-center border-2 bg-[#3EA8FF] border-[#3EA8FF] text-white font-bold">
-//                         2
-//                     </div>
-//                     <div className="rounded-full w-[30px] h-[30px] flex justify-center items-center border-2 bg-[#F1F5F9] border-[#D8E5EF] text-[#D8E5EF] font-bold">
-//                         3
-//                     </div>
-//                 </div>
-//                 <div className="text-[#707B84] mex-auto font-bold mt-8">
-//                     <div className="text-center">内容が正しいか</div>
-//                     <div className="text-center">
-//                         確認して署名してください
-//                     </div>
-//                 </div>
-//                 <div className="w-[120px] h-[120px] relative mx-auto mt-6">
-//                     <Image
-//                         src={selectItem?.tokenImage}
-//                         fill
-//                         style={{ objectFit: "cover" }}
-//                         className="rounded-xl"
-//                         alt=""
-//                     />
-//                 </div>
-//                 <div>
-//                     <div>
-//                         <div className="text-xs font-bold mt-8">
-//                             1日あたり賃料
-//                         </div>
-//                         <input
-//                             onChange={() => {}}
-//                             className="w-full border h-[30px] bg-[#F1F5F9] border-[#D8E5EF] rounded-md mt-2"
-//                         ></input>
-//                     </div>
-//                     <div>
-//                         <div className="text-xs font-bold mt-8">
-//                             1日あたり賃料
-//                         </div>
-//                         <input
-//                             onChange={() => {}}
-//                             className="w-full border h-[30px] bg-[#F1F5F9] border-[#D8E5EF] rounded-md mt-2"
-//                         ></input>
-//                     </div>
-//                 </div>
-//                 <div className="flex justify-end ">
-//                     <div
-//                         onClick={() => {
-//                             setStep(3);
-//                         }}
-//                         className="bg-[#3EA8FF] px-4 py-2 text-white rounded-lg font-bold mt-4"
-//                     >
-//                         受け入れる
-//                     </div>
-//                 </div>
-//             </div>
-//         </Modal>
-//     );
-// } else if (step == 3) {
-//     return (
-//         <Modal isOpen={isOpen} onClose={closeModal}>
-//             <div className="w-[280px] mx-auto">
-//                 <div className="flex justify-center gap-10 mt-10">
-//                     <div className="rounded-full w-[30px] h-[30px] flex justify-center items-center border-2 bg-[#F1F5F9] border-[#D8E5EF] text-[#D8E5EF] font-bold">
-//                         1
-//                     </div>
-//                     <div className="rounded-full w-[30px] h-[30px] flex justify-center items-center border-2 bg-[#F1F5F9] border-[#D8E5EF] text-[#D8E5EF] font-bold">
-//                         2
-//                     </div>
-//                     <div className="rounded-full w-[30px] h-[30px] flex justify-center items-center border-2 bg-[#3EA8FF] border-[#3EA8FF] text-white font-bold">
-//                         3
-//                     </div>
-//                 </div>
-//                 <div className="text-[#707B84] mex-auto font-bold mt-8">
-//                     <div className="text-center">
-//                         連帯保証人に依頼したい
-//                     </div>
-//                     <div className="text-center">
-//                         {" "}
-//                         金額と手数料を設定してください
-//                     </div>
-//                 </div>
-//                 <div className="w-[120px] h-[120px] relative mx-auto mt-6">
-//                     <Image
-//                         src={selectItem?.tokenImage}
-//                         fill
-//                         style={{ objectFit: "cover" }}
-//                         className="rounded-xl"
-//                         alt=""
-//                     />
-//                 </div>
-//                 <div>
-//                     <div>
-//                         <div className="text-xs font-bold mt-8">
-//                             1日あたり賃料
-//                         </div>
-//                         <input
-//                             onChange={() => {}}
-//                             className="w-full border h-[30px] bg-[#F1F5F9] border-[#D8E5EF] rounded-md mt-2"
-//                         ></input>
-//                     </div>
-//                     <div>
-//                         <div className="text-xs font-bold mt-8">
-//                             1日あたり賃料
-//                         </div>
-//                         <input
-//                             onChange={() => {}}
-//                             className="w-full border h-[30px] bg-[#F1F5F9] border-[#D8E5EF] rounded-md mt-2"
-//                         ></input>
-//                     </div>
-//                 </div>
-//                 <div className="flex justify-end ">
-//                     <div className="bg-[#3EA8FF] px-4 py-2 text-white rounded-lg font-bold mt-4">
-//                         Next
-//                     </div>
-//                 </div>
-//             </div>
-//         </Modal>
-//     );
-// } else {
-//     return <div></div>;
-// }
 export const GurantarModalStep2: FC<Prop> = ({
     isOpen,
     closeModal,
@@ -307,53 +176,99 @@ export const GurantarModalStep2: FC<Prop> = ({
 }) => {
     const { query } = useRouter();
     const { data: signer } = useSigner();
-    const { signature, signTypedDataAsync } = useSignGuarantor(
+    const account = useAccount();
+    const [returnLink, setReturnLink] = useState("");
+    const { signTypedDataAsync, value } = useSignGuarantor(
         query.lendId as string,
         query.renter as `0x${string}`,
         query.guarantorBalance as string,
         query.guarantorFee as string
     );
 
-    const sign = () => {
+    const sign = async () => {
         if (!signTypedDataAsync) return;
-        const signature = signTypedDataAsync();
-        console.log(signature);
+        const signature = await signTypedDataAsync();
+        const url = new URL(location.origin + location.pathname);
+        url.searchParams.set("ReturnRequest", "true");
+        url.searchParams.set("lendId", query.lendId as string);
+        url.searchParams.set("guarantor", account.address as `0x${string}`);
+        url.searchParams.set("guarantorFee", value.guarantorFee.toString());
+        url.searchParams.set("signature", signature);
+        url.searchParams.set(
+            "guarantorBalance",
+            value.guarantorBalance.toString()
+        );
+        setReturnLink(url.toString());
     };
     return (
         <Modal isOpen={isOpen} onClose={closeModal}>
             <Steps step={2} />
-            <div className="text-[#707B84] mex-auto font-bold mt-4">
-                <div className="text-center">内容が正しいか</div>
-                <div className="text-center">確認して署名してください</div>
-            </div>
-            <div className="w-[120px] h-[120px] relative mx-auto mt-2">
-                <Image
-                    src={imageValidation(selectItem?.tokenImage)}
-                    fill
-                    style={{ objectFit: "cover" }}
-                    className="rounded-xl"
-                    alt=""
-                />
-            </div>
-            <div className="mt-2">
-                <div className="font-bold text-black mb-2">相手</div>
-                <Input disabled value={query.renter} />
-            </div>
-            <div className="mt-2">
-                <div className="font-bold text-black mb-2">利息</div>
-                <Input right="%" disabled value={query.guarantorFee} />
-            </div>
-            <div className="mt-2">
-                <div className="font-bold text-black mb-2">担保金額</div>
-                <Input right="ETH" disabled value={query.guarantorBalance} />
-            </div>
-            <div className="flex justify-end mt-4">
-                {signer ? (
-                    <Button onClick={sign}>受け入れる</Button>
-                ) : (
-                    <CustomConnectButton />
-                )}
-            </div>
+            {!returnLink ? (
+                <>
+                    <div className="text-[#707B84] mex-auto font-bold mt-4">
+                        <div className="text-center">内容が正しいか</div>
+                        <div className="text-center">
+                            確認して署名してください
+                        </div>
+                    </div>
+                    <div className="w-[120px] h-[120px] relative mx-auto mt-2">
+                        <Image
+                            src={imageValidation(selectItem?.tokenImage)}
+                            fill
+                            style={{ objectFit: "cover" }}
+                            className="rounded-xl"
+                            alt=""
+                        />
+                    </div>
+                    <div className="mt-2">
+                        <div className="font-bold text-black mb-2">相手</div>
+                        <Input disabled value={query.renter} />
+                    </div>
+                    <div className="mt-2">
+                        <div className="font-bold text-black mb-2">利息</div>
+                        <Input right="%" disabled value={query.guarantorFee} />
+                    </div>
+                    <div className="mt-2">
+                        <div className="font-bold text-black mb-2">
+                            担保金額
+                        </div>
+                        <Input
+                            right="ETH"
+                            disabled
+                            value={query.guarantorBalance}
+                        />
+                    </div>
+                    <div className="flex justify-end mt-4">
+                        {signer ? (
+                            <Button onClick={sign}>受け入れる</Button>
+                        ) : (
+                            <CustomConnectButton />
+                        )}
+                    </div>
+                </>
+            ) : (
+                <>
+                    <div className="text-[#707B84] mex-auto font-bold mt-8">
+                        <div className="text-center">生成した署名を</div>
+                        <div className="text-center">
+                            おくりかえしてください
+                        </div>
+                    </div>
+                    <div>
+                        <div className="mt-20">
+                            <div className="text-xs font-bold mt-8">
+                                署名済みリンク
+                            </div>
+                            <div className="w-full border bg-[#F1F5F9] border-[#D8E5EF] rounded-md mt-2 overflow-x-auto text-slate-600 p-2">
+                                {returnLink}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex justify-end ">
+                        <Button onClick={() => copy(returnLink)}>Copy</Button>
+                    </div>
+                </>
+            )}
         </Modal>
     );
 };
@@ -362,9 +277,11 @@ export const GurantarModalStep3: FC<{
     isOpen: boolean;
     closeModal: () => void;
 }> = ({ isOpen, closeModal }) => {
+    const { query } = useRouter();
+    console.log(query);
     return (
         <Modal isOpen={isOpen} onClose={closeModal}>
-            <div></div>
+            <Steps step={3} />
         </Modal>
     );
 };

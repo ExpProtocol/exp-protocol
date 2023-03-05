@@ -38,6 +38,14 @@ export const useSignGuarantor = (
 
     const Contract = useContractAddresses();
     const chainId = useChainId();
+
+    const value = {
+        lendId: BigNumber.from(0),
+        renter: renter as `0x${string}`,
+        guarantorBalance: PaymentUtils.parse(payment, guarantorBalance),
+        guarantorFee: Math.ceil(100 / Number(guarantorFee)),
+        nonce: (data && data[0] && data[0] + 1) || 1,
+    };
     const { data: signature, signTypedDataAsync } = useSignTypedData({
         domain: {
             chainId,
@@ -54,17 +62,12 @@ export const useSignGuarantor = (
                 { type: "uint24", name: "nonce" },
             ],
         },
-        value: {
-            lendId: BigNumber.from(0),
-            renter: renter as `0x${string}`,
-            guarantorBalance: PaymentUtils.parse(payment, guarantorBalance),
-            guarantorFee: Math.ceil(100 / Number(guarantorFee)),
-            nonce: (data && data[0] && data[0] + 1) || 1,
-        },
+        value,
     });
 
     return {
         signature,
         signTypedDataAsync,
+        value,
     };
 };

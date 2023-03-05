@@ -4,7 +4,7 @@ import { useContractAddresses } from "./useContractAddresses";
 
 export const useRent = (lendId: string) => {
     const Contract = useContractAddresses();
-    console.log(Contract);
+
     const { config: rentConfig, refetch } = usePrepareContractWrite({
         address: Contract?.MARKET,
         abi: LIME_ABI,
