@@ -9,7 +9,7 @@ type Prop = {
 
 const CollectionCardList: FC<Prop> = ({ collections }) => {
 	return (
-		<div className="flex flex-wrap items-center gap-[18px] mt-9">
+		<div className="flex flex-wrap md:justify-start justify-center items-center gap-[18px] mt-9">
 			{collections?.map((collection: CollectionTypes, index: number) => {
 				return (
 					<Link

@@ -14,6 +14,7 @@ import { addressValidation } from "../../utils/addressValidation";
 import LendSuccessModal from "../../components/modals/RentSuccessModal";
 import LIME_ABI from "../../models/LIME_ABI.json";
 import { imageValidation } from "../../utils/imageValidation";
+import { useMediaQuery } from "react-responsive";
 
 export default function NftCoollectionList() {
 	const [isGulModal, setIsGulModal] = useState(false);
@@ -25,6 +26,11 @@ export default function NftCoollectionList() {
 	const { rent, refetch } = useRent(lendId);
 	const [item, setItem] = useState<LendType>();
 	const { approve } = useApprove(item?.collateralPrice);
+	const isDesktopOrLaptop = useMediaQuery({
+		query: "(min-width: 1224px)",
+	});
+
+	console.log(isDesktopOrLaptop);
 
 	const { data: isBorrowable } = useContractRead({
 		address: "0x5c0e8590Ee95a2208b91E315c993Fa731B0DABD6",
@@ -102,20 +108,182 @@ export default function NftCoollectionList() {
 						isButton={false}
 					/>
 				</div>
-				<div className="flex justify-between mt-8">
-					<div>
-						<div className="h-[236px] w-[236px] bg-white flex justify-center items-center rounded-2xl shadow-lg">
-							<div className="h-[212px] w-[212px] bg-[#CFE4FE] rounded-2xl relative">
-								<Image
-									src={imageValidation(item.tokenImage)}
-									fill
-									style={{ objectFit: "cover" }}
-									className="rounded-xl"
-									alt=""
-								/>
+				{isDesktopOrLaptop ? (
+					<div className="flex justify-between flex-wrap mt-8">
+						<div>
+							<div className="h-[236px] w-[236px] bg-white flex justify-center items-center rounded-2xl shadow-lg">
+								<div className="h-[212px] w-[212px] bg-[#CFE4FE] rounded-2xl relative">
+									<Image
+										src={imageValidation(item.tokenImage)}
+										fill
+										style={{ objectFit: "cover" }}
+										className="rounded-xl"
+										alt=""
+									/>
+								</div>
+							</div>
+							<div className="bg-white p-3 rounded-xl mt-4 shadow-lg">
+								<div className="flex justify-between items-center">
+									<div className="text-sm font-bold text-gray-600">Address</div>
+									<div className="text-sm font-bold text-gray-600">
+										{addressValidation(item.collectionAddress)}
+									</div>
+								</div>
+								<div className="flex justify-between mt-2">
+									<div className="text-sm font-bold text-gray-600">TokenId</div>
+									<div className="text-sm font-bold text-gray-600">
+										{item.tokenId.slice(0, 4)}
+									</div>
+								</div>
+								<div className="flex justify-between mt-2">
+									<div className="text-sm font-bold text-gray-600">Amount</div>
+									<div className="text-sm font-bold text-gray-600">
+										{/* {item.amount} */}
+									</div>
+								</div>
+								<div className="flex justify-between mt-2">
+									<div className="text-sm font-bold text-gray-600">LendId</div>
+									<div className="text-sm font-bold text-gray-600">
+										{item.lendId}
+									</div>
+								</div>
+								<div className="flex justify-between mt-2">
+									<div className="text-sm font-bold text-gray-600">Lender</div>
+									<div className="text-sm font-bold text-gray-600">
+										{addressValidation(item.lender)}
+									</div>
+								</div>
+								<div className="flex justify-between mt-2">
+									<div className="text-sm font-bold text-gray-600">Renter</div>
+									<div className="text-sm font-bold text-gray-600">
+										{addressValidation(item.renter)}
+									</div>
+								</div>
 							</div>
 						</div>
-						<div className="bg-white p-3 rounded-xl mt-4 shadow-lg">
+						<div className="w-[460px] ">
+							<div className="text-gray-800">
+								<div className="">{item.collectionName}</div>
+								<div className="text-2xl font-bold">{item.tokenName}</div>
+							</div>
+							<div className="grid grid-cols-2 gap-6 bg-white mt-4 text-gray-800 rounded-xl p-4 shadow-lg">
+								<div>
+									<div className="text-xs font-bold text-gray-600">
+										1日あたりの借り費用
+									</div>
+									<div className="text-xl font-bold mt-2">
+										{customPerPrice} WETH
+									</div>
+									{rent ? (
+										<button
+											onClick={() =>
+												rent()
+													.then((tx: any) => tx.wait())
+													.then(() => openLendSuccessModal())
+											}
+											className="w-full bg-[rgb(62,168,255)] text-white py-2 flex border-2 border-[#3EA8FF] justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
+										>
+											Rent
+										</button>
+									) : (
+										<button
+											onClick={() =>
+												approve()
+													.then((tx: any) => tx.wait())
+													.then(() => refetch())
+											}
+											className="w-full bg-[rgb(62,168,255)] text-white py-2 flex border-2 border-[#3EA8FF] justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
+										>
+											Approve
+										</button>
+									)}
+								</div>
+								<div>
+									<div className="text-xs font-bold text-gray-600">
+										担保費用
+									</div>
+									<div className="text-xl font-bold mt-2">
+										{customCollateralPrice} WETH
+									</div>
+									<button
+										onClick={openGulModal}
+										className="w-full border-2 border-[#3EA8FF] bg-white text-[#3EA8FF] font-bold py-2 flex justify-center items-center rounded-xl mt-2 cursor-pointer"
+									>
+										Rent with Guarantor
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				) : (
+					<div>
+						<div className="flex justify-center mt-12">
+							<div className="h-[236px] w-[236px] bg-white flex justify-center items-center rounded-2xl shadow-lg">
+								<div className="h-[212px] w-[212px] bg-[#CFE4FE] rounded-2xl relative">
+									<Image
+										src={imageValidation(item.tokenImage)}
+										fill
+										style={{ objectFit: "cover" }}
+										className="rounded-xl"
+										alt=""
+									/>
+								</div>
+							</div>
+						</div>
+						<div className="mx-8 mt-8">
+							<div className="text-gray-800">
+								<div className="">{item.collectionName}</div>
+								<div className="text-2xl font-bold">{item.tokenName}</div>
+							</div>
+							<div className="grid grid-cols-2 gap-6 bg-white mt-4 text-gray-800 rounded-xl p-4 shadow-lg">
+								<div>
+									<div className="text-xs font-bold text-gray-600">
+										1日あたりの借り費用
+									</div>
+									<div className="text-xl font-bold mt-2">
+										{customPerPrice} WETH
+									</div>
+									{rent ? (
+										<button
+											onClick={() =>
+												rent()
+													.then((tx: any) => tx.wait())
+													.then(() => openLendSuccessModal())
+											}
+											className="w-full bg-[rgb(62,168,255)] text-white py-2 flex border-2 border-[#3EA8FF] justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
+										>
+											Rent
+										</button>
+									) : (
+										<button
+											onClick={() =>
+												approve()
+													.then((tx: any) => tx.wait())
+													.then(() => refetch())
+											}
+											className="w-full bg-[rgb(62,168,255)] text-white py-2 flex border-2 border-[#3EA8FF] justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
+										>
+											Approve
+										</button>
+									)}
+								</div>
+								<div>
+									<div className="text-xs font-bold text-gray-600">
+										担保費用
+									</div>
+									<div className="text-xl font-bold mt-2">
+										{customCollateralPrice} WETH
+									</div>
+									<button
+										onClick={openGulModal}
+										className="w-full border-2 border-[#3EA8FF] bg-white text-[#3EA8FF] font-bold py-2 flex justify-center items-center rounded-xl mt-2 cursor-pointer"
+									>
+										with Guarantor
+									</button>
+								</div>
+							</div>
+						</div>
+						<div className="bg-white p-3 rounded-xl mt-4 mx-8  shadow-lg mb-10">
 							<div className="flex justify-between items-center">
 								<div className="text-sm font-bold text-gray-600">Address</div>
 								<div className="text-sm font-bold text-gray-600">
@@ -154,58 +322,7 @@ export default function NftCoollectionList() {
 							</div>
 						</div>
 					</div>
-					<div className="w-[460px] ">
-						<div className="text-gray-800">
-							<div className="">{item.collectionName}</div>
-							<div className="text-2xl font-bold">{item.tokenName}</div>
-						</div>
-						<div className="grid grid-cols-2 gap-6 bg-white mt-4 text-gray-800 rounded-xl p-4 shadow-lg">
-							<div>
-								<div className="text-xs font-bold text-gray-600">
-									1日あたりの借り費用
-								</div>
-								<div className="text-xl font-bold mt-2">
-									{customPerPrice} WETH
-								</div>
-								{rent ? (
-									<button
-										onClick={() =>
-											rent()
-												.then((tx: any) => tx.wait())
-												.then(() => openLendSuccessModal())
-										}
-										className="w-full bg-[rgb(62,168,255)] text-white py-2 flex border-2 border-[#3EA8FF] justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
-									>
-										Rent
-									</button>
-								) : (
-									<button
-										onClick={() =>
-											approve()
-												.then((tx: any) => tx.wait())
-												.then(() => refetch())
-										}
-										className="w-full bg-[rgb(62,168,255)] text-white py-2 flex border-2 border-[#3EA8FF] justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
-									>
-										Approve
-									</button>
-								)}
-							</div>
-							<div>
-								<div className="text-xs font-bold text-gray-600">担保費用</div>
-								<div className="text-xl font-bold mt-2">
-									{customCollateralPrice} WETH
-								</div>
-								<button
-									onClick={openGulModal}
-									className="w-full border-2 border-[#3EA8FF] bg-white text-[#3EA8FF] font-bold py-2 flex justify-center items-center rounded-xl mt-2 cursor-pointer"
-								>
-									Rent with Guarantor
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
+				)}
 			</div>
 		</div>
 	);

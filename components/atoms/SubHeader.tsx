@@ -10,7 +10,7 @@ type Prop = {
 
 const SubHeader: FC<Prop> = ({ title, subTitle, to, isButton }) => {
 	return (
-		<>
+		<div className="mx-12 md:mx-auto">
 			<div className="h-[20px]">
 				<Link href={to} className="text-gray-400 text-sm">
 					{subTitle == "" ? " " : `←${subTitle}`}
@@ -30,7 +30,7 @@ const SubHeader: FC<Prop> = ({ title, subTitle, to, isButton }) => {
 					<div></div>
 				)}
 			</div>
-		</>
+		</div>
 	);
 };
 
