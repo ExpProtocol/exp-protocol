@@ -9,7 +9,7 @@ type Prop = {
 
 const RentCardList: FC<Prop> = ({ nfts }) => {
 	return (
-		<div className="flex justify-center md:justify-start gap-8 flex-wrap mt-9">
+		<div className="flex justify-between md:justify-start gap-8 flex-wrap mt-4 mx-5">
 			{nfts?.map((item: any, index: number) => {
 				return (
 					<div key={index}>
