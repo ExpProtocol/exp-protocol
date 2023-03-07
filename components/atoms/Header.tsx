@@ -11,7 +11,7 @@ export default function Header() {
                         src={"/image.png"}
                         fill
                         style={{ objectFit: "cover" }}
-                        className="rounded-t-xl"
+                        className=""
                         alt=""
                     />
                 </div>
