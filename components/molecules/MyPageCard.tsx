@@ -66,8 +66,6 @@ const MyPageCard: FC<Nft> = ({
                 <div className="flex justify-end items-center gap-2 mt-2">
                     <LendButton
                         renter={renter}
-                        lendId={lendId}
-                        isRent={isRent}
                         startTime={startTime}
                         pricePerSec={perPrice}
                         collateralPrice={collateralPrice}

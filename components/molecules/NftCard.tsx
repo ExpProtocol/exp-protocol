@@ -1,8 +1,6 @@
-import { ethers } from "ethers";
 import Image from "next/image";
 import { FC } from "react";
-import { FaEthereum, FaShieldAlt } from "react-icons/fa";
-import { FiMail } from "react-icons/fi";
+import { FaEthereum } from "react-icons/fa";
 import { etherValidation } from "../../utils/etherValidation";
 import { imageValidation } from "../../utils/imageValidation";
 
@@ -17,16 +15,7 @@ export type Nft = {
     isRent: boolean;
 };
 
-const NftCard: FC<Nft> = ({
-    address,
-    name,
-    image,
-    tokenId,
-    perPrice,
-    collateralPrice,
-    doClick,
-    isRent,
-}) => {
+const NftCard: FC<Nft> = ({ name, image, perPrice, isRent }) => {
     const customPerPrice = etherValidation(perPrice);
     return (
         <div className="w-[156px] h-[234px] bg-white drop-shadow-lg rounded-xl text-gray-800 pt-2">

@@ -2,8 +2,6 @@ import Link from "next/link";
 import { FC } from "react";
 import { LendType } from "../../types/LendType";
 import { etherValidation } from "../../utils/etherValidation";
-import LendingCard from "./LendingCard";
-import NftCard from "./NftCard";
 import RentCard from "./RentCard";
 
 type Prop = {
@@ -22,15 +20,11 @@ const RentCardList: FC<Prop> = ({ nfts }) => {
                         <RentCard
                             name={item.tokenName}
                             address={item.collectionAddress}
-                            tokenId={item.tokenId}
                             image={item.tokenImage}
                             perPrice={etherValidation(item.perPrice)}
                             collateralPrice={etherValidation(
                                 item.collateralPrice
                             )}
-                            doClick={() => {}}
-                            buttunTitle="Return"
-                            lendId={item.lendId}
                         />
                     </Link>
                 );

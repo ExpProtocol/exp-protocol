@@ -34,10 +34,7 @@ const LendingCardList: FC<Prop> = ({ nfts, setSelectItem, openModal }) => {
                             <LendingCard
                                 name={item.tokenName}
                                 address={item.collectionAddress}
-                                tokenId={item.tokenId}
                                 image={item.tokenImage}
-                                perPrice={"0"}
-                                collateralPrice={"0"}
                                 doClick={() => doClick(item)}
                                 buttunTitle="Lend"
                             />

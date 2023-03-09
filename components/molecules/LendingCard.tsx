@@ -6,9 +6,6 @@ export type Nft = {
     address: string;
     name: string;
     image: string;
-    tokenId: string;
-    perPrice: string;
-    collateralPrice: string;
     doClick: any;
     buttunTitle: string;
 };

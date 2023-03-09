@@ -3,8 +3,10 @@ import { useAccount } from "wagmi";
 import { useApprove } from "../../hooks/useApprove";
 import { useCancel } from "../../hooks/useCancel";
 import { useClaim } from "../../hooks/useClaim";
+import { useNFTapprove } from "../../hooks/useNFTapprove";
 import { usePayments } from "../../hooks/usePayments";
 import { useRent } from "../../hooks/useRent";
+import { useTokenReturn } from "../../hooks/useTokenReturn";
 
 type Prop = {
     isRent: boolean;
@@ -15,6 +17,7 @@ type Prop = {
     startTime: string;
     pricePerSec: string;
     collateralPrice: string;
+    tokenId: string;
 };
 
 const FunctionButton: FC<Prop> = ({
@@ -26,6 +29,7 @@ const FunctionButton: FC<Prop> = ({
     startTime,
     pricePerSec,
     collateralPrice,
+    tokenId,
 }) => {
     console.log(isRent);
     const payments = usePayments();
@@ -34,6 +38,8 @@ const FunctionButton: FC<Prop> = ({
     const { address } = useAccount();
     const { claim } = useClaim(lendId);
     const { cancel } = useCancel(lendId);
+    const { returnToken, refetch: returnTokenRefetch } = useTokenReturn(lendId);
+    const { approve: nftApprove } = useNFTapprove(address, tokenId);
     const now = Date.now();
     const diffInSeconds = Math.floor((now - Number(startTime)) / 1000);
     const totalPrice = diffInSeconds * Number(pricePerSec);
@@ -46,11 +52,34 @@ const FunctionButton: FC<Prop> = ({
                 </div>
             );
         } else {
-            return (
-                <div className="w-full bg-theme-100 text-white py-2 flex border-2 border-theme-100 justify-center font-bold items-center rounded-xl mt-2 cursor-pointer">
-                    Return
-                </div>
-            );
+            if (returnToken) {
+                return (
+                    <div
+                        className="w-full bg-theme-100 text-white py-2 flex border-2 border-theme-100 justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
+                        onClick={() =>
+                            returnToken()
+                                .then((tx: any) => tx.wait())
+                                .then(() => console.log("Rent: success"))
+                        }
+                    >
+                        Return
+                    </div>
+                );
+            } else {
+                return (
+                    <div
+                        className="w-full bg-theme-100 text-white py-2 flex border-2 border-theme-100 justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
+                        onClick={() => {
+                            approve?.()
+                                .then((tx: any) => tx.wait())
+                                .then(() => console.log("Approve: success"))
+                                .then(() => refetch?.());
+                        }}
+                    >
+                        Return
+                    </div>
+                );
+            }
         }
     }
 
@@ -126,7 +155,7 @@ const FunctionButton: FC<Prop> = ({
         }
     }
 
-    return <div>aaa</div>;
+    return <div></div>;
 };
 
 export default FunctionButton;
