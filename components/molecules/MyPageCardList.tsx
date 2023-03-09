@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FC } from "react";
 import { LendType } from "../../types/LendType";
 import MyPageCard from "./MyPageCard";
@@ -11,7 +12,10 @@ const MyPageCardList: FC<Prop> = ({ nfts }) => {
         <div className="flex justify-between md:justify-start gap-8 flex-wrap mt-4 mx-5 md:mx-0">
             {nfts?.map((item: LendType, index: number) => {
                 return (
-                    <div key={index}>
+                    <Link
+                        href={"/lend/" + item.chainId + "-" + item.lendId}
+                        key={index}
+                    >
                         <MyPageCard
                             name={item.tokenName}
                             address={item.collectionAddress}
@@ -25,7 +29,7 @@ const MyPageCardList: FC<Prop> = ({ nfts }) => {
                             isRent={item.isRent}
                             startTime={item.startTime}
                         />
-                    </div>
+                    </Link>
                 );
             })}
         </div>

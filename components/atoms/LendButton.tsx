@@ -34,7 +34,7 @@ export const LendButton: FC<Prop> = ({
                         .then((tx: any) => tx.wait())
                         .then(() => console.log("Cancel : success"))
                 }
-                className=" py-1 px-4 bg-[#3EA8FF] text-white rounded-lg font-bold text-xs flex justify-center items-center cursor-pointer"
+                className=" py-1 px-4 bg-theme-100 text-white rounded-lg font-bold text-xs flex justify-center items-center cursor-pointer"
             >
                 Cancel
             </button>

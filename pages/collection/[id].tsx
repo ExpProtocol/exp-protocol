@@ -5,6 +5,7 @@ import Title from "../../components/atoms/SubHeader";
 import NftCardList from "../../components/molecules/NftCardList";
 import { db } from "../../libs/Firebase";
 import { useRouter } from "next/router";
+import LoadCard from "../../components/atoms/LoadCard";
 
 export default function NftCoollectionList() {
     const [isGulModal, setIsGulModal] = useState(false);
@@ -55,7 +56,22 @@ export default function NftCoollectionList() {
     }, [router.asPath]);
 
     if (!collectionInfo) {
-        return <div></div>;
+        return (
+            <div>
+                <div className="max-w-[720px] mx-auto">
+                    <div className="mt-16">
+                        <div className="mx-12 md:mx-auto">
+                            <div className=" animate-pulse">
+                                <div className="h-[20px] w-36 bg-slate-100 drop-shadow-lg rounded-full"></div>
+                            </div>
+
+                            <div className="flex justify-between items-center"></div>
+                        </div>
+                    </div>
+                    <LoadCard />
+                </div>
+            </div>
+        );
     }
 
     return (

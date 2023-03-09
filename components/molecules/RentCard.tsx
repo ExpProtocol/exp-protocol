@@ -64,7 +64,7 @@ const RentCard: FC<Nft> = ({
                                     .then((tx: any) => tx.wait())
                                     .then(() => console.log("Rent: success"))
                             }
-                            className=" py-1 px-4 bg-[#3EA8FF] text-white rounded-lg font-bold text-xs flex justify-center items-center cursor-pointer"
+                            className=" py-1 px-4 bg-theme-100 text-white rounded-lg font-bold text-xs flex justify-center items-center cursor-pointer"
                         >
                             Return
                         </div>
@@ -76,7 +76,7 @@ const RentCard: FC<Nft> = ({
                                     .then(() => console.log("Approve: success"))
                                     .then(() => refetch?.());
                             }}
-                            className=" py-1 px-4 bg-[#3EA8FF] text-white rounded-lg font-bold text-xs flex justify-center items-center cursor-pointer"
+                            className=" py-1 px-4 bg-theme-100 text-white rounded-lg font-bold text-xs flex justify-center items-center cursor-pointer"
                         >
                             Approve
                         </div>

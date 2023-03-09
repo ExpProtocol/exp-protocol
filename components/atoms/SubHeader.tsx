@@ -22,7 +22,7 @@ const SubHeader: FC<Prop> = ({ title, subTitle, to, isButton }) => {
                 {isButton ? (
                     <Link
                         href="/lending"
-                        className=" text-center font-bold px-4 py-2 rounded-lg bg-[#3EA8FF] text-white text-xs drop-shadow-lg"
+                        className=" text-center font-bold px-4 py-2 rounded-lg bg-theme-100 text-white text-xs drop-shadow-lg"
                     >
                         Lend
                     </Link>

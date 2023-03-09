@@ -4,6 +4,7 @@ import Title from "../components/atoms/SubHeader";
 import LendingCardList from "../components/molecules/LendingCardList";
 import LendModal from "../components/modals/LendModal";
 import { useOwnedNfts } from "../hooks/useOwnedNfts";
+import LoadCard from "../components/atoms/LoadCard";
 
 export default function Lending() {
     const { nfts: item, isLoading } = useOwnedNfts();
@@ -35,7 +36,7 @@ export default function Lending() {
                     />
                 </div>
                 {isLoading ? (
-                    "Loading..."
+                    <LoadCard />
                 ) : (
                     <LendingCardList
                         nfts={item}

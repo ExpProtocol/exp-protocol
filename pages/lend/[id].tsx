@@ -17,6 +17,7 @@ import { imageValidation } from "../../utils/imageValidation";
 import { useMediaQuery } from "react-responsive";
 import { useContractAddresses } from "../../hooks/useContractAddresses";
 import { usePayments } from "../../hooks/usePayments";
+import FunctionButton from "../../components/atoms/FuctionButton";
 
 export default function NftCoollectionList() {
     const network = useNetwork();
@@ -25,9 +26,9 @@ export default function NftCoollectionList() {
     const router = useRouter();
     const [chainId, setChainId] = useState("0");
     const [lendId, setLendId] = useState("0");
-    const { rent, refetch } = useRent(lendId);
     const [item, setItem] = useState<LendType>();
     const payments = usePayments();
+    const { rent, refetch } = useRent(lendId);
     const { approve } = useApprove(payments[0], item?.collateralPrice);
     const isDesktopOrLaptop = useMediaQuery({
         query: "(min-width: 1224px)",
@@ -201,39 +202,20 @@ export default function NftCoollectionList() {
                                         {customPerPrice} WETH
                                     </div>
                                     {isBorrowable ? (
-                                        <>
-                                            {rent != undefined ? (
-                                                <button
-                                                    onClick={() =>
-                                                        rent()
-                                                            ?.then((tx: any) =>
-                                                                tx.wait()
-                                                            )
-                                                            .then(() =>
-                                                                openLendSuccessModal()
-                                                            )
-                                                    }
-                                                    className="w-full bg-[rgb(62,168,255)] text-white py-2 flex border-2 border-[#3EA8FF] justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
-                                                >
-                                                    Rent
-                                                </button>
-                                            ) : (
-                                                <button
-                                                    onClick={() =>
-                                                        approve()
-                                                            .then((tx: any) =>
-                                                                tx.wait()
-                                                            )
-                                                            .then(() =>
-                                                                refetch()
-                                                            )
-                                                    }
-                                                    className="w-full bg-[rgb(62,168,255)] text-white py-2 flex border-2 border-[#3EA8FF] justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
-                                                >
-                                                    Approve
-                                                </button>
-                                            )}
-                                        </>
+                                        <FunctionButton
+                                            isRent={item.isRent}
+                                            lender={item.lender}
+                                            renter={item.renter}
+                                            lendId={item.lendId}
+                                            collateralPrice={
+                                                item.collateralPrice
+                                            }
+                                            startTime={item.startTime}
+                                            openLendSuccessModal={
+                                                openLendSuccessModal
+                                            }
+                                            pricePerSec={item.perPrice}
+                                        />
                                     ) : Number(chainId) ===
                                       network.chain?.id ? (
                                         <button className="w-full bg-gray-300 text-white py-2 flex border-2 border-gray-400 justify-center font-bold items-center rounded-xl mt-2 cursor-pointer">
@@ -257,7 +239,7 @@ export default function NftCoollectionList() {
                                         {isBorrowable && (
                                             <button
                                                 onClick={openGulModal}
-                                                className="w-full border-2 border-[#3EA8FF] bg-white text-[#3EA8FF] font-bold py-2 flex justify-center items-center rounded-xl mt-2 cursor-pointer"
+                                                className="w-full border-2 border-theme-100 bg-white text-theme-100 font-bold py-2 flex justify-center items-center rounded-xl mt-2 cursor-pointer"
                                             >
                                                 Rent with Guarantor
                                             </button>
@@ -308,7 +290,7 @@ export default function NftCoollectionList() {
                                                         openLendSuccessModal()
                                                     )
                                             }
-                                            className="w-full bg-[rgb(62,168,255)] text-white py-2 flex border-2 border-[#3EA8FF] justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
+                                            className="w-full bg-theme-100 text-white py-2 flex border-2 border-theme-100 justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
                                         >
                                             Rent
                                         </button>
@@ -321,7 +303,7 @@ export default function NftCoollectionList() {
                                                     )
                                                     .then(() => refetch())
                                             }
-                                            className="w-full bg-[rgb(62,168,255)] text-white py-2 flex border-2 border-[#3EA8FF] justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
+                                            className="w-full bg-theme-100 text-white py-2 flex border-2 border-theme-100 justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
                                         >
                                             Approve
                                         </button>
@@ -336,7 +318,7 @@ export default function NftCoollectionList() {
                                     </div>
                                     <button
                                         onClick={openGulModal}
-                                        className="w-full border-2 border-[#3EA8FF] bg-white text-[#3EA8FF] font-bold py-2 flex justify-center items-center rounded-xl mt-2 cursor-pointer"
+                                        className="w-full border-2 border-theme-100 bg-white text-theme-100 font-bold py-2 flex justify-center items-center rounded-xl mt-2 cursor-pointer"
                                     >
                                         with Guarantor
                                     </button>

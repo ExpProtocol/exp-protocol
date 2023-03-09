@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FC } from "react";
 import { LendType } from "../../types/LendType";
 import { etherValidation } from "../../utils/etherValidation";
@@ -14,7 +15,10 @@ const RentCardList: FC<Prop> = ({ nfts }) => {
         <div className="flex justify-between md:justify-start gap-8 flex-wrap mt-4 mx-5 md:mx-0">
             {nfts?.map((item: any, index: number) => {
                 return (
-                    <div key={index}>
+                    <Link
+                        href={"/lend/" + item.chainId + "-" + item.lendId}
+                        key={index}
+                    >
                         <RentCard
                             name={item.tokenName}
                             address={item.collectionAddress}
@@ -28,7 +32,7 @@ const RentCardList: FC<Prop> = ({ nfts }) => {
                             buttunTitle="Return"
                             lendId={item.lendId}
                         />
-                    </div>
+                    </Link>
                 );
             })}
         </div>
