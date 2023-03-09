@@ -1,4 +1,4 @@
-import { Alchemy, getNftsForOwner } from "@alch/alchemy-sdk";
+import { Alchemy, getNftsForOwner, NftExcludeFilters } from "@alch/alchemy-sdk";
 import { useQuery } from "@tanstack/react-query";
 import { useAccount, useNetwork } from "wagmi";
 import { useAlchemy } from "./useAlchemy";
@@ -13,7 +13,10 @@ export const useOwnedNfts = () => {
         queryFn: () =>
             getNftsForOwner(
                 alchemy as Alchemy,
-                account.address as `0x${string}`
+                account.address as `0x${string}`,
+                {
+                    excludeFilters: [NftExcludeFilters.SPAM],
+                }
             ).then((nfts) =>
                 nfts.ownedNfts.map((nft): Nft => {
                     const nftMedia = nft.media[0] as any;

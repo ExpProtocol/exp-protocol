@@ -62,7 +62,7 @@ const FunctionButton: FC<Prop> = ({
                                 .then(() => console.log("Rent: success"))
                         }
                     >
-                        Return
+                        ②Return
                     </div>
                 );
             } else {
@@ -70,13 +70,13 @@ const FunctionButton: FC<Prop> = ({
                     <div
                         className="w-full bg-theme-100 text-white py-2 flex border-2 border-theme-100 justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
                         onClick={() => {
-                            approve?.()
+                            nftApprove?.()
                                 .then((tx: any) => tx.wait())
                                 .then(() => console.log("Approve: success"))
                                 .then(() => refetch?.());
                         }}
                     >
-                        Return
+                        ①Return
                     </div>
                 );
             }
@@ -135,7 +135,7 @@ const FunctionButton: FC<Prop> = ({
                         }
                         className="w-full bg-theme-100 text-white py-2 flex border-2 border-theme-100 justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
                     >
-                        Rent
+                        ②Rent
                     </button>
                 );
             } else {
@@ -148,7 +148,7 @@ const FunctionButton: FC<Prop> = ({
                         }
                         className="w-full bg-theme-100 text-white py-2 flex border-2 border-theme-100 justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
                     >
-                        Approve
+                        ①Rent
                     </button>
                 );
             }

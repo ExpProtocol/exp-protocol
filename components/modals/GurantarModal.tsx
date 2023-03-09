@@ -24,8 +24,8 @@ const Steps: FC<{ step: number }> = ({ step }) => {
         clsx(
             "rounded-full w-[30px] h-[30px] flex justify-center items-center border-2 font-bold",
             {
-                "bg-[#3EA8FF] border-[#3EA8FF] text-white": _step == step,
-                "bg-[#F1F5F9] border-[#D8E5EF] text-[#D8E5EF]": _step != step,
+                "bg-theme-100 border-theme-100 text-white": _step == step,
+                "bg-[#F1F5F9] border-theme-100 text-[#D8E5EF]": _step != step,
             }
         );
     return (
@@ -137,7 +137,7 @@ export const GurantarModalStep1: FC<Prop> = ({
                             onClick={() => {
                                 handleSubmit(generateInviteUrl)();
                             }}
-                            className="bg-[#3EA8FF] px-4 py-2 text-white rounded-lg font-bold mt-4"
+                            className="bg-theme-100 px-4 py-2 text-white rounded-lg font-bold mt-4"
                         >
                             Next
                         </div>

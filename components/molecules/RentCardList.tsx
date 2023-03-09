@@ -2,7 +2,7 @@ import Link from "next/link";
 import { FC } from "react";
 import { LendType } from "../../types/LendType";
 import { etherValidation } from "../../utils/etherValidation";
-import RentCard from "./RentCard";
+import NftCard from "./NftCard";
 
 type Prop = {
     nfts: LendType[];
@@ -17,14 +17,12 @@ const RentCardList: FC<Prop> = ({ nfts }) => {
                         href={"/lend/" + item.chainId + "-" + item.lendId}
                         key={index}
                     >
-                        <RentCard
+                        <NftCard
                             name={item.tokenName}
                             address={item.collectionAddress}
                             image={item.tokenImage}
                             perPrice={etherValidation(item.perPrice)}
-                            collateralPrice={etherValidation(
-                                item.collateralPrice
-                            )}
+                            buttunTitle="Return"
                         />
                     </Link>
                 );

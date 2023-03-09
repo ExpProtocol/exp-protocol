@@ -5,7 +5,7 @@ import Title from "../../components/atoms/SubHeader";
 import { db } from "../../libs/Firebase";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { useContractRead, useNetwork } from "wagmi";
+import { useAccount, useContractRead, useNetwork } from "wagmi";
 import { useRent } from "../../hooks/useRent";
 import { etherValidation } from "../../utils/etherValidation";
 import { LendType } from "../../types/LendType";
@@ -33,6 +33,7 @@ export default function NftCoollectionList() {
     const isDesktopOrLaptop = useMediaQuery({
         query: "(min-width: 1224px)",
     });
+    const { address } = useAccount();
 
     const Contract = useContractAddresses();
 
@@ -207,6 +208,7 @@ export default function NftCoollectionList() {
                                             lender={item.lender}
                                             renter={item.renter}
                                             lendId={item.lendId}
+                                            tokenId={item.tokenId}
                                             collateralPrice={
                                                 item.collateralPrice
                                             }
@@ -236,14 +238,18 @@ export default function NftCoollectionList() {
                                             {customCollateralPrice} WETH
                                         </div>
 
-                                        {isBorrowable && (
-                                            <button
-                                                onClick={openGulModal}
-                                                className="w-full border-2 border-theme-100 bg-white text-theme-100 font-bold py-2 flex justify-center items-center rounded-xl mt-2 cursor-pointer"
-                                            >
-                                                Rent with Guarantor
-                                            </button>
-                                        )}
+                                        {isBorrowable &&
+                                            address?.toLocaleLowerCase() !=
+                                                item.renter &&
+                                            address?.toLocaleLowerCase() !=
+                                                item.lender && (
+                                                <button
+                                                    onClick={openGulModal}
+                                                    className="w-full border-2 border-theme-100 bg-white text-theme-100 font-bold py-2 flex justify-center items-center rounded-xl mt-2 cursor-pointer"
+                                                >
+                                                    Rent with Guarantor
+                                                </button>
+                                            )}
                                     </>
                                 </div>
                             </div>

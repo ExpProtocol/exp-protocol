@@ -21,16 +21,23 @@ const NftCardList: FC<Prop> = ({ nfts, setSelectItem, openModal }) => {
                         href={"/lend/" + item.chainId + "-" + item.lendId}
                         key={index}
                     >
-                        <NftCard
-                            name={item.tokenName}
-                            address={item.collectionAddress}
-                            tokenId={item.tokenId}
-                            perPrice={item.perPrice}
-                            collateralPrice={item.collateralPrice}
-                            doClick={() => doClick(item)}
-                            image={item.tokenImage}
-                            isRent={item.isRent}
-                        />
+                        {item.isRent ? (
+                            <NftCard
+                                name={item.tokenName}
+                                address={item.collectionAddress}
+                                perPrice={item.perPrice}
+                                image={item.tokenImage}
+                                buttunTitle="Rented"
+                            />
+                        ) : (
+                            <NftCard
+                                name={item.tokenName}
+                                address={item.collectionAddress}
+                                perPrice={item.perPrice}
+                                image={item.tokenImage}
+                                buttunTitle="Rent"
+                            />
+                        )}
                     </Link>
                 );
             })}
