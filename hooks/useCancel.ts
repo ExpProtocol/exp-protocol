@@ -10,7 +10,7 @@ export const useCancel = (lendId: string) => {
         abi: LIME_ABI,
         functionName: "cancelLend",
         args: [lendId],
-        onError: error,
+        // onError: error,
     });
 
     const { writeAsync: cancel } = useContractWrite(claimConfig);

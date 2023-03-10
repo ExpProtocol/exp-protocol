@@ -14,6 +14,6 @@ export const useRent = (lendId: string) => {
     });
 
     const { writeAsync: _rent } = useContractWrite(rentConfig);
-    const rent = () => _rent?.().catch(error);
-    return { rent, refetch };
+    // const rent = () => _rent?.().catch(error);
+    return { _rent, refetch };
 };

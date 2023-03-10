@@ -29,7 +29,7 @@ export const useNFTapprove = (
             BigNumber.from(tokenId || "0"),
         ],
         enabled: Boolean(cAddr && tokenId),
-        onError: error,
+        // onError: error,
     });
 
     const isApproved = approveFor === Contract?.MARKET;

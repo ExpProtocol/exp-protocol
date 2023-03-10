@@ -21,7 +21,7 @@ const RentCardList: FC<Prop> = ({ nfts }) => {
                             name={item.tokenName}
                             address={item.collectionAddress}
                             image={item.tokenImage}
-                            perPrice={etherValidation(item.perPrice)}
+                            perPrice={item.perPrice}
                             buttunTitle="Return"
                         />
                     </Link>

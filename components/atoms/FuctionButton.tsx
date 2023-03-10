@@ -33,17 +33,19 @@ const FunctionButton: FC<Prop> = ({
 }) => {
     console.log(isRent);
     const payments = usePayments();
-    const { rent, refetch } = useRent(lendId);
+    const { _rent, refetch } = useRent(lendId);
     const { approve } = useApprove(payments[0], collateralPrice);
     const { address } = useAccount();
-    const { claim } = useClaim(lendId);
+    // const { claim } = useClaim(lendId);
     const { cancel } = useCancel(lendId);
     const { returnToken, refetch: returnTokenRefetch } = useTokenReturn(lendId);
-    const { approve: nftApprove } = useNFTapprove(address, tokenId);
+    const { approve: nftApprove, isApproved } = useNFTapprove(address, tokenId);
     const now = Date.now();
     const diffInSeconds = Math.floor((now - Number(startTime)) / 1000);
     const totalPrice = diffInSeconds * Number(pricePerSec);
     const isOverTime = Number(collateralPrice) < totalPrice;
+    console.log(renter?.toLocaleLowerCase());
+    console.log(address?.toLocaleLowerCase());
     if (renter == address?.toLocaleLowerCase()) {
         if (isOverTime) {
             return (
@@ -88,11 +90,11 @@ const FunctionButton: FC<Prop> = ({
             return (
                 <div
                     className="w-full bg-theme-100 text-white py-2 flex border-2 border-theme-100 justify-center font-bold items-center rounded-xl mt-2 cursor-pointer"
-                    onClick={() =>
-                        claim?.()
-                            .then((tx: any) => tx.wait())
-                            .then(() => console.log("Cancel : success"))
-                    }
+                    // onClick={() =>
+                    //     claim?.()
+                    //         .then((tx: any) => tx.wait())
+                    //         .then(() => console.log("Cancel : success"))
+                    // }
                 >
                     Claim
                 </div>
@@ -125,11 +127,11 @@ const FunctionButton: FC<Prop> = ({
                 </div>
             );
         } else {
-            if (rent != undefined) {
+            if (_rent != undefined) {
                 return (
                     <button
                         onClick={() =>
-                            rent()
+                            _rent()
                                 ?.then((tx: any) => tx.wait())
                                 .then(() => openLendSuccessModal())
                         }

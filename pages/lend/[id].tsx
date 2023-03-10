@@ -28,7 +28,7 @@ export default function NftCoollectionList() {
     const [lendId, setLendId] = useState("0");
     const [item, setItem] = useState<LendType>();
     const payments = usePayments();
-    const { rent, refetch } = useRent(lendId);
+    const { _rent, refetch } = useRent(lendId);
     const { approve } = useApprove(payments[0], item?.collateralPrice);
     const isDesktopOrLaptop = useMediaQuery({
         query: "(min-width: 1224px)",
@@ -202,7 +202,7 @@ export default function NftCoollectionList() {
                                     <div className="text-xl font-bold mt-2">
                                         {customPerPrice} WETH
                                     </div>
-                                    {isBorrowable ? (
+                                    {Number(chainId) === network.chain?.id ? (
                                         <FunctionButton
                                             isRent={item.isRent}
                                             lender={item.lender}
@@ -218,11 +218,6 @@ export default function NftCoollectionList() {
                                             }
                                             pricePerSec={item.perPrice}
                                         />
-                                    ) : Number(chainId) ===
-                                      network.chain?.id ? (
-                                        <button className="w-full bg-gray-300 text-white py-2 flex border-2 border-gray-400 justify-center font-bold items-center rounded-xl mt-2 cursor-pointer">
-                                            Now Renting
-                                        </button>
                                     ) : (
                                         <button className="w-full bg-gray-300 text-white py-2 flex border-2 border-gray-400 justify-center font-bold items-center rounded-xl mt-2 cursor-pointer">
                                             Chain is Different
@@ -285,10 +280,10 @@ export default function NftCoollectionList() {
                                     <div className="text-xl font-bold mt-2">
                                         {customPerPrice} WETH
                                     </div>
-                                    {rent ? (
+                                    {_rent ? (
                                         <button
                                             onClick={() =>
-                                                rent()
+                                                _rent()
                                                     ?.then((tx: any) =>
                                                         tx.wait()
                                                     )
