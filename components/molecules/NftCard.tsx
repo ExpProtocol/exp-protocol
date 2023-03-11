@@ -13,7 +13,7 @@ export type Nft = {
 };
 
 const NftCard: FC<Nft> = ({ name, image, perPrice, buttunTitle }) => {
-    const customPerPrice = etherValidation(perPrice);
+    const customPerPrice = etherValidation(perPrice, true);
     return (
         <div className="w-[156px] h-[234px] bg-white drop-shadow-lg rounded-xl text-gray-800 pt-2">
             <div className="w-[140px] h-[140px] bg-[#CFE4FE] rounded-xl mx-2 relative">
