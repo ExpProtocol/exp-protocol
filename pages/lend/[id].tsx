@@ -60,9 +60,9 @@ export default function NftCoollectionList() {
         setIsLendSuccessModal(false);
     };
 
-    const customPerPrice = item ? etherValidation(item.perPrice) : "";
+    const customPerPrice = item ? etherValidation(item.perPrice, true) : "";
     const customCollateralPrice = item
-        ? etherValidation(item.collateralPrice)
+        ? etherValidation(item.collateralPrice, false)
         : "";
 
     useEffect(() => {
