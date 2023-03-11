@@ -3,4 +3,5 @@ export type Nft = {
     tokenImage: string;
     cAddr: string;
     tokenId: string;
+    tokenType: string;
 };

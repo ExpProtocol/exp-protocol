@@ -27,11 +27,12 @@ const LendModal: FC<Prop> = ({ isOpen, closeModal, selectItem }) => {
         approve,
         isLoading: isApproving,
         isApproved,
-    } = useNFTapprove(selectItem?.cAddr, selectItem?.tokenId);
+    } = useNFTapprove(selectItem?.cAddr, selectItem?.tokenId,selectItem?.tokenType);
 
     const { lend: _lend, refetch } = useLend(
         selectItem?.cAddr,
         selectItem?.tokenId,
+        selectItem?.tokenType,
         payments[0],
         watch().perPrice,
         watch().collateralPrice,

@@ -25,6 +25,7 @@ export const useOwnedNfts = () => {
                         tokenImage: nftMedia?.thumbnail || "",
                         cAddr: nft.contract.address,
                         tokenId: nft.tokenId,
+                        tokenType: nft.tokenType,
                     };
                     return nftData;
                 })
