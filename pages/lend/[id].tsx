@@ -209,6 +209,7 @@ export default function NftCoollectionList() {
                                             renter={item.renter}
                                             lendId={item.lendId}
                                             tokenId={item.tokenId}
+                                            tokenType={item.tokenType}
                                             collateralPrice={
                                                 item.collateralPrice
                                             }
