@@ -18,6 +18,7 @@ type Prop = {
     pricePerSec: string;
     collateralPrice: string;
     tokenId: string;
+    tokenType: string;
 };
 
 const FunctionButton: FC<Prop> = ({
@@ -30,6 +31,7 @@ const FunctionButton: FC<Prop> = ({
     pricePerSec,
     collateralPrice,
     tokenId,
+    tokenType
 }) => {
     console.log(isRent);
     const payments = usePayments();
@@ -39,7 +41,7 @@ const FunctionButton: FC<Prop> = ({
     // const { claim } = useClaim(lendId);
     const { cancel } = useCancel(lendId);
     const { returnToken, refetch: returnTokenRefetch } = useTokenReturn(lendId);
-    const { approve: nftApprove, isApproved } = useNFTapprove(address, tokenId);
+    const { approve: nftApprove, isApproved } = useNFTapprove(address, tokenId, tokenType);
     const now = Date.now();
     const diffInSeconds = Math.floor((now - Number(startTime)) / 1000);
     const totalPrice = diffInSeconds * Number(pricePerSec);
